@@ -15,7 +15,7 @@ struct FastCalendar: View {
         GeometryReader { geometry in
             let itemSize = (geometry.size.width - spacing * 6) / 7
             LazyVGrid(columns: columns, spacing: spacing) {
-                ForEach(fasts.indices, id: \._self) { index in
+                ForEach(fasts.indices, id: \.self) { index in
                     Circle()
                         .fill(Color.jeunePrimaryColor)
                         .opacity(min(1, fasts[index] / 24))
