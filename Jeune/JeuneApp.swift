@@ -14,6 +14,13 @@ struct JeuneApp: App {
         WindowGroup {
             RootTabView()
                 .environmentObject(appState)
+                .fullScreenCover(isPresented: Binding(
+                    get: { !appState.onboardingCompleted },
+                    set: { _ in }
+                )) {
+                    OnboardingFlow()
+                        .environmentObject(appState)
+                }
         }
     }
 }
