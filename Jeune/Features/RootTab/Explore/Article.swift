@@ -1,3 +1,5 @@
+import Foundation
+
 struct Article: Identifiable {
     let id = UUID()
     let title: String
