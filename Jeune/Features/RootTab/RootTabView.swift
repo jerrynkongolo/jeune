@@ -13,6 +13,7 @@ struct RootTabView: View {
             MeView()
                 .tabItem { Label("Me", systemImage: "person") }
         }
-        .accentColor(.jeunePrimary) // Uses color from Color+Jeune.swift
+        // Accent the selected tab with the brand colour defined in Color+Jeune.
+        .accentColor(.jeunePrimaryColor)
     }
 }
