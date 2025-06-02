@@ -2,17 +2,28 @@
 import SwiftUI
 
 extension Color {
-    static let jeunePrimary      = Color("jeunePrimary")
-    static let jeunePrimaryDark  = Color("jeunePrimaryDark")
-    static let jeuneSuccess      = Color("jeuneSuccess")
-    static let jeuneGray         = Color("jeuneGray")
-    static let jeuneBGLight      = Color("jeuneBGLight")
-    static let jeuneBGDark       = Color("jeuneBGDark")
+    /// Primary brand colour used for selected controls and CTAs.
+    static let jeunePrimaryColor      = Color("jeunePrimary")
+
+    /// Dark variant of the primary brand colour.
+    static let jeunePrimaryDarkColor  = Color("jeunePrimaryDark")
+
+    /// Success state accent.
+    static let jeuneSuccessColor      = Color("jeuneSuccess")
+
+    /// Secondary text colour.
+    static let jeuneGrayColor         = Color("jeuneGray")
+
+    /// Default light background colour.
+    static let jeuneBGLightColor      = Color("jeuneBGLight")
+
+    /// Default dark background colour.
+    static let jeuneBGDarkColor       = Color("jeuneBGDark")
 
     // Category colours
-    static let jeuneNutrition    = Color("jeuneNutrition")
-    static let jeuneActivity     = Color("jeuneActivity")
-    static let jeuneRestoration  = Color("jeuneRestoration")
-    static let jeuneWeight       = Color("jeuneWeight")
-    static let jeuneSleep        = Color("jeuneSleep")
+    static let jeuneNutritionColor    = Color("jeuneNutrition")
+    static let jeuneActivityColor     = Color("jeuneActivity")
+    static let jeuneRestorationColor  = Color("jeuneRestoration")
+    static let jeuneWeightColor       = Color("jeuneWeight")
+    static let jeuneSleepColor        = Color("jeuneSleep")
 }
