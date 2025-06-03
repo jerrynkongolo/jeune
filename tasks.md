@@ -1,113 +1,104 @@
-# JEUNE · HOME SCREEN — REV 2  (visual corrections only)
-# Paste this entire spec into Codex and ask it to rebuild the UI.
 
-──────────────────────────────────────────────────────────────
-0 ▸ COLOUR TWEAKS  (replace previous tokens)
 
-• Deep-cherry accent  = #931536      # darker & richer than before
-• Success green       = #34C759      # unchanged
-• Light success tint  = #34C759 @ 8 % opacity      # for streak badge bg
-• Neutral ring track  = #D8D8DB      # slightly darker to lift contrast
-• Toolbar circle bg   = #EFEFF1      # very light grey, 100 % opaque
+Overall Page Structure & Backgrounds:
 
-──────────────────────────────────────────────────────────────
-1 ▸ TOOLBAR (safe-area top)
+Task: Set Background Colors.
 
-LEFT – **Streak badge**
+The main view background color should remain as it is in the current design (the light greyish/off-white).
 
-    • 34 × 34 pt circle  
-    • Fill: *Light success tint*  
-    • Inside: white SF Symbol “checkmark” **12 pt** (was too large)  
-    • Numeric count “3” (caption, **semibold**) to the immediate right, aligned baseline
+The central content area (timer, start/goal, button) should be contained within a Card Element.
 
-CENTER – **Logo**
+Card Background Color: White (#FFFFFF).
 
-    • Asset “jeuneLogoMark” height **32 pt** (≈ +30 % bigger)  
-    • Keep aspect fit
+Card Corner Radius: Approximately 16-20pt.
 
-RIGHT – **Quick-add button**
+Card Padding: Implement internal padding of approximately 16pt on all sides and appropriate margins from surrounding elements.
 
-    • 34 × 34 pt circle, fill = *Toolbar circle bg*  
-    • SF Symbol “plus” **title2** weight, colour = *Deep-cherry accent* (NOT white)
+1. Header Section (Top Bar)
 
-──────────────────────────────────────────────────────────────
-2 ▸ WEEKDAY MINI-RING STRIP  (immediately beneath toolbar)
+Goal: Adjust current header elements.
 
-• **Vertical order**: weekday labels on top, rings below  
-• Weekday label style: caption2 **bold**, secondary colour  
-• Mini-ring diameter **26 pt**  
-• Stroke width **6 pt** (visibly thicker)  
-• Spacing between cells: **16 pt**  
-• Progress colour logic unchanged (accent → success)
+Tasks:
 
-──────────────────────────────────────────────────────────────
-3 ▸ FAST TIMER CARD  (big white card)
+Left Element (Streak Counter - Tick & Number):
 
-Card container:
+Colors: Retain the current colors for the checkmark icon (✓) and its surrounding circle/capsule background.
 
-    • Corner radius 24 pt  
-    • Shadow: rgba(0,0,0,0.10), y-offset 2 pt, blur 20 pt  ← sharper & deeper  
-    • Horizontal outer padding from screen edge: 16 pt  
-    • Inner horizontal padding: **16 pt**  (was too wide)  
-    • Inner vertical padding: 24 pt
+Capsule UI: Implement a rounded capsule UI element to group the checkmark icon and the number "3".
 
-Large ring:
+Icon Size (Tick): Reduce the size of the checkmark (✓) icon. Its visual height/width should be almost the same size as the numeral "3" it accompanies.
 
-    • Diameter **280 pt**  (slightly larger)  
-    • Stroke width **24 pt**  (≈ 2× previous)  
-    • Track colour = Neutral ring track  
-    • Gradient NOT required; just switch stroke colour to success when progress ≥ 1
+Number Text ("3"):
 
-Timer digits:
+Font: System font (SF Pro Text), Regular, size ~15-17pt.
 
-    • Typeface: *SF Pro Rounded*  
-    • Size **64 pt**, weight **black**  
-    • Positioned dead-centre inside ring (use ZStack)
+Color: Retain current color.
 
-Sub-caption:
+Layout: Ensure the tick and number are well-aligned and spaced within their capsule.
 
-    • “ELAPSED” / “SINCE LAST FAST” lines: caption, **semibold**, secondary colour  
-    • Always centred under digits
+Center Element (Logo - "Jeune"):
 
-Stats capsules row:  (visible **only when fasting**)
+Text: "Jeune".
 
-    • Each capsule:  min height 48 pt, bg #F2F2F5, corner 20 pt  
-    • Title label caption2, secondary · Value label subheadline **semibold**  
-    • Grid layout: 2 equal columns, 8 pt spacing
+Font Size: Increase the font size of "Jeune" significantly. Target a prominent logo/title presence using SF Pro Display, Bold, size ~22-26pt.
 
-Primary CTA:
+Color: Retain current color of "Jeune".
 
-    • Pill radius 28 pt, height 54 pt  
-    • Idle fill colour = Deep-cherry accent · Running fill = Success green  
-    • Label headline **semibold**, white
+Right Element (Add Button - Plus Icon):
 
-──────────────────────────────────────────────────────────────
-4 ▸ CHALLENGES CARD
+Icon: "+" (plus) symbol.
 
-• Same shadow & corner spec as main card  
-• Tighten horizontal padding inside card to **20 pt**  
-• “SEE ALL” label weight = **semibold** (was bold)  
-• Placeholder row height **76 pt** to balance new padding
+Icon Size: Reduce the size of the plus icon to approximately 20-22pt.
 
-──────────────────────────────────────────────────────────────
-5 ▸ SPACING CHECKLIST
+Icon Weight: Make the plus icon bolder.
 
-• Vertical gap between toolbar and weekday strip: 12 pt  
-• Gap between weekday strip and main card: 20 pt  
-• Gap between main card and challenges card: 24 pt  
-• ScrollView bottom inset: safe-area only (no extra padding)
+Color: Retain current color of the plus icon.
 
-──────────────────────────────────────────────────────────────
-6 ▸ COMPONENT LIST FOR CODEX TO GENERATE / UPDATE
+Layout & Spacing:
 
-✓ StreakBadgeView  (new sizes & colours)  
-✓ ToolbarPlusButtonView  (grey circle + cherry plus)  
-✓ MiniRingView  (26 pt, stroke 6 pt, label on top)  
-✓ FastTimerCardView  (ring 280 pt/24 pt, new padding, SF Rounded 64 pt)  
-✓ ChallengeCardView  (padding tweak)  
-✓ Updated colour assets for new Deep-cherry & Light-success-tint
+Ensure vertical centering of all header elements.
 
-**No timers, data models, or business logic need to change in this rev.**
+Adjust horizontal spacing as needed after resizing elements to maintain balance.
 
-──────────────────────────────────────────────────────────────
-# END OF UPDATED DESIGN SPEC  –  hand to Codex
+2. Day Selector Strip
+
+Goal: Improve spacing and order of the day selector.
+
+Tasks:
+
+Colors: Retain all current colors for the day indicators (inactive, active/selected).
+
+Order of Days: Arrange as: TUE, WED, THU, FRI, SAT, SUN, MON (current day first, then subsequent days).
+
+Day Indicator Style (TUE - Selected/Current Example):
+
+Outer Ring: Thicker, use existing active color.
+
+Inner Circle: Filled solid with the existing active color.
+
+Day Initial Font: System font (SF Pro Text), Medium/Semibold, size ~12-14pt.
+
+Day Indicator Style (WED, THU, FRI, SAT - Inactive Example):
+
+Outer Ring: Thin, use existing inactive ring color.
+
+Inner Circle: Empty/Transparent.
+
+Day Initial Font: System font (SF Pro Text), Medium/Semibold, size ~12-14pt. Color: Use existing inactive text color.
+
+Day Indicator Style (MON - Completed Example):
+
+Outer Ring: Thicker, use existing completed color.
+
+Inner Circle: Empty/Transparent.
+
+Day Initial Font: System font (SF Pro Text), Medium/Semibold, size ~12-14pt. Color: Use existing completed text.
+
+Layout & Spacing:
+
+Expand the horizontal spread of the day selectors. Reduce padding on the far left/right of the strip.
+
+Increase spacing between each day indicator for even distribution across a wider screen portion, avoiding a cramped middle appearance.
+
+Vertical padding for the strip: ~10-15pt top and bottom.
+
