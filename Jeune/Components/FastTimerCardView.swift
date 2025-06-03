@@ -46,7 +46,7 @@ struct FastTimerCardView: View {
 
     private var buttonColor: Color {
         switch state {
-        case .idle: return .jeunePrimaryColor // blue
+        case .idle: return .jeunePrimaryColor // deep red
         case .running: return .jeuneSuccessColor // green
         }
     }

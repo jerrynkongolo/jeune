@@ -13,7 +13,7 @@ struct RingView: View {
 
             Circle()
                 .trim(from: 0, to: min(progress, 1))
-                .stroke(progress >= 1.0 ? Color.jeuneSuccessColor : Color.jeunePrimaryColor,
+                .stroke(progress >= 1.0 ? Color.jeuneSuccessColor : Color.jeunePrimaryDarkColor,
                         style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
                 .rotationEffect(.degrees(-90))
                 .animation(.easeInOut, value: progress)
