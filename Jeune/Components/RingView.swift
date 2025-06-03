@@ -1,0 +1,27 @@
+import SwiftUI
+
+/// Circular progress ring used throughout the home screen.
+struct RingView: View {
+    var progress: Double
+    var diameter: CGFloat
+    var lineWidth: CGFloat
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .stroke(Color.jeuneRingTrackColor, lineWidth: lineWidth)
+
+            Circle()
+                .trim(from: 0, to: min(progress, 1))
+                .stroke(progress >= 1.0 ? Color.jeuneSuccessColor : Color.jeunePrimaryColor,
+                        style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+                .animation(.easeInOut, value: progress)
+        }
+        .frame(width: diameter, height: diameter)
+    }
+}
+
+#Preview {
+    RingView(progress: 0.7, diameter: 100, lineWidth: 12)
+}
