@@ -92,7 +92,8 @@ struct FastTimerCardView: View {
                     .textCase(.uppercase)
 
                 Text("\(days) days")
-                    .font(.system(size: 64, weight: .black, design: .rounded))
+                    .font(.system(size: 56, weight: .heavy))
+                    .foregroundColor(.jeuneNearBlack)
 
                 Text("EDIT \(goalHours)H GOAL")
                     .font(.caption.weight(.semibold))
@@ -101,19 +102,20 @@ struct FastTimerCardView: View {
 
         // ── Running ─────────────────────────────────────────────────────────────
         case .running(let p):
-            VStack(spacing: 4) {
+            VStack(spacing: 6) {
                 Text(timeString(from: p))
-                    .font(.system(size: 64, weight: .black, design: .rounded))
+                    .font(.system(size: 56, weight: .heavy))
+                    .foregroundColor(.jeuneNearBlack)
 
                 Text("ELAPSED (\(Int(p * 100)) %)")
-                    .font(.caption.weight(.semibold))
-                    .foregroundColor(.secondary)
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundColor(.jeuneDarkGray)
             }
         }
     }
 
     private var statsRow: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 12) {
             statCapsule(title: "STARTED",            value: startDate)
             statCapsule(title: "\(goalHours)H GOAL", value: goalTime)
         }
@@ -121,19 +123,24 @@ struct FastTimerCardView: View {
     }
 
     private func statCapsule(title: String, value: String) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
+        VStack(spacing: 4) {
             Text(title)
-                .font(.caption2)
-                .foregroundColor(.secondary)
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundColor(.jeuneGrayColor)
 
             Text(value)
-                .font(.subheadline.weight(.semibold))
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.jeuneNearBlack)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity)
         .padding(8)
         .frame(minHeight: 48)
-        .background(Color.jeuneStatsBGColor)
-        .cornerRadius(20)
+        .background(Color.white)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color(red: 224/255, green: 224/255, blue: 224/255), lineWidth: 1)
+        )
+        .cornerRadius(10)
     }
 
     // MARK: – Helpers

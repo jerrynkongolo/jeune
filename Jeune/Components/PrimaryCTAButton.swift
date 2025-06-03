@@ -9,12 +9,12 @@ struct PrimaryCTAButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.headline.weight(.semibold))
+                .font(.system(size: 18, weight: .bold))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: DesignConstants.primaryCTAHeight)
                 .background(background)
-                .cornerRadius(28)
+                .cornerRadius(12)
         }
     }
 }
