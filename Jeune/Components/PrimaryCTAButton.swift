@@ -14,7 +14,7 @@ struct PrimaryCTAButton: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: DesignConstants.primaryCTAHeight)
                 .background(background)
-                .clipShape(Capsule())
+                .clipShape(Capsule()) // Retains the pill-shaped design
         }
     }
 }
