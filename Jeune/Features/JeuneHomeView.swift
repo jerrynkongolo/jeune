@@ -9,9 +9,17 @@ struct JeuneHomeView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     weekStrip
-                    FastTimerCardView(state: .running(progress: progress)) {
+
+                    // Updated to use full FastTimerCardView with all props
+                    FastTimerCardView(
+                        state: .running(progress: progress),
+                        startDate: "9:41 AM",
+                        goalHours: 16,
+                        goalTime: "1:41 AM"
+                    ) {
                         // action placeholder
                     }
+
                     ChallengesCardView()
                 }
                 .padding(.top, 24)
@@ -22,12 +30,14 @@ struct JeuneHomeView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     StreakBadgeView(count: streak)
                 }
+
                 ToolbarItem(placement: .principal) {
                     Image("logojeune")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 24)
                 }
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {}) {
                         Image(systemName: "plus")
@@ -46,7 +56,10 @@ struct JeuneHomeView: View {
     private var weekStrip: some View {
         HStack(spacing: 20) {
             ForEach(0..<7) { index in
-                MiniRingView(progress: Double(index) / 6, weekday: weekdayLabel(for: index))
+                MiniRingView(
+                    progress: Double(index) / 6,
+                    weekday: weekdayLabel(for: index)
+                )
             }
         }
         .frame(maxWidth: .infinity)
