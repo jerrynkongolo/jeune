@@ -20,6 +20,15 @@ extension Color {
     /// Default dark background colour.
     static let jeuneBGDarkColor       = Color("jeuneBGDark")
 
+    /// Very light warm grey used for the main app canvas.
+    static let jeuneCanvasColor       = Color("jeuneCanvas")
+
+    /// Standard card background colour.
+    static let jeuneCardColor         = Color("jeuneCard")
+
+    /// Neutral track colour for progress rings.
+    static let jeuneRingTrackColor    = Color("jeuneRingTrack")
+
     // Category colours
     static let jeuneNutritionColor    = Color("jeuneNutrition")
     static let jeuneActivityColor     = Color("jeuneActivity")
