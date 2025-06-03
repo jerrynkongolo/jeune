@@ -38,6 +38,12 @@ extension Color {
     /// Background colour for stats capsules.
     static let jeuneStatsBGColor      = Color("jeuneStatsBG")
 
+    /// Near black used for prominent text elements.
+    static let jeuneNearBlack = Color(red: 28/255, green: 28/255, blue: 30/255)
+
+    /// Dark gray used for secondary labels.
+    static let jeuneDarkGray  = Color(red: 99/255, green: 99/255, blue: 102/255)
+
     // Category colours
     static let jeuneNutritionColor    = Color("jeuneNutrition")
     static let jeuneActivityColor     = Color("jeuneActivity")
