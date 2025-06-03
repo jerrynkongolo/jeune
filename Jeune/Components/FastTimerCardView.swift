@@ -46,7 +46,7 @@ struct FastTimerCardView: View {
 
     // MARK: – UI
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
 
             // Ring with centre content overlayed
             ZStack {
@@ -57,7 +57,10 @@ struct FastTimerCardView: View {
                 )
 
                 centreContent
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 4)
             }
+            .padding(.top, 8)
 
             // Stats (only while running)
             if case .running = state {
@@ -93,7 +96,7 @@ struct FastTimerCardView: View {
                     .textCase(.uppercase)
 
                 Text("\(days) days")
-                    .font(.system(size: 56, weight: .heavy))
+                    .font(.system(size: 52, weight: .heavy))
                     .foregroundColor(.jeuneNearBlack)
 
                 Text("EDIT \(goalHours)H GOAL")
@@ -105,7 +108,7 @@ struct FastTimerCardView: View {
         case .running(let p):
             VStack(spacing: 6) {
                 Text(timeString(from: p))
-                    .font(.system(size: 56, weight: .heavy))
+                    .font(.system(size: 52, weight: .heavy))
                     .foregroundColor(.jeuneNearBlack)
 
                 Text("ELAPSED (\(Int(p * 100)) %)")
