@@ -71,11 +71,12 @@ struct FastTimerCardView: View {
             )
             .padding(.horizontal, 24)
         }
-        .padding(24)
+        .padding(.vertical, 24)
+        .padding(.horizontal, 16)
         .frame(maxWidth: .infinity)
         .background(Color.jeuneCardColor)
         .cornerRadius(DesignConstants.cornerRadius)
-        .shadow(color: DesignConstants.cardShadow, radius: 10, y: 1)
+        .shadow(color: DesignConstants.cardShadow, radius: 20, y: 2)
     }
 
     // MARK: – Sub-views
@@ -87,15 +88,15 @@ struct FastTimerCardView: View {
         case .idle(let days):
             VStack(spacing: 4) {
                 Text("SINCE LAST FAST")
-                    .font(.caption2)
+                    .font(.caption.weight(.semibold))
                     .foregroundColor(.secondary)
                     .textCase(.uppercase)
 
                 Text("\(days) days")
-                    .font(.system(size: 56, weight: .black, design: .rounded))
+                    .font(.system(size: 64, weight: .black, design: .rounded))
 
                 Text("EDIT \(goalHours)H GOAL")
-                    .font(.caption2)
+                    .font(.caption.weight(.semibold))
                     .foregroundColor(.jeunePrimaryColor)
             }
 
@@ -103,10 +104,10 @@ struct FastTimerCardView: View {
         case .running(let p):
             VStack(spacing: 4) {
                 Text(timeString(from: p))
-                    .font(.system(size: 56, weight: .black, design: .rounded))
+                    .font(.system(size: 64, weight: .black, design: .rounded))
 
                 Text("ELAPSED (\(Int(p * 100)) %)")
-                    .font(.caption)
+                    .font(.caption.weight(.semibold))
                     .foregroundColor(.secondary)
             }
         }
@@ -117,7 +118,7 @@ struct FastTimerCardView: View {
             statCapsule(title: "STARTED",            value: startDate)
             statCapsule(title: "\(goalHours)H GOAL", value: goalTime)
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, 16)
     }
 
     private func statCapsule(title: String, value: String) -> some View {
@@ -131,7 +132,8 @@ struct FastTimerCardView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(8)
-        .background(Color.jeuneBGLightColor)
+        .frame(minHeight: 48)
+        .background(Color.jeuneStatsBGColor)
         .cornerRadius(20)
     }
 

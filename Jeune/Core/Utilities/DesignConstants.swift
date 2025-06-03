@@ -6,7 +6,7 @@ enum DesignConstants {
     static let cornerRadius: CGFloat = 24
 
     /// Shadow used for cards.
-    static let cardShadow = Color.black.opacity(0.05)
+    static let cardShadow = Color.black.opacity(0.10)
 
     /// Toolbar button size.
     static let toolbarButtonSize: CGFloat = 34
@@ -15,14 +15,14 @@ enum DesignConstants {
     static let primaryCTAHeight: CGFloat = 54
 
     /// Diameter of the large fasting timer ring.
-    static let largeRingDiameter: CGFloat = 260
+    static let largeRingDiameter: CGFloat = 280
 
     /// Stroke width for the large fasting timer ring.
-    static let largeRingLineWidth: CGFloat = 12
+    static let largeRingLineWidth: CGFloat = 24
 
     /// Diameter of the mini weekday progress rings.
-    static let miniRingDiameter: CGFloat = 30
+    static let miniRingDiameter: CGFloat = 26
 
     /// Stroke width for the mini weekday progress rings.
-    static let miniRingLineWidth: CGFloat = 4
+    static let miniRingLineWidth: CGFloat = 6
 }
