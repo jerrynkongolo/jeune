@@ -48,15 +48,16 @@ struct FastTimerCardView: View {
     var body: some View {
         VStack(spacing: 24) {
 
-            // Ring
-            RingView(
-                progress:  progress,
-                diameter:  DesignConstants.largeRingDiameter,
-                lineWidth: DesignConstants.largeRingLineWidth
-            )
+            // Ring with centre content overlayed
+            ZStack {
+                RingView(
+                    progress:  progress,
+                    diameter:  DesignConstants.largeRingDiameter,
+                    lineWidth: DesignConstants.largeRingLineWidth
+                )
 
-            // Centre label
-            centreContent
+                centreContent
+            }
 
             // Stats (only while running)
             if case .running = state {
@@ -69,7 +70,7 @@ struct FastTimerCardView: View {
                 background: buttonColor,
                 action:     action
             )
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 16)
         }
         .padding(16)
         .frame(maxWidth: .infinity)
@@ -119,6 +120,9 @@ struct FastTimerCardView: View {
             statCapsule(title: "STARTED",            value: startDate)
             statCapsule(title: "\(goalHours)H GOAL", value: goalTime)
         }
+        .padding(8)
+        .background(Color.jeuneStatsBGColor)
+        .clipShape(Capsule())
         .padding(.horizontal, 16)
     }
 
