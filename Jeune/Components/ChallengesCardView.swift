@@ -31,8 +31,8 @@ struct ChallengesCardView: View {
             .background(Color(red: 0.94, green: 0.94, blue: 0.95))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
-        .padding(.vertical, 24)
-        .padding(.horizontal, 20)
+        .padding(.vertical, 16)
+        .padding(.horizontal, 16)
         .frame(maxWidth: .infinity)
         .background(Color.jeuneCardColor)
         .cornerRadius(DesignConstants.cornerRadius)
