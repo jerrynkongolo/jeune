@@ -1,104 +1,86 @@
 
 
-Overall Page Structure & Backgrounds:
+3. Main Timer Card Content (Within the white rounded card)
 
-Task: Set Background Colors.
-
-The main view background color should remain as it is in the current design (the light greyish/off-white).
-
-The central content area (timer, start/goal, button) should be contained within a Card Element.
-
-Card Background Color: White (#FFFFFF).
-
-Card Corner Radius: Approximately 16-20pt.
-
-Card Padding: Implement internal padding of approximately 16pt on all sides and appropriate margins from surrounding elements.
-
-1. Header Section (Top Bar)
-
-Goal: Adjust current header elements.
+Goal: Style the timer display and associated elements.
 
 Tasks:
 
-Left Element (Streak Counter - Tick & Number):
+Progress Ring:
 
-Colors: Retain the current colors for the checkmark icon (✓) and its surrounding circle/capsule background.
+Color: Retain the current reddish color of the progress ring.
 
-Capsule UI: Implement a rounded capsule UI element to group the checkmark icon and the number "3".
+Thickness: Increase the thickness of the ring significantly to match the visual weight of a prominently thick progress indicator.
 
-Icon Size (Tick): Reduce the size of the checkmark (✓) icon. Its visual height/width should be almost the same size as the numeral "3" it accompanies.
+Progress Value: Update based on application logic (e.g., 112% or current app's value).
 
-Number Text ("3"):
+Main Time Display (e.g., "14:36:42"):
 
-Font: System font (SF Pro Text), Regular, size ~15-17pt.
+Text Content: Dynamic fast time (e.g., "14:36:42").
 
-Color: Retain current color.
+Font: Use San Francisco (SF Pro Display or SF Pro Text for numerals).
 
-Layout: Ensure the tick and number are well-aligned and spaced within their capsule.
+Font Weight: Bold or Heavy.
 
-Center Element (Logo - "Jeune"):
+Font Size: Very large, e.g., ~50-60pt.
 
-Text: "Jeune".
+Color: Near Black (e.g., #1C1C1E).
 
-Font Size: Increase the font size of "Jeune" significantly. Target a prominent logo/title presence using SF Pro Display, Bold, size ~22-26pt.
+Alignment: Center perfectly within the progress ring.
 
-Color: Retain current color of "Jeune".
+Elapsed Text (e.g., "ELAPSED (112%)"):
 
-Right Element (Add Button - Plus Icon):
+Text Content: Dynamic elapsed text (e.g., "ELAPSED (112%)").
 
-Icon: "+" (plus) symbol.
+Font: System font (SF Pro Text), Regular/Medium, size ~14-16pt.
 
-Icon Size: Reduce the size of the plus icon to approximately 20-22pt.
+Color: Dark Gray (e.g., #636366).
 
-Icon Weight: Make the plus icon bolder.
+Alignment: Center horizontally, ~4-8pt below the main time display.
 
-Color: Retain current color of the plus icon.
+Start & Goal Time Info Boxes:
 
-Layout & Spacing:
+Container: Two horizontally arranged rounded rectangle boxes.
 
-Ensure vertical centering of all header elements.
+Box Background Color: White (#FFFFFF).
 
-Adjust horizontal spacing as needed after resizing elements to maintain balance.
+Box Border: Add a subtle, very light gray border (e.g., #E0E0E0, 1pt thickness) to define the boxes if they don't stand out against the white card background. Alternatively, a very subtle drop shadow.
 
-2. Day Selector Strip
+Box Corner Radius: ~8-10pt.
 
-Goal: Improve spacing and order of the day selector.
+Box Padding: Internal padding ~8-10pt.
 
-Tasks:
+Spacing: ~8-12pt between boxes. ~16-20pt margin from elapsed text above and action button below.
 
-Colors: Retain all current colors for the day indicators (inactive, active/selected).
+Left Box ("STARTED"):
 
-Order of Days: Arrange as: TUE, WED, THU, FRI, SAT, SUN, MON (current day first, then subsequent days).
+Label Text: "STARTED". Font: SF Pro Text, Semibold/Bold, Uppercase, size ~10-12pt. Color: Medium Gray (e.g., #8A8A8E).
 
-Day Indicator Style (TUE - Selected/Current Example):
+Value Text: "SUN, 19:00" (dynamic). Font: SF Pro Text, Regular/Medium, size ~15-17pt. Color: Near Black (e.g., #1C1C1E).
 
-Outer Ring: Thicker, use existing active color.
+Alignment: All text centered within the box.
 
-Inner Circle: Filled solid with the existing active color.
+Right Box ("13H GOAL"):
 
-Day Initial Font: System font (SF Pro Text), Medium/Semibold, size ~12-14pt.
+Label Text: "13H GOAL" (dynamic). Font: SF Pro Text, Semibold/Bold, Uppercase, size ~10-12pt. Color: Medium Gray (e.g., #8A8A8E).
 
-Day Indicator Style (WED, THU, FRI, SAT - Inactive Example):
+Value Text: "MON, 08:00" (dynamic). Font: SF Pro Text, Regular/Medium, size ~15-17pt. Color: Near Black (e.g., #1C1C1E).
 
-Outer Ring: Thin, use existing inactive ring color.
+Alignment: All text centered within the box.
 
-Inner Circle: Empty/Transparent.
+Action Button ("Break Your Fast"):
 
-Day Initial Font: System font (SF Pro Text), Medium/Semibold, size ~12-14pt. Color: Use existing inactive text color.
+Text: "Break Your Fast".
 
-Day Indicator Style (MON - Completed Example):
+Font: System font (SF Pro Text), Semibold or Bold, size ~17-18pt.
 
-Outer Ring: Thicker, use existing completed color.
+Text Color: White (#FFFFFF).
 
-Inner Circle: Empty/Transparent.
+Background Color: Green .
 
-Day Initial Font: System font (SF Pro Text), Medium/Semibold, size ~12-14pt. Color: Use existing completed text.
+Corner Radius: ~10-12pt.
 
-Layout & Spacing:
+Height: Standard prominent button height (e.g., ~50-56pt).
 
-Expand the horizontal spread of the day selectors. Reduce padding on the far left/right of the strip.
-
-Increase spacing between each day indicator for even distribution across a wider screen portion, avoiding a cramped middle appearance.
-
-Vertical padding for the strip: ~10-15pt top and bottom.
+Layout: Full width, respecting the card's internal padding.
 
