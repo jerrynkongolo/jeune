@@ -7,9 +7,9 @@ struct HomePreviewProvider: PreviewProvider {
             
             FastTimerCardView(
                 state: .running(progress: 0.75),
-                startDate: "9:41 AM",
+                startDate: "MON, 09:41",
                 goalHours: 16,
-                goalTime: "1:41 AM"
+                goalTime: "TUE, 01:41"
             ) {}
             .padding()
             

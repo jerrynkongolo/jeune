@@ -10,13 +10,20 @@ struct FastTimerCardView: View {
     // MARK: – Inputs
     var state: FastTimerState
 
-    /// Read-friendly “started at” time (e.g. “08:15 AM”).
+    /// Start time for the fast.
+    ///
+    /// The string **must** be in the format `"EEE, HH:mm"` (e.g. `"SUN, 07:00"`).
+    /// This allows the view to convert it to a user friendly display such as
+    /// `"Sun, 7:00 AM"`.
     var startDate: String = "--"
 
     /// Target length of the fast, in hours.
     var goalHours: Int = 16
 
-    /// Read-friendly time when the goal will be reached (e.g. “12:15 AM”).
+    /// Time when the fasting goal is reached.
+    ///
+    /// Provide the value using the same `"EEE, HH:mm"` format as `startDate` so
+    /// the day of the week can be shown correctly.
     var goalTime: String = "--"
 
     /// Action for the primary button.
@@ -151,6 +158,8 @@ struct FastTimerCardView: View {
             )
     }
 
+    /// Converts a time string provided in `"EEE, HH:mm"` format to a
+    /// user-facing style like `"Mon, 9:30 AM"`.
     private func formatDisplayDateString(from stringValue: String) -> String {
         print("[Debug] formatDisplayDateString input: '\(stringValue)'")
         let inputFormatter = DateFormatter()
