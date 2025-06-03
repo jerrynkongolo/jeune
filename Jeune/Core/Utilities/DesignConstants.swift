@@ -13,4 +13,16 @@ enum DesignConstants {
 
     /// Primary call to action button height.
     static let primaryCTAHeight: CGFloat = 54
+
+    /// Diameter of the large fasting timer ring.
+    static let largeRingDiameter: CGFloat = 260
+
+    /// Stroke width for the large fasting timer ring.
+    static let largeRingLineWidth: CGFloat = 12
+
+    /// Diameter of the mini weekday progress rings.
+    static let miniRingDiameter: CGFloat = 30
+
+    /// Stroke width for the mini weekday progress rings.
+    static let miniRingLineWidth: CGFloat = 4
 }

@@ -2,6 +2,12 @@ import SwiftUI
 
 struct HomePreviewProvider: PreviewProvider {
     static var previews: some View {
-        JeuneHomeView()
+        Group {
+            JeuneHomeView()
+            FastTimerCardView(state: .running(progress: 0.75)) {}
+                .padding()
+            FastTimerCardView(state: .idle(days: 135)) {}
+                .padding()
+        }
     }
 }

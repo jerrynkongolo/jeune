@@ -36,8 +36,8 @@ struct FastTimerCardView: View {
     var body: some View {
         VStack(spacing: 24) {
             RingView(progress: progress,
-                     diameter: 260,
-                     lineWidth: 12)
+                     diameter: DesignConstants.largeRingDiameter,
+                     lineWidth: DesignConstants.largeRingLineWidth)
 
             centerContent
 
@@ -76,7 +76,7 @@ struct FastTimerCardView: View {
             VStack(spacing: 4) {
                 Text(timeString(from: p))
                     .font(.system(size: 56, weight: .black, design: .rounded))
-                Text("ELAPSED")
+                Text("ELAPSED (\(Int(p * 100)) %)")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
