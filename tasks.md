@@ -1,117 +1,113 @@
-# JEUNE · HOME SCREEN – DESIGN-ONLY SPEC  (no data / logic yet)
-# Goal: replicate the two reference screenshots pixel-for-pixel.
+# JEUNE · HOME SCREEN — REV 2  (visual corrections only)
+# Paste this entire spec into Codex and ask it to rebuild the UI.
 
 ──────────────────────────────────────────────────────────────
-1 ▸ GLOBAL TOKENS  (add to Assets / constants)
+0 ▸ COLOUR TWEAKS  (replace previous tokens)
 
-• Canvas-background:  #F7F7F9   (very light warm grey)
-• Card-background:    #FFFFFF
-• Card-shadow:        10-pt blur, y-offset 1, 5 % black opacity
-• Corner radius for all cards & buttons: 24 pt
-• Accent colour (CTAs, partial rings, links): #C23050  (deep cherry-red berry)
-• Success colour (complete rings & buttons):  #34C759  (iOS system green)
-• Neutral ring track: #E1E1E3
-• Toolbar icon container: 34 × 34 pt circle
-• Large timer ring:  diameter 260 pt · stroke width 12 pt
-• Mini weekday rings: diameter 30 pt · stroke width 4 pt
-• Primary CTA height: 54 pt · pill shape (corner 28 pt)
+• Deep-cherry accent  = #931536      # darker & richer than before
+• Success green       = #34C759      # unchanged
+• Light success tint  = #34C759 @ 8 % opacity      # for streak badge bg
+• Neutral ring track  = #D8D8DB      # slightly darker to lift contrast
+• Toolbar circle bg   = #EFEFF1      # very light grey, 100 % opaque
 
 ──────────────────────────────────────────────────────────────
-2 ▸ TOOLBAR LAYOUT (Navigation Bar)
+1 ▸ TOOLBAR (safe-area top)
 
-LEFT   = *Streak badge*  
- • Circular background: accent when streak achieved, neutral grey otherwise  
- • White “checkmark” SF Symbol (14 pt, bold) inside  
- • Count label (“0”, “1”, …) next to circle (caption, semibold)
+LEFT – **Streak badge**
 
-CENTER = Jeune logomark (already in Assets) — 24 pt height, aspect fit
+    • 34 × 34 pt circle  
+    • Fill: *Light success tint*  
+    • Inside: white SF Symbol “checkmark” **12 pt** (was too large)  
+    • Numeric count “3” (caption, **semibold**) to the immediate right, aligned baseline
 
-RIGHT  = “+” button  
- • Symbol: SF “plus”, title3 weight  
- • White icon on accent-colour circular 34 × 34 pt background  
- • Taps will open quick-actions later (no logic now)
+CENTER – **Logo**
 
-──────────────────────────────────────────────────────────────
-3 ▸ WEEK-AT-A-GLANCE STRIP (under toolbar)
+    • Asset “jeuneLogoMark” height **32 pt** (≈ +30 % bigger)  
+    • Keep aspect fit
 
-• Horizontal row of 7 identical cells, centred, 20 pt spacing  
-• Each cell = VStack:  
-   1️⃣ Mini ring (30 pt) showing fasting progress for that weekday  
-    • empty = track only  
-    • 0 < progress < 1 = accent stroke  
-    • progress ≥ 1  = success stroke  
-   2️⃣ Weekday label (MON, TUE …) — SF Pro, caption2, secondary colour
+RIGHT – **Quick-add button**
+
+    • 34 × 34 pt circle, fill = *Toolbar circle bg*  
+    • SF Symbol “plus” **title2** weight, colour = *Deep-cherry accent* (NOT white)
 
 ──────────────────────────────────────────────────────────────
-4 ▸ FAST TIMER CARD  (white card + shadow)
+2 ▸ WEEKDAY MINI-RING STRIP  (immediately beneath toolbar)
 
-GENERAL FRAME  
-• Full-width minus 16 pt horizontal padding on each side  
-• Vertical inner padding: 24 pt  
-• Corner radius: 24 pt  
-• Card shadow spec above
-
-INSIDE LAYOUT (VStack, 24 pt spacing)
-
-A Large ring (260 pt)  
- • Track = neutral grey (#E1E1E3)  
- • Progress stroke colour rule: accent until progress ≥ 1.0, then success  
- • Stroke line-cap round, animates clockwise from top (-90° rotation)
-
-B Ring centre content varies by state:  
- **IDLE**   
-  • “SINCE LAST FAST” caption (caps, caption, secondary)  
-  • Giant days count (“135 days”) 56 pt, ultra-bold, rounded digits  
-  • Link text “EDIT 13H GOAL” caption2, accent colour  
- **RUNNING**   
-  • Elapsed timer (e.g. “16:19:46”) 56 pt, ultra-bold, rounded  
-  • Sub-caption “ELAPSED (102 %)” caption, secondary
-
-C If state = RUNNING → show a capsule stats row:  
- • Two equal “capsules”, 8 pt space between  
- • Capsule BG #F2F2F7, corner 20 pt  
- • Left: title “STARTED”, value start-date/time  
- • Right: title “16H GOAL”, value goal-time  
- • titles = caption2 secondary | values = subheadline semibold
-
-D Primary CTA button (fills entire card width minus 48 pt)  
- • Idle state label: “Start Fasting”, fill = accent  
- • Running state label: “Break Your Fast”, fill = success  
- • Text: headline, semibold, white  
- • Corner radius 28 pt (pill)
+• **Vertical order**: weekday labels on top, rings below  
+• Weekday label style: caption2 **bold**, secondary colour  
+• Mini-ring diameter **26 pt**  
+• Stroke width **6 pt** (visibly thicker)  
+• Spacing between cells: **16 pt**  
+• Progress colour logic unchanged (accent → success)
 
 ──────────────────────────────────────────────────────────────
-5 ▸ CHALLENGES CARD  (static placeholder for now)
+3 ▸ FAST TIMER CARD  (big white card)
 
-• Same card styling as timer card  
-• Top HStack:  
- “Challenges” (title3, semibold) … Spacer … “SEE ALL” (caption, bold, accent)  
-• Below: single 80 pt-tall rounded-rect placeholder (#F0F0F2)  
-  Left icon SF “flame.fill” accent  
-  Two-line subtitle “Join challenges to earn achievements” (subheadline, 2 lines)  
-  Right chevron SF “chevron.right” accent
+Card container:
+
+    • Corner radius 24 pt  
+    • Shadow: rgba(0,0,0,0.10), y-offset 2 pt, blur 20 pt  ← sharper & deeper  
+    • Horizontal outer padding from screen edge: 16 pt  
+    • Inner horizontal padding: **16 pt**  (was too wide)  
+    • Inner vertical padding: 24 pt
+
+Large ring:
+
+    • Diameter **280 pt**  (slightly larger)  
+    • Stroke width **24 pt**  (≈ 2× previous)  
+    • Track colour = Neutral ring track  
+    • Gradient NOT required; just switch stroke colour to success when progress ≥ 1
+
+Timer digits:
+
+    • Typeface: *SF Pro Rounded*  
+    • Size **64 pt**, weight **black**  
+    • Positioned dead-centre inside ring (use ZStack)
+
+Sub-caption:
+
+    • “ELAPSED” / “SINCE LAST FAST” lines: caption, **semibold**, secondary colour  
+    • Always centred under digits
+
+Stats capsules row:  (visible **only when fasting**)
+
+    • Each capsule:  min height 48 pt, bg #F2F2F5, corner 20 pt  
+    • Title label caption2, secondary · Value label subheadline **semibold**  
+    • Grid layout: 2 equal columns, 8 pt spacing
+
+Primary CTA:
+
+    • Pill radius 28 pt, height 54 pt  
+    • Idle fill colour = Deep-cherry accent · Running fill = Success green  
+    • Label headline **semibold**, white
 
 ──────────────────────────────────────────────────────────────
-6 ▸ SPACING / PADDING SUMMARY
+4 ▸ CHALLENGES CARD
 
-• Entire ScrollView content: 24 pt top spacing, 24 pt vertical between sections  
-• Horizontal safe-area padding: 16 pt (cards align)  
-• No bottom inset handling needed yet
-
-──────────────────────────────────────────────────────────────
-7 ▸ COMPONENT & FILE CHECKLIST  (Codex to generate)
-
-✅ Color asset additions (see tokens)  
-✅ `RingView` (configurable diameter, progress, colour rules)  
-✅ `MiniRingView` (wraps RingView + weekday label)  
-✅ `StreakBadgeView`  
-✅ `JeuneHomeView` main screen  
-✅ `FastTimerCardView` (supports .idle & .running states)  
-✅ `PrimaryCTAButton` (pill)  
-✅ `ChallengesCardView` (static)  
-✅ Simple `HomePreviewProvider` with mock idle/running states
-
-*Do **not** implement Combine timers, HealthKit, or real data persistence yet; placeholders are fine.*
+• Same shadow & corner spec as main card  
+• Tighten horizontal padding inside card to **20 pt**  
+• “SEE ALL” label weight = **semibold** (was bold)  
+• Placeholder row height **76 pt** to balance new padding
 
 ──────────────────────────────────────────────────────────────
-# END OF DESIGN SPEC  
+5 ▸ SPACING CHECKLIST
+
+• Vertical gap between toolbar and weekday strip: 12 pt  
+• Gap between weekday strip and main card: 20 pt  
+• Gap between main card and challenges card: 24 pt  
+• ScrollView bottom inset: safe-area only (no extra padding)
+
+──────────────────────────────────────────────────────────────
+6 ▸ COMPONENT LIST FOR CODEX TO GENERATE / UPDATE
+
+✓ StreakBadgeView  (new sizes & colours)  
+✓ ToolbarPlusButtonView  (grey circle + cherry plus)  
+✓ MiniRingView  (26 pt, stroke 6 pt, label on top)  
+✓ FastTimerCardView  (ring 280 pt/24 pt, new padding, SF Rounded 64 pt)  
+✓ ChallengeCardView  (padding tweak)  
+✓ Updated colour assets for new Deep-cherry & Light-success-tint
+
+**No timers, data models, or business logic need to change in this rev.**
+
+──────────────────────────────────────────────────────────────
+# END OF UPDATED DESIGN SPEC  –  hand to Codex
