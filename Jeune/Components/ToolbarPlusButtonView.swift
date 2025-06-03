@@ -7,7 +7,7 @@ struct ToolbarPlusButtonView: View {
     var body: some View {
         Button(action: action) {
             Image(systemName: "plus")
-                .font(.system(size: 21, weight: .bold))
+                .font(.system(size: 12, weight: .bold))
                 .foregroundColor(.jeunePrimaryColor)
                 .frame(width: DesignConstants.toolbarButtonSize,
                        height: DesignConstants.toolbarButtonSize)

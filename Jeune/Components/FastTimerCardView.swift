@@ -146,7 +146,7 @@ struct FastTimerCardView: View {
     private func valuePill(value: String) -> some View {
         Text(value)
             .font(.system(size: 10, weight: .bold)) // Changed to 10pt and bold
-            .foregroundColor(.jeuneNearBlack)
+            .foregroundColor(.jeunePrimaryColor) // Changed to primary color
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(.vertical, 10) // Adjusted for vertical centering in 40pt height
             .frame(minHeight: 40)

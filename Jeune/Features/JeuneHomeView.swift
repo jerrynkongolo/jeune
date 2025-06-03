@@ -34,8 +34,10 @@ struct JeuneHomeView: View {
                 }
 
                 ToolbarItem(placement: .principal) {
-                    Text("Jeune")
-                        .font(.system(size: 24, weight: .bold))
+                    Image("logojeune")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 100) // Adjust height as needed, aiming for good proportion across devices
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {

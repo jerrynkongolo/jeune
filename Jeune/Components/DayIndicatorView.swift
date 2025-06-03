@@ -32,8 +32,8 @@ struct DayIndicatorView: View {
             ZStack {
                 Circle()
                     .stroke(ringColor, lineWidth: state == .inactive ? 2 : 4)
-                    .frame(width: DesignConstants.miniRingDiameter + 6,
-                           height: DesignConstants.miniRingDiameter + 6)
+                    .frame(width: DesignConstants.miniRingDiameter + 8,
+                           height: DesignConstants.miniRingDiameter + 8)
 
                 if state == .selected {
                     Circle()
@@ -44,7 +44,7 @@ struct DayIndicatorView: View {
             }
 
             Text(label)
-                .font(.system(size: 13, weight: .semibold))
+                .font(.system(size: 10, weight: .bold))
                 .foregroundColor(state == .selected ? .jeunePrimaryColor : textColor)
         }
     }

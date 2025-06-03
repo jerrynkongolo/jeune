@@ -9,7 +9,7 @@ struct ChallengesCardView: View {
                     .font(.title3.weight(.semibold))
                 Spacer()
                 Text("SEE ALL")
-                    .font(.caption.weight(.semibold))
+                    .font(.caption.weight(.bold))
                     .foregroundColor(.jeunePrimaryColor)
             }
 
@@ -26,6 +26,7 @@ struct ChallengesCardView: View {
                 Image(systemName: "chevron.right")
                     .foregroundColor(.jeunePrimaryColor)
             }
+            .padding(.horizontal, 12) // Added horizontal padding inside the gray area
             .frame(height: 76)
             .frame(maxWidth: .infinity)
             .background(Color(red: 0.94, green: 0.94, blue: 0.95))

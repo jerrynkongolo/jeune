@@ -7,11 +7,11 @@ struct StreakBadgeView: View {
     var body: some View {
         HStack(spacing: 4) {
             Image(systemName: "checkmark")
-                .font(.system(size: 14, weight: .semibold))
+                .font(.system(size: 12, weight: .semibold))
                 .foregroundColor(.white)
 
             Text("\(count)")
-                .font(.system(size: 16))
+                .font(.system(size: 12))
                 .foregroundColor(.primary)
         }
         .padding(.horizontal, 8)
