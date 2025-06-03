@@ -34,10 +34,8 @@ struct JeuneHomeView: View {
                 }
 
                 ToolbarItem(placement: .principal) {
-                    Image("logojeune")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 32)
+                    Text("Jeune")
+                        .font(.system(size: 24, weight: .bold))
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -50,29 +48,30 @@ struct JeuneHomeView: View {
     }
 
     private var weekStrip: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 20) {
             ForEach(0..<7) { index in
-                MiniRingView(
-                    progress: Double(index) / 6,
-                    weekday: weekdayLabel(for: index)
+                let date = Calendar.current.date(byAdding: .day, value: index, to: Date())!
+                DayIndicatorView(
+                    label: weekdayLabel(for: date),
+                    state: dayState(for: index)
                 )
             }
         }
+        .padding(.vertical, 12)
         .frame(maxWidth: .infinity)
     }
 
-    private func weekdayLabel(for index: Int) -> String {
+    private func weekdayLabel(for date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.setLocalizedDateFormatFromTemplate("EEE")
-        let date = Calendar.current.date(byAdding: .day, value: index, to: startOfWeek())!
         return formatter.string(from: date).uppercased()
     }
 
-    private func startOfWeek() -> Date {
-        let cal = Calendar.current
-        let comps = cal.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
-        return cal.date(from: comps) ?? Date()
+    private func dayState(for index: Int) -> DayIndicatorView.State {
+        if index == 0 { return .selected }
+        if index == 6 { return .completed }
+        return .inactive
     }
 }
 

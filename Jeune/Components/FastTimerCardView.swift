@@ -71,8 +71,7 @@ struct FastTimerCardView: View {
             )
             .padding(.horizontal, 24)
         }
-        .padding(.vertical, 24)
-        .padding(.horizontal, 16)
+        .padding(16)
         .frame(maxWidth: .infinity)
         .background(Color.jeuneCardColor)
         .cornerRadius(DesignConstants.cornerRadius)
