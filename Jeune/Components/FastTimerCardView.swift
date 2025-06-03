@@ -49,6 +49,12 @@ struct FastTimerCardView: View {
         VStack(spacing: 16) {
             // Ring with centre content overlaid
             ZStack {
+                // Background track for the ring
+                Circle()
+                    .stroke(lineWidth: (DesignConstants.largeRingLineWidth * 0.9) * 0.85)
+                    .foregroundColor(Color.jeuneRingTrackColor) // Color for the track
+                    .frame(width: DesignConstants.largeRingDiameter * 0.8, height: DesignConstants.largeRingDiameter * 0.8)
+
                 RingView(
                     progress: progress,
                     diameter: DesignConstants.largeRingDiameter * 0.8,
@@ -78,6 +84,7 @@ struct FastTimerCardView: View {
                 .padding(.bottom, -13) // Space between titles and the gray stats capsule
 
                 statsRow // This will now be the gray capsule with value pills
+                    .padding(.bottom, -8) // Reduce space to CTA button below (16 default - 8 = 8pt gap)
             }
 
             // CTA Button
