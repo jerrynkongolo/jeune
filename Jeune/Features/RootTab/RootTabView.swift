@@ -4,7 +4,7 @@ import SwiftUI
 struct RootTabView: View {
     var body: some View {
         TabView {
-            TodayView()
+            JeuneHomeView()
                 .tabItem { Label("Today", systemImage: "timer") }
 
             ExploreView()
