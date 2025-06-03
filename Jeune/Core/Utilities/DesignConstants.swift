@@ -17,9 +17,9 @@ enum DesignConstants {
     /// Diameter of the large fasting timer ring.
     static let largeRingDiameter: CGFloat = 280
 
-    /// Stroke width for the large fasting timer ring, doubled from the
-    /// original to emphasise progress without crowding the centre content.
-    static let largeRingLineWidth: CGFloat = 48
+    /// Stroke width for the large fasting timer ring. Doubling the thickness
+    /// further emphasises progress of the fast.
+    static let largeRingLineWidth: CGFloat = 80
 
     /// Diameter of the mini weekday progress rings.
     static let miniRingDiameter: CGFloat = 26

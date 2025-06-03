@@ -25,34 +25,33 @@ struct FastTimerCardView: View {
     // MARK: – Derived values
     private var progress: Double {
         switch state {
-        case .idle:                 return 0
-        case .running(let value):   return value
+        case .idle: return 0
+        case .running(let value): return value
         }
     }
 
     private var buttonTitle: String {
         switch state {
-        case .idle:    return "Start Fasting"
+        case .idle: return "Start Fasting"
         case .running: return "Break Your Fast"
         }
     }
 
     private var buttonColor: Color {
         switch state {
-        case .idle:    return .jeunePrimaryColor     // blue
-        case .running: return .jeuneSuccessColor     // green
+        case .idle: return .jeunePrimaryColor // blue
+        case .running: return .jeuneSuccessColor // green
         }
     }
 
     // MARK: – UI
     var body: some View {
         VStack(spacing: 16) {
-
-            // Ring with centre content overlayed
+            // Ring with centre content overlaid
             ZStack {
                 RingView(
-                    progress:  progress,
-                    diameter:  DesignConstants.largeRingDiameter,
+                    progress: progress,
+                    diameter: DesignConstants.largeRingDiameter,
                     lineWidth: DesignConstants.largeRingLineWidth
                 )
 
@@ -67,11 +66,11 @@ struct FastTimerCardView: View {
                 statsRow
             }
 
-            // CTA
+            // CTA Button
             PrimaryCTAButton(
-                title:      buttonTitle,
+                title: buttonTitle,
                 background: buttonColor,
-                action:     action
+                action: action
             )
             .padding(.horizontal, 16)
         }
@@ -86,8 +85,6 @@ struct FastTimerCardView: View {
     @ViewBuilder
     private var centreContent: some View {
         switch state {
-
-        // ── Idle ────────────────────────────────────────────────────────────────
         case .idle(let days):
             VStack(spacing: 4) {
                 Text("SINCE LAST FAST")
@@ -104,7 +101,6 @@ struct FastTimerCardView: View {
                     .foregroundColor(.jeunePrimaryColor)
             }
 
-        // ── Running ─────────────────────────────────────────────────────────────
         case .running(let p):
             VStack(spacing: 6) {
                 Text(timeString(from: p))
@@ -120,7 +116,7 @@ struct FastTimerCardView: View {
 
     private var statsRow: some View {
         HStack(spacing: 12) {
-            statCapsule(title: "STARTED",            value: startDate)
+            statCapsule(title: "STARTED", value: startDate)
             statCapsule(title: "\(goalHours)H GOAL", value: goalTime)
         }
         .padding(8)
@@ -153,9 +149,9 @@ struct FastTimerCardView: View {
     // MARK: – Helpers
     private func timeString(from progress: Double) -> String {
         let totalSeconds = Int(progress * 3_600 * Double(goalHours))
-        let hrs   = totalSeconds / 3_600
-        let mins  = (totalSeconds % 3_600) / 60
-        let secs  =  totalSeconds % 60
+        let hrs = totalSeconds / 3_600
+        let mins = (totalSeconds % 3_600) / 60
+        let secs = totalSeconds % 60
         return String(format: "%02d:%02d:%02d", hrs, mins, secs)
     }
 }
