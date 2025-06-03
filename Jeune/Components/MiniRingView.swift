@@ -7,14 +7,14 @@ struct MiniRingView: View {
 
     var body: some View {
         VStack(spacing: 4) {
+            Text(weekday)
+                .font(.caption2.weight(.bold))
+                .foregroundColor(.secondary)
             RingView(
                 progress: progress,
                 diameter: DesignConstants.miniRingDiameter,
                 lineWidth: DesignConstants.miniRingLineWidth
             )
-            Text(weekday)
-                .font(.caption2)
-                .foregroundColor(.secondary)
         }
     }
 }

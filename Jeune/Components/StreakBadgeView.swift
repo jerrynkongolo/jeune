@@ -4,19 +4,15 @@ import SwiftUI
 struct StreakBadgeView: View {
     var count: Int
 
-    private var backgroundColor: Color {
-        count > 0 ? .jeunePrimaryColor : .jeuneRingTrackColor
-    }
-
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(alignment: .firstTextBaseline, spacing: 4) {
             ZStack {
                 Circle()
-                    .fill(backgroundColor)
+                    .fill(Color.jeuneSuccessTintColor)
                     .frame(width: DesignConstants.toolbarButtonSize,
                            height: DesignConstants.toolbarButtonSize)
                 Image(systemName: "checkmark")
-                    .font(.system(size: 14, weight: .bold))
+                    .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(.white)
             }
 

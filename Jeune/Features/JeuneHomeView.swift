@@ -7,8 +7,9 @@ struct JeuneHomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 24) {
+                VStack(spacing: 0) {
                     weekStrip
+                        .padding(.bottom, 20)
 
                     // Updated to use full FastTimerCardView with all props
                     FastTimerCardView(
@@ -19,10 +20,11 @@ struct JeuneHomeView: View {
                     ) {
                         // action placeholder
                     }
+                    .padding(.bottom, 24)
 
                     ChallengesCardView()
                 }
-                .padding(.top, 24)
+                .padding(.top, 12)
                 .padding(.horizontal)
             }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
@@ -35,18 +37,12 @@ struct JeuneHomeView: View {
                     Image("logojeune")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 24)
+                        .frame(height: 32)
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {}) {
-                        Image(systemName: "plus")
-                            .font(.title3)
-                            .foregroundColor(.white)
-                            .frame(width: DesignConstants.toolbarButtonSize,
-                                   height: DesignConstants.toolbarButtonSize)
-                            .background(Color.jeunePrimaryColor)
-                            .clipShape(Circle())
+                    ToolbarPlusButtonView {
+                        // action placeholder
                     }
                 }
             }
@@ -54,7 +50,7 @@ struct JeuneHomeView: View {
     }
 
     private var weekStrip: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 16) {
             ForEach(0..<7) { index in
                 MiniRingView(
                     progress: Double(index) / 6,

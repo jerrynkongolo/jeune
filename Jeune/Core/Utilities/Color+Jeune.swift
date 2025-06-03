@@ -29,6 +29,15 @@ extension Color {
     /// Neutral track colour for progress rings.
     static let jeuneRingTrackColor    = Color("jeuneRingTrack")
 
+    /// Light success tint used for streak badge backgrounds.
+    static let jeuneSuccessTintColor  = Color("jeuneSuccessTint")
+
+    /// Toolbar button circle background colour.
+    static let jeuneToolbarCircleColor = Color("jeuneToolbarBG")
+
+    /// Background colour for stats capsules.
+    static let jeuneStatsBGColor      = Color("jeuneStatsBG")
+
     // Category colours
     static let jeuneNutritionColor    = Color("jeuneNutrition")
     static let jeuneActivityColor     = Color("jeuneActivity")
