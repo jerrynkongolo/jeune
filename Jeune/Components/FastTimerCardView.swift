@@ -2,59 +2,74 @@ import SwiftUI
 
 enum FastTimerState {
     case idle(days: Int)
-    case running(progress: Double)
+    case running(progress: Double)   // 0.0‒1.0  (fraction of goal completed)
 }
 
-/// Card displaying the fasting timer ring and CTA button.
+/// Card displaying the fasting-timer ring and CTA button.
 struct FastTimerCardView: View {
+    // MARK: – Inputs
     var state: FastTimerState
-    /// Display string for when the fast started.
+
+    /// Read-friendly “started at” time (e.g. “08:15 AM”).
     var startDate: String = "--"
 
-    /// Total hours for the current fast goal.
+    /// Target length of the fast, in hours.
     var goalHours: Int = 16
 
-    /// Display string for the time when the goal will be reached.
+    /// Read-friendly time when the goal will be reached (e.g. “12:15 AM”).
     var goalTime: String = "--"
+
+    /// Action for the primary button.
     var action: () -> Void
 
+    // MARK: – Derived values
     private var progress: Double {
         switch state {
-        case .idle: return 0
-        case .running(let p): return p
+        case .idle:                 return 0
+        case .running(let value):   return value
         }
     }
 
     private var buttonTitle: String {
         switch state {
-        case .idle: return "Start Fasting"
+        case .idle:    return "Start Fasting"
         case .running: return "Break Your Fast"
         }
     }
 
     private var buttonColor: Color {
         switch state {
-        case .idle: return .jeunePrimaryColor
-        case .running: return .jeuneSuccessColor
+        case .idle:    return .jeunePrimaryColor     // blue
+        case .running: return .jeuneSuccessColor     // green
         }
     }
 
+    // MARK: – UI
     var body: some View {
         VStack(spacing: 24) {
-            RingView(progress: progress,
-                     diameter: DesignConstants.largeRingDiameter,
-                     lineWidth: DesignConstants.largeRingLineWidth)
 
-            centerContent
+            // Ring
+            RingView(
+                progress:  progress,
+                diameter:  DesignConstants.largeRingDiameter,
+                lineWidth: DesignConstants.largeRingLineWidth
+            )
 
+            // Centre label
+            centreContent
+
+            // Stats (only while running)
             if case .running = state {
                 statsRow
             }
 
-            PrimaryCTAButton(title: buttonTitle,
-                              background: buttonColor,
-                              action: action)
-                .padding(.horizontal, 24)
+            // CTA
+            PrimaryCTAButton(
+                title:      buttonTitle,
+                background: buttonColor,
+                action:     action
+            )
+            .padding(.horizontal, 24)
         }
         .padding(24)
         .frame(maxWidth: .infinity)
@@ -63,25 +78,33 @@ struct FastTimerCardView: View {
         .shadow(color: DesignConstants.cardShadow, radius: 10, y: 1)
     }
 
+    // MARK: – Sub-views
     @ViewBuilder
-    private var centerContent: some View {
+    private var centreContent: some View {
         switch state {
+
+        // ── Idle ────────────────────────────────────────────────────────────────
         case .idle(let days):
             VStack(spacing: 4) {
                 Text("SINCE LAST FAST")
                     .font(.caption2)
                     .foregroundColor(.secondary)
                     .textCase(.uppercase)
+
                 Text("\(days) days")
                     .font(.system(size: 56, weight: .black, design: .rounded))
+
                 Text("EDIT \(goalHours)H GOAL")
                     .font(.caption2)
                     .foregroundColor(.jeunePrimaryColor)
             }
+
+        // ── Running ─────────────────────────────────────────────────────────────
         case .running(let p):
             VStack(spacing: 4) {
                 Text(timeString(from: p))
                     .font(.system(size: 56, weight: .black, design: .rounded))
+
                 Text("ELAPSED (\(Int(p * 100)) %)")
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -91,7 +114,7 @@ struct FastTimerCardView: View {
 
     private var statsRow: some View {
         HStack(spacing: 8) {
-            statCapsule(title: "STARTED", value: startDate)
+            statCapsule(title: "STARTED",            value: startDate)
             statCapsule(title: "\(goalHours)H GOAL", value: goalTime)
         }
         .padding(.horizontal, 24)
@@ -102,6 +125,7 @@ struct FastTimerCardView: View {
             Text(title)
                 .font(.caption2)
                 .foregroundColor(.secondary)
+
             Text(value)
                 .font(.subheadline.weight(.semibold))
         }
@@ -111,16 +135,18 @@ struct FastTimerCardView: View {
         .cornerRadius(20)
     }
 
+    // MARK: – Helpers
     private func timeString(from progress: Double) -> String {
-        let totalSeconds = Int(progress * 3600 * 16)
-        let hours = totalSeconds / 3600
-        let minutes = (totalSeconds % 3600) / 60
-        let seconds = totalSeconds % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        let totalSeconds = Int(progress * 3_600 * Double(goalHours))
+        let hrs   = totalSeconds / 3_600
+        let mins  = (totalSeconds % 3_600) / 60
+        let secs  =  totalSeconds % 60
+        return String(format: "%02d:%02d:%02d", hrs, mins, secs)
     }
 }
 
+// MARK: – Preview
 #Preview {
-    FastTimerCardView(state: .idle(days: 135)) {}
+    FastTimerCardView(state: .idle(days: 135)) { }
         .padding()
 }
