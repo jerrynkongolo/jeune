@@ -14,9 +14,9 @@ struct JeuneHomeView: View {
                     // Updated to use full FastTimerCardView with all props
                     FastTimerCardView(
                         state: .running(progress: progress),
-                        startDate: "9:41 AM",
+                        startDate: "MON, 09:41",
                         goalHours: 16,
-                        goalTime: "1:41 AM"
+                        goalTime: "TUE, 01:41"
                     ) {
                         // action placeholder
                     }
