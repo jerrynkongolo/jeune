@@ -19,6 +19,7 @@ struct StreakBadgeView: View {
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
+        .frame(height: DesignConstants.toolbarButtonSize)
         .background(Color.jeuneSuccessTintColor)
         .clipShape(Capsule())
     }
