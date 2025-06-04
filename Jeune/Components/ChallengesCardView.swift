@@ -6,7 +6,7 @@ struct ChallengesCardView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Text("Challenges")
-                    .font(.title3.weight(.semibold))
+                    .font(.callout.weight(.semibold))
                 Spacer()
                 Text("SEE ALL")
                     .font(.system(size: 10, weight: .bold))
@@ -19,7 +19,7 @@ struct ChallengesCardView: View {
                     .font(.title)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Join challenges to earn achievements")
-                        .font(.subheadline)
+                        .font(.callout)
                         .foregroundColor(Color(.lightGray))
                         .lineLimit(2)
                 }
