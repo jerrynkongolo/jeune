@@ -118,7 +118,12 @@ struct FastTimerCardView: View {
         .frame(maxWidth: .infinity)
         .background(Color.jeuneCardColor)
         .cornerRadius(DesignConstants.cornerRadius)
-        .shadow(color: DesignConstants.cardShadow, radius: 20, y: 2)
+        .shadow(
+            color: DesignConstants.cardShadow,
+            radius: DesignConstants.cardShadowRadius,
+            x: 0,
+            y: 0
+        )
     }
 
     // MARK: – Sub-views
