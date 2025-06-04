@@ -40,7 +40,7 @@ struct FastTimerCardView: View {
     private var buttonTitle: String {
         switch state {
         case .idle: return "Start Fasting"
-        case .running: return "Break Your Fast"
+        case .running: return "End Fast"
         }
     }
 

@@ -16,10 +16,11 @@ struct ChallengesCardView: View {
             HStack(spacing: 12) {
                 Image(systemName: "flame.fill")
                     .foregroundColor(.jeunePrimaryColor)
-                    .font(.title2)
+                    .font(.title)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Join challenges to earn achievements")
                         .font(.subheadline)
+                        .foregroundColor(Color(.lightGray))
                         .lineLimit(2)
                 }
                 Spacer()
