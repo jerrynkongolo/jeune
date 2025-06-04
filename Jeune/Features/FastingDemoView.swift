@@ -21,6 +21,7 @@ struct FastingDemoView: View {
             editGoalAction: { showGoalPicker = true },
             action: toggleFasting
         )
+.animation(.easeInOut(duration: 0.3), value: isRunning)
         .sheet(isPresented: $showGoalPicker) {
             GoalPickerSheet(goalHours: $goalHours)
         }
@@ -49,15 +50,19 @@ struct FastingDemoView: View {
     }
 
     private func toggleFasting() {
-        if isRunning {
-            isRunning = false
-            elapsed = 0
-            sinceLastFast = 0
-            startTime = nil
-        } else {
-            isRunning = true
-            elapsed = 0
-            startTime = Date()
+
+        withAnimation(.easeInOut(duration: 0.3)) {
+            if isRunning {
+                isRunning = false
+                elapsed = 0
+                sinceLastFast = 0
+                startTime = nil
+            } else {
+                isRunning = true
+                elapsed = 0
+                startTime = Date()
+            }
+
         }
     }
 
@@ -95,4 +100,6 @@ private struct GoalPickerSheet: View {
 #Preview {
     FastingDemoView()
         .padding()
+
 }
+

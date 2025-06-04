@@ -134,6 +134,7 @@ struct FastTimerCardView: View {
             x: 0,
             y: 0
         )
+        .animation(.easeInOut(duration: 0.3), value: state)
     }
 
     // MARK: – Sub-views
@@ -148,7 +149,7 @@ struct FastTimerCardView: View {
                     .textCase(.uppercase)
 
                 Text(timeString(fromSeconds: seconds))
-                    .font(.system(size: 24, weight: .heavy))
+.font(.system(size: 36, weight: .heavy))
                     .foregroundColor(.jeuneNearBlack)
 
                 if let editAction = editGoalAction {
