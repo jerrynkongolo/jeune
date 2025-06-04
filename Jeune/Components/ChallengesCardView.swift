@@ -10,12 +10,12 @@ struct ChallengesCardView: View {
                 Spacer()
                 Text("SEE ALL")
                     .font(.system(size: 10, weight: .bold))
-                    .foregroundColor(.jeunePrimaryColor)
+                    .foregroundColor(.jeunePrimaryDarkColor)
                 }
 
             HStack(spacing: 12) {
                 Image(systemName: "flame.fill")
-                    .foregroundColor(.jeunePrimaryColor)
+                    .foregroundColor(.jeunePrimaryDarkColor)
                     .font(.title)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Join challenges to earn achievements")
@@ -25,7 +25,7 @@ struct ChallengesCardView: View {
                 }
                 Spacer()
                 Image(systemName: "chevron.right")
-                    .foregroundColor(.jeunePrimaryColor)
+                    .foregroundColor(.jeunePrimaryDarkColor)
                     .fontWeight(.bold)
             }
             .padding(.horizontal, 12) // Added horizontal padding inside the gray area

@@ -47,7 +47,7 @@ struct FastTimerCardView: View {
     private var buttonColor: Color {
     switch state {
     case .idle:
-        return .jeunePrimaryColor // deep red
+        return .jeunePrimaryDarkColor // deep red
 
     // Match the outer stats capsule when breaking fast
     case .running:
@@ -143,7 +143,7 @@ struct FastTimerCardView: View {
 
                 Text("EDIT \(goalHours)H GOAL")
                     .font(.caption.weight(.semibold))
-                    .foregroundColor(.jeunePrimaryColor)
+                    .foregroundColor(.jeunePrimaryDarkColor)
             }
 
         case .running(let p):
@@ -163,7 +163,7 @@ struct FastTimerCardView: View {
     private func valuePill(value: String) -> some View {
         Text(value)
             .font(.system(size: 10, weight: .bold)) // Changed to 10pt and bold
-            .foregroundColor(.jeunePrimaryColor) // Changed to primary color
+            .foregroundColor(.jeunePrimaryDarkColor) // Changed to primary color
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(.vertical, 10) // Adjusted for vertical centering in 40pt height
             .frame(minHeight: 40)

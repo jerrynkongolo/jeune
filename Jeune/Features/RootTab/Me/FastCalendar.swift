@@ -17,7 +17,7 @@ struct FastCalendar: View {
             LazyVGrid(columns: columns, spacing: spacing) {
                 ForEach(fasts.indices, id: \.self) { index in
                     Circle()
-                        .fill(Color.jeunePrimaryColor)
+                        .fill(Color.jeunePrimaryDarkColor)
                         .opacity(min(1, fasts[index] / 24))
                         .frame(width: itemSize, height: itemSize)
                 }

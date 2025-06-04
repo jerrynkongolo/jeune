@@ -21,5 +21,5 @@ struct PrimaryCTAButton: View {
 }
 
 #Preview {
-    PrimaryCTAButton(title: "Start Fasting", background: .jeunePrimaryColor, foreground: .white) {}
+    PrimaryCTAButton(title: "Start Fasting", background: .jeunePrimaryDarkColor, foreground: .white) {}
 }

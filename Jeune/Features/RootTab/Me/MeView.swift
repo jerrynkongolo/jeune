@@ -37,7 +37,7 @@ struct MeView: View {
             Button(action: { /* add weight action */ }) {
                 Image(systemName: "plus")
                     .padding(8)
-                    .background(Color.jeunePrimaryColor)
+                    .background(Color.jeunePrimaryDarkColor)
                     .foregroundColor(.white)
                     .clipShape(Circle())
             }

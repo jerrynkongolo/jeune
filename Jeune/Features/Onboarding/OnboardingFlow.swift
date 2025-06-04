@@ -27,7 +27,7 @@ struct OnboardingFlow: View {
     ]
 
     init() {
-        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.jeunePrimaryColor)
+        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.jeunePrimaryDarkColor)
     }
 
     var body: some View {
