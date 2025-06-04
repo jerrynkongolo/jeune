@@ -4,13 +4,14 @@ import SwiftUI
 struct PrimaryCTAButton: View {
     var title: String
     var background: Color
+    var foreground: Color = .white
     var action: () -> Void
 
     var body: some View {
         Button(action: action) {
             Text(title)
                 .font(.system(size: 18, weight: .bold))
-                .foregroundColor(.white)
+                .foregroundColor(foreground)
                 .frame(maxWidth: .infinity)
                 .frame(height: DesignConstants.primaryCTAHeight)
                 .background(background)
@@ -20,5 +21,5 @@ struct PrimaryCTAButton: View {
 }
 
 #Preview {
-    PrimaryCTAButton(title: "Start Fasting", background: .jeunePrimaryColor) {}
+    PrimaryCTAButton(title: "Start Fasting", background: .jeunePrimaryColor, foreground: .white) {}
 }

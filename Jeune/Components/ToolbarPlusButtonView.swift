@@ -8,7 +8,7 @@ struct ToolbarPlusButtonView: View {
         Button(action: action) {
             Image(systemName: "plus")
                 .font(.system(size: 12, weight: .bold))
-                .foregroundColor(.jeunePrimaryColor)
+                .foregroundColor(.jeunePrimaryDarkColor)
                 .frame(width: DesignConstants.toolbarButtonSize,
                        height: DesignConstants.toolbarButtonSize)
                 .background(Color.jeuneToolbarCircleColor)
