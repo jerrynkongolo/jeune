@@ -14,7 +14,7 @@ struct HomePreviewProvider: PreviewProvider {
             .padding()
             
             FastTimerCardView(
-                state: .idle(days: 135),
+                state: .idle(seconds: 26_741),
                 startDate: "--",
                 goalHours: 16,
                 goalTime: "--"
