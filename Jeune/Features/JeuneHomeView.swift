@@ -50,7 +50,7 @@ struct JeuneHomeView: View {
     }
 
     private var weekStrip: some View {
-        HStack(spacing: 40) {
+        HStack(spacing: 32) {
             ForEach(0..<7) { index in
                 let date = Calendar.current.date(byAdding: .day, value: index, to: Date())!
                 DayIndicatorView(
