@@ -34,7 +34,9 @@ struct DayIndicatorView: View {
                 .foregroundColor(state == .selected ? .jeunePrimaryColor : textColor)
 
             ZStack {
-                let strokeWidth: CGFloat = (state == .inactive ? 2 : 4) * 1.25
+                // Use a consistent stroke width across all states so gray rings
+                // match the thickness of the colored ones.
+                let strokeWidth: CGFloat = 4 * 1.25
                 let ringSize = (DesignConstants.miniRingDiameter + 8) * 0.7
 
                 Circle()
