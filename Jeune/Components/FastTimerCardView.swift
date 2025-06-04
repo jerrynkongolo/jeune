@@ -149,7 +149,7 @@ struct FastTimerCardView: View {
                     .textCase(.uppercase)
 
                 Text(timeString(fromSeconds: seconds))
-                    .font(.system(size: 36, weight: .heavy))
+.font(.system(size: 36, weight: .heavy))
                     .foregroundColor(.jeuneNearBlack)
 
                 if let editAction = editGoalAction {
