@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum FastTimerState {
+enum FastTimerState: Equatable {
     /// Idle state showing the time since the last fast in seconds.
     case idle(seconds: Int)
     /// Running state with progress fraction 0.0 - 1.0
