@@ -9,7 +9,7 @@ struct RingView: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color.jeuneRingTrackColor, lineWidth: lineWidth)
+                .stroke(Color.jeuneStatsBGColor, lineWidth: lineWidth)
 
             Circle()
                 .trim(from: 0, to: min(progress, 1))
