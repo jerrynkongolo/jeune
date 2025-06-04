@@ -47,7 +47,15 @@ struct FastTimerCardView: View {
     private var buttonColor: Color {
         switch state {
         case .idle: return .jeunePrimaryColor // deep red
-        case .running: return .jeuneSuccessColor // green
+        // Match the outer stats capsule when breaking fast
+        case .running: return .jeuneStatsBGColor
+        }
+    }
+
+    private var buttonTextColor: Color {
+        switch state {
+        case .idle: return .white
+        case .running: return .jeunePrimaryDarkColor
         }
     }
 
@@ -98,6 +106,7 @@ struct FastTimerCardView: View {
             PrimaryCTAButton(
                 title: buttonTitle,
                 background: buttonColor,
+                foreground: buttonTextColor,
                 action: action
             )
             // Horizontal padding removed to allow button to respect card's overall padding
