@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct JeuneHomeView: View {
-    @State private var progress: Double = 0.6
     @State private var streak: Int = 3
 
     var body: some View {
@@ -10,18 +9,8 @@ struct JeuneHomeView: View {
                 VStack(spacing: 0) {
                     weekStrip
                         .padding(.bottom, 20)
-
-                    // Updated to use full FastTimerCardView with all props
-                    FastTimerCardView(
-                        state: .running(progress: progress),
-                        startDate: "MON, 09:41",
-                        goalHours: 16,
-                        goalTime: "TUE, 01:41"
-                    ) {
-                        // action placeholder
-                    }
-                    .padding(.bottom, 24)
-
+                        FastingDemoView()
+                        .padding(.bottom, 24)
                     ChallengesCardView()
                 }
                 .padding(.top, 4)
