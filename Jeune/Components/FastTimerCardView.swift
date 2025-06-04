@@ -45,12 +45,15 @@ struct FastTimerCardView: View {
     }
 
     private var buttonColor: Color {
-        switch state {
-        case .idle: return .jeunePrimaryColor // deep red
-        // Match the outer stats capsule when breaking fast
-        case .running: return .jeuneStatsBGColor
-        }
+    switch state {
+    case .idle:
+        return .jeunePrimaryColor // deep red
+
+    // Match the outer stats capsule when breaking fast
+    case .running:
+        return .jeuneStatsBGColor
     }
+}
 
     private var buttonTextColor: Color {
         switch state {
