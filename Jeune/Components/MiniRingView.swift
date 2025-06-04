@@ -8,7 +8,7 @@ struct MiniRingView: View {
     var body: some View {
         VStack(spacing: 4) {
             Text(weekday)
-                .font(.caption2.weight(.bold))
+                .font(.system(size: 10, weight: .bold))
                 .foregroundColor(.secondary)
             RingView(
                 progress: progress,
