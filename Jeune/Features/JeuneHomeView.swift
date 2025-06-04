@@ -24,7 +24,7 @@ struct JeuneHomeView: View {
 
                     ChallengesCardView()
                 }
-                .padding(.top, 12)
+                .padding(.top, 4)
                 .padding(.horizontal)
             }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
@@ -50,7 +50,7 @@ struct JeuneHomeView: View {
     }
 
     private var weekStrip: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 24) {
             ForEach(0..<7) { index in
                 let date = Calendar.current.date(byAdding: .day, value: index, to: Date())!
                 DayIndicatorView(
@@ -59,7 +59,7 @@ struct JeuneHomeView: View {
                 )
             }
         }
-        .padding(.vertical, 12)
+        .padding(.vertical, 4)
         .frame(maxWidth: .infinity)
     }
 
