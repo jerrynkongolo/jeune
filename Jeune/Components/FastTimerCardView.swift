@@ -1,8 +1,10 @@
 import SwiftUI
 
-enum FastTimerState {
-    case idle(days: Int)
-    case running(progress: Double)   // 0.0‒1.0  (fraction of goal completed)
+enum FastTimerState: Equatable {
+    /// Idle state showing the time since the last fast in seconds.
+    case idle(seconds: Int)
+    /// Running state with progress fraction 0.0 - 1.0
+    case running(progress: Double)
 }
 
 /// Card displaying the fasting-timer ring and CTA button.
@@ -25,6 +27,9 @@ struct FastTimerCardView: View {
     /// Provide the value using the same `"EEE, HH:mm"` format as `startDate` so
     /// the day of the week can be shown correctly.
     var goalTime: String = "--"
+
+    /// Tapping "EDIT" while idle triggers this action. Optional.
+    var editGoalAction: (() -> Void)? = nil
 
     /// Action for the primary button.
     var action: () -> Void
@@ -129,26 +134,35 @@ struct FastTimerCardView: View {
             x: 0,
             y: 0
         )
+        .animation(.easeInOut(duration: 0.3), value: state)
     }
 
     // MARK: – Sub-views
     @ViewBuilder
     private var centreContent: some View {
         switch state {
-        case .idle(let days):
+        case .idle(let seconds):
             VStack(spacing: 4) {
                 Text("SINCE LAST FAST")
                     .font(.caption.weight(.semibold))
                     .foregroundColor(.secondary)
                     .textCase(.uppercase)
 
-                Text("\(days) days")
-                    .font(.system(size: 52, weight: .heavy))
+                Text(timeString(fromSeconds: seconds))
+                    .font(.system(size: 36, weight: .heavy))
                     .foregroundColor(.jeuneNearBlack)
 
-                Text("EDIT \(goalHours)H GOAL")
-                    .font(.caption.weight(.semibold))
-                    .foregroundColor(.jeunePrimaryDarkColor)
+                if let editAction = editGoalAction {
+                    Button(action: editAction) {
+                        Text("EDIT \(goalHours)H GOAL")
+                            .font(.caption.weight(.semibold))
+                            .foregroundColor(.jeunePrimaryDarkColor)
+                    }
+                } else {
+                    Text("EDIT \(goalHours)H GOAL")
+                        .font(.caption.weight(.semibold))
+                        .foregroundColor(.jeunePrimaryDarkColor)
+                }
             }
 
         case .running(let p):
@@ -244,10 +258,17 @@ struct FastTimerCardView: View {
         let secs = totalSeconds % 60
         return String(format: "%02d:%02d:%02d", hrs, mins, secs)
     }
+
+    private func timeString(fromSeconds seconds: Int) -> String {
+        let hrs = seconds / 3600
+        let mins = (seconds % 3600) / 60
+        let secs = seconds % 60
+        return String(format: "%02d:%02d:%02d", hrs, mins, secs)
+    }
 }
 
 // MARK: – Preview
 #Preview {
-    FastTimerCardView(state: .idle(days: 135)) { }
+    FastTimerCardView(state: .idle(seconds: 3_600)) { }
         .padding()
 }
