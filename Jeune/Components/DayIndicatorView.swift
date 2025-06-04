@@ -13,7 +13,7 @@ struct DayIndicatorView: View {
 
     private var ringColor: Color {
         switch state {
-        case .selected:  return .jeunePrimaryColor
+        case .selected:  return .jeunePrimaryDarkColor
         case .inactive:  return .jeuneRingTrackColor
         case .completed: return .jeuneSuccessColor
         }
@@ -45,7 +45,7 @@ struct DayIndicatorView: View {
 
             Text(label)
                 .font(.system(size: 10, weight: .bold))
-                .foregroundColor(state == .selected ? .jeunePrimaryColor : textColor)
+                .foregroundColor(state == .selected ? .jeunePrimaryDarkColor : textColor)
         }
     }
 }

@@ -11,7 +11,7 @@ struct PrimaryButton: View {
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color.jeunePrimaryColor)
+                .background(Color.jeunePrimaryDarkColor)
                 .cornerRadius(12)
         }
         .padding(.horizontal, 40)

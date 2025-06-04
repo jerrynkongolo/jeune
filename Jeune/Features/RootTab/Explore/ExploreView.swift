@@ -36,7 +36,7 @@ private struct ArticleRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(article.tag.uppercased())
                     .font(.caption2)
-                    .foregroundColor(.jeunePrimaryColor)
+                    .foregroundColor(.jeunePrimaryDarkColor)
                 Text(article.title)
                     .font(.headline)
                     .lineLimit(2)
