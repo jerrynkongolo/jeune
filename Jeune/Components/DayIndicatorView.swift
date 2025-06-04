@@ -31,7 +31,7 @@ struct DayIndicatorView: View {
         VStack(spacing: 4) {
             Text(label)
                 .font(.system(size: 10, weight: .bold))
-                .foregroundColor(state == .selected ? .jeunePrimaryColor : textColor)
+                .foregroundColor(state == .selected ? .jeunePrimaryDarkColor : textColor)
 
             ZStack {
                 let strokeWidth: CGFloat = (state == .inactive ? 2 : 4) * 1.25
@@ -48,9 +48,6 @@ struct DayIndicatorView: View {
                                height: (DesignConstants.miniRingDiameter - 4) * 0.7)
                 }
             }
-Text(label)
-    .font(.system(size: 10, weight: .bold))
-    .foregroundColor(state == .selected ? .jeunePrimaryDarkColor : textColor)
         }
     }
 }
