@@ -13,7 +13,7 @@ struct DayIndicatorView: View {
 
     private var ringColor: Color {
         switch state {
-        case .selected:  return .jeunePrimaryDarkColor
+        case .selected:  return .green
         case .inactive:  return .jeuneRingTrackColor
         case .completed: return .jeuneSuccessColor
         }
@@ -21,9 +21,8 @@ struct DayIndicatorView: View {
 
     private var textColor: Color {
         switch state {
-        case .inactive:  return .secondary
-        case .completed: return .jeuneSuccessColor
-        case .selected:  return .white
+        case .selected:  return .black
+        default:        return .gray
         }
     }
 
@@ -31,7 +30,7 @@ struct DayIndicatorView: View {
         VStack(spacing: 4) {
             Text(label)
                 .font(.system(size: 10, weight: .bold))
-                .foregroundColor(state == .selected ? .jeunePrimaryDarkColor : textColor)
+.foregroundColor(state == .selected ? .jeunePrimaryDarkColor : textColor)
 
             ZStack {
                 // Use a consistent stroke width across all states so gray rings
