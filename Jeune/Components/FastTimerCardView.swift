@@ -146,7 +146,7 @@ struct FastTimerCardView: View {
         case .idle(let seconds):
             VStack(spacing: 4) {
                 Text("SINCE LAST FAST")
-                    .font(.caption.weight(.semibold))
+                    .font(.system(size: 10, weight: .semibold))
                     .foregroundColor(.secondary)
                     .textCase(.uppercase)
 
@@ -159,12 +159,12 @@ struct FastTimerCardView: View {
                 if let editAction = editGoalAction {
                     Button(action: editAction) {
                         Text("EDIT \(goalHours)H GOAL")
-                            .font(.caption.weight(.semibold))
+                            .font(.system(size: 10, weight: .semibold))
                             .foregroundColor(.jeunePrimaryDarkColor)
                     }
                 } else {
                     Text("EDIT \(goalHours)H GOAL")
-                        .font(.caption.weight(.semibold))
+                        .font(.system(size: 10, weight: .semibold))
                         .foregroundColor(.jeunePrimaryDarkColor)
                 }
             }
