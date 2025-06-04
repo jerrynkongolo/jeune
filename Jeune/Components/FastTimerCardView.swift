@@ -70,7 +70,7 @@ struct FastTimerCardView: View {
                 // Background track for the ring
                 Circle()
                     .stroke(lineWidth: (DesignConstants.largeRingLineWidth * 0.9) * 0.85)
-                    .foregroundColor(Color.jeuneRingTrackColor) // Color for the track
+                    .foregroundColor(Color.jeuneStatsBGColor) // Match button and capsule grey
                     .frame(width: DesignConstants.largeRingDiameter * 0.8, height: DesignConstants.largeRingDiameter * 0.8)
 
                 RingView(
