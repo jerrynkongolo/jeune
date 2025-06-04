@@ -79,6 +79,11 @@ struct FastTimerCardView: View {
                     lineWidth: (DesignConstants.largeRingLineWidth * 0.9) * 0.85 // Further reduced thickness by 15%
                 )
 
+                // Thin divider that shows the card's background colour
+                Circle()
+                    .stroke(Color.jeuneCardColor, lineWidth: 1)
+                    .frame(width: DesignConstants.largeRingDiameter * 0.8, height: DesignConstants.largeRingDiameter * 0.8)
+
                 centreContent
                 // Removed specific padding; now governed by ZStack's padding
             }
