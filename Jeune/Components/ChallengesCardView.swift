@@ -9,9 +9,9 @@ struct ChallengesCardView: View {
                     .font(.title3.weight(.semibold))
                 Spacer()
                 Text("SEE ALL")
-                    .font(.caption.weight(.bold))
+                    .font(.system(size: 10, weight: .bold))
                     .foregroundColor(.jeunePrimaryColor)
-            }
+                }
 
             HStack(spacing: 12) {
                 Image(systemName: "flame.fill")
@@ -26,6 +26,7 @@ struct ChallengesCardView: View {
                 Spacer()
                 Image(systemName: "chevron.right")
                     .foregroundColor(.jeunePrimaryColor)
+                    .fontWeight(.bold)
             }
             .padding(.horizontal, 12) // Added horizontal padding inside the gray area
             .frame(height: 76)
