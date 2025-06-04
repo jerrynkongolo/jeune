@@ -10,7 +10,7 @@ struct PrimaryCTAButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 18, weight: .bold))
+                .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(foreground)
                 .frame(maxWidth: .infinity)
                 .frame(height: DesignConstants.primaryCTAHeight)
