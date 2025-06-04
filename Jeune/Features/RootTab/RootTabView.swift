@@ -5,15 +5,33 @@ struct RootTabView: View {
     var body: some View {
         TabView {
             JeuneHomeView()
-                .tabItem { Label("Today", systemImage: "timer") }
+                .tabItem {
+                    VStack {
+                        Image(systemName: "timer")
+                        Text("Today")
+                            .font(.system(size: 12, weight: .semibold))
+                    }
+                }
 
             ExploreView()
-                .tabItem { Label("Explore", systemImage: "safari") }
+                .tabItem {
+                    VStack {
+                        Image(systemName: "safari")
+                        Text("Explore")
+                            .font(.system(size: 12, weight: .semibold))
+                    }
+                }
 
             MeView()
-                .tabItem { Label("Me", systemImage: "person") }
+                .tabItem {
+                    VStack {
+                        Image(systemName: "person")
+                        Text("Me")
+                            .font(.system(size: 12, weight: .semibold))
+                    }
+                }
         }
-        // Accent the selected tab with the brand colour defined in Color+Jeune.
-        .accentColor(.jeunePrimaryDarkColor)
+        // Accent the selected tab with a bright orange that matches the logo.
+        .accentColor(.orange)
     }
 }
