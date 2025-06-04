@@ -1,6 +1,8 @@
 import SwiftUI
 
+
 enum FastTimerState: Equatable {
+
     /// Idle state showing the time since the last fast in seconds.
     case idle(seconds: Int)
     /// Running state with progress fraction 0.0 - 1.0
@@ -149,7 +151,9 @@ struct FastTimerCardView: View {
                     .textCase(.uppercase)
 
                 Text(timeString(fromSeconds: seconds))
+
                     .font(.system(size: 36, weight: .heavy))
+
                     .foregroundColor(.jeuneNearBlack)
 
                 if let editAction = editGoalAction {
