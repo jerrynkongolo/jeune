@@ -1,4 +1,3 @@
-// MeView.swift
 import SwiftUI
 
 /// Displays user metrics and a heat-map style calendar of recent fasts.
@@ -12,10 +11,11 @@ struct MeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 24) {
+                VStack(spacing: 40) {
                     toolbar
                     profileCard
-                    FastCalendar(selectedDate: $selectedDate, fasts: fasts)
+                    calendarSection
+                    metricsSection
                 }
                 .padding(.horizontal)
             }
@@ -45,7 +45,7 @@ struct MeView: View {
             Color.clear.frame(height: 40)
 
             Text("Username")
-                .font(.callout.weight(.semibold))
+                .font(.title3.weight(.semibold))
 
             statsRow
         }
@@ -67,13 +67,9 @@ struct MeView: View {
     private var statsRow: some View {
         HStack {
             statBlock(title: "Total Fast", value: "1,000")
-
             Spacer()
-
             achievementsBlock
-
             Spacer()
-
             statBlock(title: "Current Streak", value: "4")
         }
     }
@@ -82,10 +78,10 @@ struct MeView: View {
     private func statBlock(title: String, value: String) -> some View {
         VStack(spacing: 4) {
             Text(title.uppercased())
-                .font(.jeuneCaption)
+                .font(.jeuneCaptionBold)
                 .foregroundColor(.jeuneGrayColor)
             Text(value)
-                .font(.headline.weight(.bold))
+                .font(.title3.weight(.bold))
                 .foregroundColor(.jeuneNearBlack)
         }
     }
@@ -103,12 +99,122 @@ struct MeView: View {
                         .fill(Color.jeunePrimaryDarkColor)
                         .frame(width: 20, height: 20)
                 }
-
                 Text("+35")
                     .font(.system(size: 10, weight: .bold))
                     .foregroundColor(.jeuneAccentColor)
                     .padding(.leading, 4)
             }
+        }
+    }
+
+    private var calendarSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            sectionHeader(title: "Calendar")
+            calendarCard
+        }
+    }
+
+    private var metricsSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            sectionHeader(title: "Weekly Metrics", action: "Manage Weight")
+            metricsCard
+        }
+    }
+
+    private func sectionHeader(title: String, action: String = "See All") -> some View {
+        HStack {
+            Text(title)
+                .font(.callout.weight(.semibold))
+            Spacer()
+            Text(action.uppercased())
+                .font(.jeuneCaptionBold)
+                .foregroundColor(.jeunePrimaryDarkColor)
+        }
+    }
+
+    private var calendarCard: some View {
+        VStack(spacing: 16) {
+            weekRow(start: 0)
+            weekRow(start: 7)
+            calendarLegend
+        }
+        .jeuneCard()
+    }
+
+    private func weekRow(start: Int) -> some View {
+        HStack(spacing: 32) {
+            ForEach(0..<7) { index in
+                let date = Calendar.current.date(byAdding: .day, value: start + index, to: Date())!
+                CalendarDayView(date: date, color: calendarColors.randomElement()!)
+            }
+        }
+    }
+
+    private var calendarColors: [Color] {
+        [.jeuneNutritionColor, .jeuneActivityColor, .jeuneRestorationColor, .jeuneSleepColor]
+    }
+
+    private var calendarLegend: some View {
+        HStack(spacing: 16) {
+            legendItem(color: .jeuneNutritionColor, label: "Nutrition")
+            legendItem(color: .jeuneActivityColor, label: "Activity")
+            legendItem(color: .jeuneRestorationColor, label: "Restoration")
+            legendItem(color: .jeuneSleepColor, label: "Sleep")
+        }
+    }
+
+    private func legendItem(color: Color, label: String) -> some View {
+        HStack(spacing: 4) {
+            Circle()
+                .fill(color)
+                .frame(width: 8, height: 8)
+            Text(label)
+                .font(.jeuneCaptionBold)
+                .foregroundColor(.jeuneGrayColor)
+        }
+    }
+
+    private var metricsCard: some View {
+        HStack {
+            metricsBlock(title: "Weight", value: "87.5 kg")
+            Spacer()
+            metricsBlock(title: "Avg Fat Burning", value: "2h 30m")
+            Spacer()
+            metricsBlock(title: "Avg Sleep", value: "5h 45m")
+        }
+        .jeuneCard()
+    }
+
+    private func metricsBlock(title: String, value: String) -> some View {
+        VStack(spacing: 4) {
+            Text(title.uppercased())
+                .font(.jeuneCaptionBold)
+                .foregroundColor(.jeuneGrayColor)
+            Text(value)
+                .font(.title3.weight(.bold))
+                .foregroundColor(.jeuneNearBlack)
+        }
+    }
+}
+
+/// Minimalist day view for calendar cells.
+private struct CalendarDayView: View {
+    var date: Date
+    var color: Color
+
+    private var dayString: String {
+        let f = DateFormatter()
+        f.dateFormat = "d"
+        return f.string(from: date)
+    }
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Text(dayString)
+                .font(.jeuneCaptionBold)
+            Circle()
+                .stroke(color, lineWidth: 4)
+                .frame(width: 26, height: 26)
         }
     }
 }
