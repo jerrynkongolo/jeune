@@ -3,21 +3,29 @@ import SwiftUI
 /// Displays user metrics and a heat-map style calendar of recent fasts.
 struct MeView: View {
     @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
-    @State private var showHeader = false
+    @State private var barOpacity: Double = 0
+    @State private var showTitle = false
 
-    /// Approximate height of the floating header including the safe area.
-    private var headerHeight: CGFloat {
-        safeAreaInsets.top + 60
+    /// Height of the navigation bar including the safe area.
+    private var barHeight: CGFloat {
+        safeAreaInsets.top + 44
     }
 
 
     var body: some View {
         NavigationStack {
             ScrollView {
+                GeometryReader { geo in
+                    Color.clear
+                        .preference(key: ScrollOffsetKey.self,
+                                    value: geo.frame(in: .named("scroll")).minY)
+                        .frame(height: 0)
+                }
+
                 VStack(spacing: 40) {
 
                     // Reserve space for the floating header
-                    Color.clear.frame(height: headerHeight)
+                    Color.clear.frame(height: barHeight)
 
      profileCard
                     calendarSection
@@ -28,13 +36,28 @@ struct MeView: View {
             }
             .coordinateSpace(name: "scroll")
             .onPreferenceChange(NameOffsetKey.self) { y in
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    showHeader = y < headerHeight
+                withAnimation(.easeInOut(duration: 0.18)) {
+                    let visible = y < barHeight
+                    barOpacity = visible ? 1 : 0
+                    showTitle = visible
                 }
             }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
-            .navigationBarHidden(true)
-            .overlay(alignment: .top) { appBar }
+            .toolbarBackground(.ultraThinMaterial.opacity(barOpacity))
+            .navigationTitle(showTitle ? "Username" : "")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "paintbrush")
+                        .fontWeight(.bold)
+                        .foregroundColor(.jeuneDarkGray)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Image(systemName: "gearshape")
+                        .fontWeight(.bold)
+                        .foregroundColor(.jeuneDarkGray)
+                }
+            }
         }
     }
 
@@ -47,18 +70,17 @@ struct MeView: View {
 
             Text("Username")
                 .font(.title3.weight(.semibold))
-                .background(
-                    GeometryReader { geo in
-
-                        Color.clear.preference(key: NameOffsetKey.self, value: geo.frame(in: .named("scroll")).maxY)
-
-                    }
-                )
 
             statsRow
         }
         .padding(.vertical, 16)
         .jeuneCard()
+        .background(
+            GeometryReader { geo in
+                Color.clear.preference(key: NameOffsetKey.self,
+                                       value: geo.frame(in: .named("scroll")).maxY)
+            }
+        )
         .overlay(alignment: .top) {
             Image(systemName: "person.crop.circle.fill")
                 .resizable()
@@ -214,47 +236,17 @@ struct MeView: View {
         }
     }
 
-    /// Floating app bar that transitions from transparent to solid when
-    /// scrolling past the username. The paintbrush and gear icons remain
-    /// visible at all times.
-    private var appBar: some View {
-        HStack {
-            Image(systemName: "paintbrush")
-                .fontWeight(.bold)
-                .foregroundColor(.jeuneDarkGray)
-
-            Spacer()
-
-            Text("Username")
-                .font(.callout.weight(.semibold))
-                .foregroundColor(.jeuneNearBlack)
-                .opacity(showHeader ? 1 : 0)
-
-            Spacer()
-
-            Image(systemName: "gearshape")
-                .fontWeight(.bold)
-                .foregroundColor(.jeuneDarkGray)
-        }
-        .padding(.top, safeAreaInsets.top)
-        .padding(.horizontal)
-        .padding(.bottom, 12)
-        .frame(maxWidth: .infinity)
-        .background(
-            Color.white
-                .opacity(showHeader ? 1 : 0)
-                .ignoresSafeArea(edges: .top)
-        )
-        .shadow(
-            color: Color.black.opacity(showHeader ? 0.15 : 0),
-            radius: 2,
-            x: 0,
-            y: 2
-        )
-    }
 
     /// Preference key for tracking the Y position of the username.
     private struct NameOffsetKey: PreferenceKey {
+        static var defaultValue: CGFloat = 0
+        static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+            value = nextValue()
+        }
+    }
+
+    /// Preference key used to monitor the scroll offset of the ScrollView.
+    private struct ScrollOffsetKey: PreferenceKey {
         static var defaultValue: CGFloat = 0
         static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
             value = nextValue()
