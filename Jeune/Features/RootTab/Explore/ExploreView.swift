@@ -136,6 +136,10 @@ struct ExploreView: View {
                 }
                 .padding(.horizontal, 4)
             }
+
+            .scrollClipDisabled()
+            .padding(.vertical, 4)
+
         }
     }
 
