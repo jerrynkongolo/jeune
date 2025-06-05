@@ -27,7 +27,13 @@ struct ExploreView: View {
                     Color.clear
                         .frame(height: headerHeight)
 
-                    FeaturedBannerView()
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("FEATURED")
+                            .font(.callout.weight(.semibold))
+                            .foregroundColor(.jeuneNearBlack)
+
+                        FeaturedBannerView()
+                    }
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 16)
@@ -86,17 +92,19 @@ private struct ExploreHeaderView: View {
 
 
     var body: some View {
-        VStack(spacing: 8) {
+        // Increased spacing to better separate rows
+        VStack(spacing: 14) {
             HStack {
                 Image(systemName: "magnifyingglass")
-                    .fontWeight(.bold)
+                    .font(.system(size: 18, weight: .bold))
                     .foregroundColor(.jeuneDarkGray)
                 Spacer()
                 Text("Explore")
-                    .font(.callout.weight(.bold))
+                    .font(.callout.weight(.semibold))
                     .foregroundColor(.jeuneNearBlack)
                 Spacer()
                 Image(systemName: "bookmark")
+                    .font(.system(size: 18, weight: .bold))
                     .foregroundColor(.jeuneDarkGray)
             }
 
@@ -115,7 +123,8 @@ private struct ExploreHeaderView: View {
                 }
             }
         }
-        .padding(.top, safeAreaInsets.top + 8)
+        // Remove extra offset to tighten space below the notch
+        .padding(.top, safeAreaInsets.top)
         .padding(.horizontal)
         .padding(.bottom, 12)
         .frame(maxWidth: .infinity)
