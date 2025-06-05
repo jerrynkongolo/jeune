@@ -125,18 +125,21 @@ struct ExploreView: View {
 
     private var challengesContent: some View {
         VStack(alignment: .leading, spacing: 8) {
+
             Text("Featured")
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
                 .padding(.leading, 4)
 
             ChallengeBannerView()
+
                 .padding(.bottom, 12)
 
             Text("Join a Challenge")
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
                 .padding(.top, 4)
+
                 .padding(.leading, 4)
 
             VStack(spacing: 0) {
@@ -152,6 +155,7 @@ struct ExploreView: View {
                 }
             }
             .jeuneCard()
+
         }
     }
 }
