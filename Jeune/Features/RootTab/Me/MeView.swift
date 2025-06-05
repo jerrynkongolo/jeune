@@ -15,10 +15,11 @@ struct MeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 40) {
+
                     // Reserve space for the floating header
                     Color.clear.frame(height: headerHeight)
 
-                    profileCard
+     profileCard
                     calendarSection
                     metricsSection
                 }
