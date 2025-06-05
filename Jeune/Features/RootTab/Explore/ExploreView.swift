@@ -15,8 +15,9 @@ struct ExploreView: View {
 
 
     /// Approximate height of the custom header including the safe area.
+    /// Reduced constant to remove excess spacing under the notch.
     private var headerHeight: CGFloat {
-        safeAreaInsets.top + 112
+        safeAreaInsets.top + 96
     }
 
     var body: some View {
@@ -94,7 +95,7 @@ private struct ExploreHeaderView: View {
     var body: some View {
 
         // Increased spacing to better separate rows
-        VStack(spacing: 14) {
+        VStack(spacing: 18) {
 
             HStack {
                 Image(systemName: "magnifyingglass")
