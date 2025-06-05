@@ -2,7 +2,8 @@ import SwiftUI
 
 /// Displays user metrics and a heat-map style calendar of recent fasts.
 struct MeView: View {
-
+    @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
+    @State private var showHeader = false
 
 
     var body: some View {
@@ -18,8 +19,15 @@ struct MeView: View {
                 .padding(.horizontal)
                 .padding(.bottom, 16)
             }
+            .coordinateSpace(name: "scroll")
+            .onPreferenceChange(NameOffsetKey.self) { y in
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    showHeader = y < safeAreaInsets.top
+                }
+            }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
             .navigationBarHidden(true)
+            .overlay(alignment: .top) { appBar.opacity(showHeader ? 1 : 0) }
         }
     }
 
@@ -42,11 +50,16 @@ struct MeView: View {
 
     /// Card displaying the user's avatar and stats.
     private var profileCard: some View {
-        VStack(spacing: 8) {
-            Color.clear.frame(height: 40)
+        VStack(spacing: 4) {
+            Color.clear.frame(height: 24)
 
             Text("Username")
                 .font(.title3.weight(.semibold))
+                .background(
+                    GeometryReader { geo in
+                        Color.clear.preference(key: NameOffsetKey.self, value: geo.frame(in: .named("scroll")).maxY)
+                    }
+                )
 
             statsRow
         }
@@ -204,6 +217,41 @@ struct MeView: View {
             Text(value)
                 .font(.title3.weight(.bold))
                 .foregroundColor(.jeuneNearBlack)
+        }
+    }
+
+    /// Floating app bar that appears when scrolling up past the username.
+    private var appBar: some View {
+        HStack {
+            Image(systemName: "paintbrush")
+                .fontWeight(.bold)
+                .foregroundColor(.jeuneDarkGray)
+
+            Spacer()
+
+            Text("Username")
+                .font(.callout.weight(.semibold))
+                .foregroundColor(.jeuneNearBlack)
+
+            Spacer()
+
+            Image(systemName: "gearshape")
+                .fontWeight(.bold)
+                .foregroundColor(.jeuneDarkGray)
+        }
+        .padding(.top, safeAreaInsets.top)
+        .padding(.horizontal)
+        .padding(.bottom, 12)
+        .frame(maxWidth: .infinity)
+        .background(Color.white.ignoresSafeArea(edges: .top))
+        .shadow(color: Color.black.opacity(0.15), radius: 2, x: 0, y: 2)
+    }
+
+    /// Preference key for tracking the Y position of the username.
+    private struct NameOffsetKey: PreferenceKey {
+        static var defaultValue: CGFloat = 0
+        static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+            value = nextValue()
         }
     }
 
