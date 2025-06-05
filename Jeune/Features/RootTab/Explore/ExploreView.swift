@@ -12,13 +12,8 @@ struct ExploreView: View {
     /// Previously selected segment used to determine sweep direction.
     @State private var previousSegment: ExploreSegment = .home
     /// Direction that controls the slide transition between segment views.
-    @State private var forwardTransition: Bool = true
-    @Namespace private var segmentNamespace
 
-    /// Previously selected segment used to determine sweep direction.
-    @State private var previousSegment: ExploreSegment = .home
-    /// Direction that controls the slide transition between segment views.
-    @State private var forwardTransition: Bool = true
+    @State private var isForwardTransition: Bool = true
 
     @Namespace private var segmentNamespace
 
@@ -78,6 +73,29 @@ struct ExploreView: View {
         previousSegment = newValue
     }
 
+    /// Transition used for sweeping in the selected segment's content.
+    private var sweepTransition: AnyTransition {
+        if isForwardTransition {
+            return .asymmetric(insertion: .move(edge: .trailing),
+                               removal: .move(edge: .leading))
+        } else {
+            return .asymmetric(insertion: .move(edge: .leading),
+                               removal: .move(edge: .trailing))
+        }
+    }
+
+    /// Updates the direction for the transition based on the newly selected segment.
+    private func updateTransitionDirection(for newValue: ExploreSegment) {
+        let cases = ExploreSegment.allCases
+        if let newIndex = cases.firstIndex(of: newValue),
+           let oldIndex = cases.firstIndex(of: previousSegment) {
+            isForwardTransition = newIndex > oldIndex
+        } else {
+            isForwardTransition = true
+        }
+        previousSegment = newValue
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -108,11 +126,48 @@ struct ExploreView: View {
             .navigationBarHidden(true)
             .overlay(alignment: .top) {
                 ExploreHeaderView(selected: $selectedSegment, animation: segmentNamespace)
+
+            }
+            .onChange(of: selectedSegment) { newValue in
+                updateTransitionDirection(for: newValue)
+
             }
 
             .onChange(of: selectedSegment) { newValue in
                 updateTransitionDirection(for: newValue)
             }
+        }
+    }
+
+    private var homeContent: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("FEATURED")
+                .font(.callout.weight(.semibold))
+                .foregroundColor(.jeuneNearBlack)
+
+            FeaturedBannerView()
+        }
+    }
+
+    private var learnContent: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("ARTICLES")
+                .font(.callout.weight(.semibold))
+                .foregroundColor(.jeuneNearBlack)
+
+            ForEach(viewModel.filteredArticles) { article in
+                ArticleRow(article: article)
+            }
+        }
+    }
+
+    private var challengesContent: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("CHALLENGES")
+                .font(.callout.weight(.semibold))
+                .foregroundColor(.jeuneNearBlack)
+
+            ChallengesCardView()
         }
     }
 
@@ -233,7 +288,8 @@ private struct ExploreHeaderView: View {
                         .onTapGesture {
 
                             withAnimation(.spring(response: 0.55, dampingFraction: 0.8)) {
-                selected = segment
+                                selected = segment
+
                             }
                         }
                 }
