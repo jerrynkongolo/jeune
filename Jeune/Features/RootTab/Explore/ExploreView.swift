@@ -1,15 +1,18 @@
-// ExploreView.swift
 import SwiftUI
 
 /// Main explore screen displaying featured content and articles.
 struct ExploreView: View {
     @StateObject private var viewModel = ExploreViewModel()
+
     @Environment(\.openURL) private var openURL: OpenURLAction
+
 
     /// Currently selected segment in the segmented menu.
     @State private var selectedSegment: ExploreSegment = .home
 
+
     @Environment(\.safeAreaInsets) private var safeAreaInsets: EdgeInsets
+
 
     /// Approximate height of the custom header including the safe area.
     private var headerHeight: CGFloat {
@@ -78,7 +81,9 @@ private enum ExploreSegment: String, CaseIterable {
 /// Fixed header containing toolbar actions and the segmented menu.
 private struct ExploreHeaderView: View {
     @Binding var selected: ExploreSegment
+
     @Environment(\.safeAreaInsets) private var safeAreaInsets: EdgeInsets
+
 
     var body: some View {
         VStack(spacing: 8) {
@@ -127,10 +132,12 @@ private struct FeaturedBannerView: View {
                 Text("ARTICLE")
                     .font(.caption.weight(.bold))
                     .foregroundColor(Color.white.opacity(0.7))
+
                 Text("The Complete Guide to Fat Burning")
                     .font(.headline.weight(.bold))
                     .foregroundColor(.white)
                     
+
                 Button(action: {}) {
                     Text("Read Now")
                         .font(.footnote.weight(.semibold))
@@ -150,7 +157,9 @@ private struct FeaturedBannerView: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 150)
+
         .background(Color(red: 0.0, green: 0.27, blue: 0.73))
+
         .cornerRadius(DesignConstants.cornerRadius)
     }
 }
@@ -158,4 +167,3 @@ private struct FeaturedBannerView: View {
 #Preview {
     ExploreView()
 }
-
