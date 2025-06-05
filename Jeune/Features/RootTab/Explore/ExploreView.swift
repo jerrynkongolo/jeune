@@ -17,7 +17,7 @@ struct ExploreView: View {
     /// Approximate height of the custom header including the safe area.
     /// Reduced constant to remove excess spacing under the notch.
     private var headerHeight: CGFloat {
-        safeAreaInsets.top + 96
+        safeAreaInsets.top + 85
     }
 
     var body: some View {
@@ -29,7 +29,7 @@ struct ExploreView: View {
                         .frame(height: headerHeight)
 
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("FEATURED")
+                        Text("Featured")
                             .font(.callout.weight(.semibold))
                             .foregroundColor(.jeuneNearBlack)
 
