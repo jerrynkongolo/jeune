@@ -18,7 +18,7 @@ struct ExploreView: View {
     /// Approximate height of the custom header including the safe area.
     /// Reduced constant to remove excess spacing under the notch.
     private var headerHeight: CGFloat {
-        safeAreaInsets.top + 96
+        safeAreaInsets.top + 85
     }
 
     var body: some View {
@@ -29,6 +29,7 @@ struct ExploreView: View {
                     Color.clear
                         .frame(height: headerHeight)
 
+
                     Group {
                         switch selectedSegment {
                         case .home:
@@ -38,6 +39,7 @@ struct ExploreView: View {
                         case .challenges:
                             challengesContent
                         }
+
                     }
                 }
                 .padding(.horizontal)
