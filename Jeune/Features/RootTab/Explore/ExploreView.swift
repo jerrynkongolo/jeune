@@ -6,6 +6,8 @@ struct ExploreView: View {
 
     @Environment(\.openURL) private var openURL: OpenURLAction
 
+    @EnvironmentObject private var appState: AppState
+
 
     /// Currently selected segment in the segmented menu.
     @State private var selectedSegment: ExploreSegment = .home
@@ -88,13 +90,17 @@ struct ExploreView: View {
                 ExploreHeaderView(selected: $selectedSegment, animation: segmentNamespace)
 
             }
-            .onChange(of: selectedSegment) { newValue in
-                updateTransitionDirection(for: newValue)
-
+            .onAppear {
+                selectedSegment = appState.exploreSegment
             }
-
             .onChange(of: selectedSegment) { newValue in
                 updateTransitionDirection(for: newValue)
+                appState.exploreSegment = newValue
+            }
+            .onChange(of: appState.exploreSegment) { newValue in
+                guard newValue != selectedSegment else { return }
+                updateTransitionDirection(for: newValue)
+                selectedSegment = newValue
             }
         }
     }
@@ -108,6 +114,29 @@ struct ExploreView: View {
                 .padding(.leading, 4)
 
             FeaturedBannerView()
+                .padding(.bottom, 12)
+
+            HStack {
+                Text("Try Challenge")
+                    .font(.callout.weight(.semibold))
+                    .foregroundColor(.jeuneNearBlack)
+                    .padding(.leading, 4)
+                Spacer()
+                Button(action: { appState.exploreSegment = .challenges }) {
+                    Text("SEE ALL")
+                        .font(.jeuneCaptionBold)
+                        .foregroundColor(.jeunePrimaryDarkColor)
+                }
+            }
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(Challenge.sampleChallenges) { challenge in
+                        ChallengeCardView(challenge: challenge)
+                    }
+                }
+                .padding(.horizontal, 4)
+            }
         }
     }
 
@@ -190,12 +219,7 @@ private struct ArticleRow: View {
     }
 }
 
-/// Explore screen segments.
-private enum ExploreSegment: String, CaseIterable {
-    case home = "Home"
-    case learn = "Learn"
-    case challenges = "Challenges"
-}
+
 
 /// Fixed header containing toolbar actions and the segmented menu.
 private struct ExploreHeaderView: View {

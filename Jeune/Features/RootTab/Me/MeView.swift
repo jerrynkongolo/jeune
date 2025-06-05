@@ -284,6 +284,7 @@ struct MeView: View {
             }
 
             fastBarGraph
+
                 .frame(height: 100)
 
             fastLegend
@@ -299,11 +300,13 @@ struct MeView: View {
                     .clipShape(Capsule())
             }
             .frame(maxWidth: .infinity)
+
         }
         .jeuneCard()
     }
 
     private var fastBarGraph: some View {
+
         GeometryReader { geo in
             let width = geo.size.width * 0.7
             HStack(alignment: .bottom, spacing: 0) {
@@ -322,6 +325,7 @@ struct MeView: View {
             .frame(width: width, height: 100, alignment: .bottom)
             .frame(maxWidth: .infinity)
         }
+
     }
 
     private var fastLegend: some View {
@@ -333,6 +337,7 @@ struct MeView: View {
 
     private var fastData: [FastDay] {
         [
+
             FastDay(hours: "18h", date: "5/01", completed: true),
             FastDay(hours: "17h", date: "5/02", completed: true),
             FastDay(hours: "15h", date: "5/03", completed: false),
@@ -340,10 +345,12 @@ struct MeView: View {
             FastDay(hours: "16h", date: "5/05", completed: false),
             FastDay(hours: "20h", date: "5/06", completed: true),
             FastDay(hours: "18h", date: "5/07", completed: true)
+
         ]
     }
 
     private struct FastDay {
+
         var hours: String
         var date: String
         var completed: Bool
@@ -368,6 +375,7 @@ struct MeView: View {
             }
         }
     }
+
 
 
     /// Preference key for tracking the Y position of the username.
