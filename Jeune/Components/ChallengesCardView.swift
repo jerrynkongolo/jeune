@@ -7,6 +7,7 @@ struct ChallengesCardView: View {
             HStack {
                 Text("Challenges")
                     .font(.callout.weight(.semibold))
+                    .padding(.leading, 4)
                 Spacer()
                 Text("SEE ALL")
                     .font(.jeuneCaptionBold)
