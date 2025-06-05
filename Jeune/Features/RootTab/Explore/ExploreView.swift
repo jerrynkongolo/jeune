@@ -107,26 +107,16 @@ struct ExploreView: View {
 
     private var homeContent: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Featured")
-                .font(.callout.weight(.semibold))
-                .foregroundColor(.jeuneNearBlack)
-                .padding(.leading, 4)
+            SectionHeaderView(title: "Featured")
 
             FeaturedBannerView()
                 .padding(.bottom, 12)
 
-            HStack {
-                Text("Try Challenge")
-                    .font(.callout.weight(.semibold))
-                    .foregroundColor(.jeuneNearBlack)
-                    .padding(.leading, 4)
-                Spacer()
-                Button(action: { appState.exploreSegment = .challenges }) {
-                    Text("SEE ALL")
-                        .font(.jeuneCaptionBold)
-                        .foregroundColor(.jeunePrimaryDarkColor)
-                }
-            }
+            SectionHeaderView(
+                title: "Try Challenge",
+                actionTitle: "See All",
+                action: { appState.exploreSegment = .challenges }
+            )
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
@@ -145,9 +135,7 @@ struct ExploreView: View {
 
     private var learnContent: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("ARTICLES")
-                .font(.callout.weight(.semibold))
-                .foregroundColor(.jeuneNearBlack)
+            SectionHeaderView(title: "ARTICLES")
 
             ForEach(viewModel.filteredArticles) { article in
                 ArticleRow(article: article)
@@ -157,23 +145,14 @@ struct ExploreView: View {
 
     private var challengesContent: some View {
         VStack(alignment: .leading, spacing: 8) {
-
-            Text("Featured")
-                .font(.callout.weight(.semibold))
-                .foregroundColor(.jeuneNearBlack)
-                .padding(.leading, 4)
+            SectionHeaderView(title: "Featured")
 
             ChallengeBannerView()
 
                 .padding(.bottom, 12)
 
-            Text("Join a Challenge")
-                .font(.callout.weight(.semibold))
-                .foregroundColor(.jeuneNearBlack)
-                .padding(.top, 4)
-
-                .padding(.leading, 4)
-
+            SectionHeaderView(title: "Join a Challenge")
+                
             VStack(spacing: 0) {
                 ForEach(Challenge.sampleChallenges) { challenge in
                     NavigationLink(destination: Text(challenge.title)) {
