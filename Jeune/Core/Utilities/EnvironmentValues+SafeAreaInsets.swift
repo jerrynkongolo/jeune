@@ -1,7 +1,9 @@
 // EnvironmentValues+SafeAreaInsets.swift
 import SwiftUI
 
-private struct SafeAreaInsetsKey: EnvironmentKey {
+
+private struct JeuneSafeAreaInsetsKey: EnvironmentKey {
+
     static var defaultValue: EdgeInsets {
 #if os(iOS)
         let insets = UIApplication.shared.connectedScenes
@@ -15,8 +17,10 @@ private struct SafeAreaInsetsKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-    var safeAreaInsets: EdgeInsets {
-        get { self[SafeAreaInsetsKey.self] }
-        set { self[SafeAreaInsetsKey.self] = newValue }
+
+    var jeuneSafeAreaInsets: EdgeInsets {
+        get { self[JeuneSafeAreaInsetsKey.self] }
+        set { self[JeuneSafeAreaInsetsKey.self] = newValue }
+
     }
 }
