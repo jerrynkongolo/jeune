@@ -32,6 +32,7 @@ struct MeView: View {
                     profileCard
                     calendarSection
                     metricsSection
+                    recentFastsSection
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 16)
@@ -253,6 +254,93 @@ struct MeView: View {
                 .font(.title3.weight(.bold))
                 .foregroundColor(.jeuneNearBlack)
         }
+    }
+
+    // MARK: - Recent Fasts Section
+
+    private var recentFastsSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            sectionHeader(title: "Recent Fasts")
+            recentFastsCard
+        }
+    }
+
+    private var recentFastsCard: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("AVERAGE")
+                        .font(.jeuneCaption)
+                        .foregroundColor(.jeuneGrayColor)
+
+                    Text("16h 26m")
+                        .font(.title3.weight(.bold))
+                        .foregroundColor(.jeuneNearBlack)
+                }
+                Spacer()
+                Text("May 1 - Jun 5")
+                    .font(.jeuneCaptionBold)
+                    .foregroundColor(.jeuneGrayColor)
+            }
+
+            fastBarGraph
+
+            fastLegend
+
+            HStack {
+                Spacer()
+                PrimaryCTAButton(
+                    title: "Add Fast",
+                    background: .jeunePrimaryDarkColor,
+                    action: {}
+                )
+                .frame(maxWidth: 160)
+                Spacer()
+            }
+        }
+        .jeuneCard()
+    }
+
+    private var fastBarGraph: some View {
+        HStack(alignment: .bottom, spacing: 0) {
+            ForEach(fastData.indices, id: \.self) { index in
+                Capsule()
+                    .fill(fastData[index].completed ? Color.jeuneSuccessColor : Color.jeuneRingTrackColor)
+                    .frame(width: 8, height: fastData[index].completed ? 50 : 20)
+
+                if index != fastData.count - 1 {
+                    Spacer().frame(width: 6)
+                    Rectangle()
+                        .fill(Color.jeuneGrayColor.opacity(0.3))
+                        .frame(width: 1, height: 50)
+                    Spacer().frame(width: 6)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, minHeight: 50, alignment: .bottom)
+    }
+
+    private var fastLegend: some View {
+        HStack(spacing: 16) {
+            legendItem(color: .jeuneSuccessColor, label: "Goal Met")
+            legendItem(color: .jeuneGrayColor, label: "Goal Not Met")
+        }
+    }
+
+    private var fastData: [FastDay] {
+        [
+            FastDay(completed: true),
+            FastDay(completed: true),
+            FastDay(completed: false),
+            FastDay(completed: true),
+            FastDay(completed: false),
+            FastDay(completed: true),
+            FastDay(completed: true)
+        ]
+    }
+
+    private struct FastDay {
+        var completed: Bool
     }
 
 
