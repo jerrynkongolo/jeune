@@ -1,18 +1,18 @@
-// ExploreView.swift
 import SwiftUI
 
 /// Main explore screen displaying featured content and articles.
 struct ExploreView: View {
     @StateObject private var viewModel = ExploreViewModel()
     @Environment(\.openURL) private var openURL
+    @Environment(\.safeAreaInsets) private var safeAreaInsets
 
     /// Currently selected segment in the segmented menu.
     @State private var selectedSegment: ExploreSegment = .home
 
-
     /// Approximate height of the custom header including the safe area.
-    private let headerHeight: CGFloat = 120
-
+    private var headerHeight: CGFloat {
+        safeAreaInsets.top + 112
+    }
 
     var body: some View {
         NavigationStack {
@@ -23,7 +23,6 @@ struct ExploreView: View {
                         .frame(height: headerHeight)
 
                     FeaturedBannerView()
-
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 16)
@@ -32,9 +31,6 @@ struct ExploreView: View {
             .navigationBarHidden(true)
             .overlay(alignment: .top) {
                 ExploreHeaderView(selected: $selectedSegment)
-
-                    .ignoresSafeArea(.container, edges: .top)
-
             }
         }
     }
@@ -80,18 +76,17 @@ private enum ExploreSegment: String, CaseIterable {
 /// Fixed header containing toolbar actions and the segmented menu.
 private struct ExploreHeaderView: View {
     @Binding var selected: ExploreSegment
+    @Environment(\.safeAreaInsets) private var safeAreaInsets
 
     var body: some View {
         VStack(spacing: 8) {
             HStack {
                 Image(systemName: "magnifyingglass")
-
                     .fontWeight(.bold)
                     .foregroundColor(.jeuneDarkGray)
                 Spacer()
                 Text("Explore")
                     .font(.callout.weight(.bold))
-
                     .foregroundColor(.jeuneNearBlack)
                 Spacer()
                 Image(systemName: "bookmark")
@@ -102,27 +97,23 @@ private struct ExploreHeaderView: View {
                 ForEach(ExploreSegment.allCases, id: \.self) { segment in
                     Text(segment.rawValue)
                         .font(.jeuneCaptionBold)
-
                         .foregroundColor(selected == segment ? .jeuneAccentColor : .jeuneDarkGray)
                         .padding(.vertical, 6)
                         .frame(maxWidth: .infinity)
                         .background(
                             Capsule()
                                 .fill(selected == segment ? Color.jeuneAccentColor.opacity(0.15) : Color.clear)
-
                         )
                         .onTapGesture { selected = segment }
                 }
             }
         }
-        .padding(.top, 8)
+        .padding(.top, safeAreaInsets.top + 8)
         .padding(.horizontal)
         .padding(.bottom, 12)
         .frame(maxWidth: .infinity)
-        .background(
-            Color.white
-                .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
-        )
+        .background(Color.white.ignoresSafeArea(edges: .top))
+        .shadow(color: Color.black.opacity(0.15), radius: 2, x: 0, y: 2)
     }
 }
 
@@ -132,14 +123,12 @@ private struct FeaturedBannerView: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("ARTICLE")
-
                     .font(.caption.weight(.bold))
-                    .foregroundColor(.jeuneGrayColor)
-                Text("The Complete Guide to Fat Burning")
-                    .font(.jeuneTitle2)
-                    .fontWeight(.bold)
+                    .foregroundColor(Color.white.opacity(0.7))
 
-                    .foregroundColor(.jeuneNearBlack)
+                Text("The Complete Guide to Fat Burning")
+                    .font(.headline.weight(.bold))
+                    .foregroundColor(.white)
 
                 Button(action: {}) {
                     Text("Read Now")
@@ -152,7 +141,6 @@ private struct FeaturedBannerView: View {
                 }
             }
             .padding()
-
             .frame(maxWidth: .infinity, alignment: .leading)
 
             Rectangle()
@@ -161,8 +149,7 @@ private struct FeaturedBannerView: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 150)
-        .background(Color(red: 0.0, green: 0.34, blue: 0.94))
-
+        .background(Color(red: 0.0, green: 0.27, blue: 0.73)) // Chose the darker blue for better contrast
         .cornerRadius(DesignConstants.cornerRadius)
     }
 }
@@ -170,4 +157,3 @@ private struct FeaturedBannerView: View {
 #Preview {
     ExploreView()
 }
-
