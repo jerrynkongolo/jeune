@@ -21,10 +21,15 @@ struct ExploreView: View {
     @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
 
 
+    /// Padding applied to the header. Removing a small amount keeps the
+    /// toolbar consistent with the rest of the app.
+    private var headerTopPadding: CGFloat {
+        max(0, safeAreaInsets.top - 6)
+    }
+
     /// Approximate height of the custom header including the safe area.
-    /// Reduced constant to remove excess spacing under the notch.
     private var headerHeight: CGFloat {
-        safeAreaInsets.top + 85
+        headerTopPadding + 85
     }
 
 
@@ -97,7 +102,7 @@ struct ExploreView: View {
 
     private var homeContent: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("FEATURED")
+            Text("Featured")
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
 
@@ -119,11 +124,31 @@ struct ExploreView: View {
 
     private var challengesContent: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("CHALLENGES")
+            Text("Featured")
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
 
-            ChallengesCardView()
+            ChallengeBannerView()
+                .padding(.bottom, 12)
+
+            Text("Join a Challenge")
+                .font(.callout.weight(.semibold))
+                .foregroundColor(.jeuneNearBlack)
+                .padding(.top, 4)
+
+            VStack(spacing: 0) {
+                ForEach(Challenge.sampleChallenges) { challenge in
+                    NavigationLink(destination: Text(challenge.title)) {
+                        ChallengeRow(challenge: challenge)
+                    }
+
+                    if challenge.id != Challenge.sampleChallenges.last?.id {
+                        Divider()
+                            .background(Color.jeuneGrayColor.opacity(0.3))
+                    }
+                }
+            }
+            .jeuneCard()
         }
     }
 }
@@ -221,7 +246,7 @@ private struct ExploreHeaderView: View {
         }
 
         // Remove extra offset to tighten space below the notch
-        .padding(.top, safeAreaInsets.top)
+        .padding(.top, max(0, safeAreaInsets.top - 6))
 
         .padding(.horizontal)
         .padding(.bottom, 12)
