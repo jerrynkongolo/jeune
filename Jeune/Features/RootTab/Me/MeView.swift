@@ -22,9 +22,12 @@ struct MeView: View {
                         .frame(height: 0)
                 }
 
+
                 VStack(spacing: 24) {
                     // Reserve space for the floating header
+
                     Color.clear.frame(height: barHeight - 24)
+
 
                     profileCard
                     calendarSection
@@ -44,7 +47,9 @@ struct MeView: View {
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
             .toolbarBackground(.ultraThinMaterial.opacity(barOpacity))
             .navigationTitle(showTitle ? "Username" : "")
+
             .navigationBarTitleDisplayMode(.inline)
+
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Image(systemName: "paintbrush")
