@@ -105,6 +105,7 @@ struct ExploreView: View {
             Text("Featured")
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
+                .padding(.leading, 4)
 
             FeaturedBannerView()
         }
@@ -124,7 +125,9 @@ struct ExploreView: View {
 
     private var challengesContent: some View {
         VStack(alignment: .leading, spacing: 8) {
+                .padding(.leading, 4)
 
+                .padding(.leading, 4)
             Text("Featured")
 
                 .font(.callout.weight(.semibold))

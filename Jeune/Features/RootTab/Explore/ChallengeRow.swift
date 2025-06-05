@@ -7,7 +7,7 @@ struct ChallengeRow: View {
         HStack(spacing: 12) {
             Image(systemName: challenge.image)
 
-                .frame(width: 46, height: 46)
+                .font(.system(size: 12, weight: .bold))
 
                 .foregroundColor(.jeunePrimaryDarkColor)
                 .background(Circle().fill(Color.jeuneGrayColor.opacity(0.2)))
