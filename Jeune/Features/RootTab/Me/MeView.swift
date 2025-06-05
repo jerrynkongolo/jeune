@@ -5,25 +5,31 @@ struct MeView: View {
     @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
     @State private var showHeader = false
 
+    /// Approximate height of the floating header including the safe area.
+    private var headerHeight: CGFloat {
+        safeAreaInsets.top + 60
+    }
+
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 40) {
-                    profileCard
+
+                    // Reserve space for the floating header
+                    Color.clear.frame(height: headerHeight)
+
+     profileCard
                     calendarSection
                     metricsSection
                 }
-                .padding(.top, 4)
                 .padding(.horizontal)
                 .padding(.bottom, 16)
             }
             .coordinateSpace(name: "scroll")
             .onPreferenceChange(NameOffsetKey.self) { y in
                 withAnimation(.easeInOut(duration: 0.2)) {
-
-                    showHeader = y < safeAreaInsets.top
-
+                    showHeader = y < headerHeight
                 }
             }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
