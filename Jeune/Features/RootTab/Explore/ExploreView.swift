@@ -9,10 +9,12 @@ struct ExploreView: View {
 
     /// Currently selected segment in the segmented menu.
     @State private var selectedSegment: ExploreSegment = .home
+
     /// Previously selected segment used to determine sweep direction.
     @State private var previousSegment: ExploreSegment = .home
     /// Direction that controls the slide transition between segment views.
     @State private var forwardTransition: Bool = true
+
     @Namespace private var segmentNamespace
 
 
@@ -22,7 +24,7 @@ struct ExploreView: View {
     /// Approximate height of the custom header including the safe area.
     /// Reduced constant to remove excess spacing under the notch.
     private var headerHeight: CGFloat {
-        safeAreaInsets.top + 96
+        safeAreaInsets.top + 85
     }
 
     /// Transition used for sweeping in the selected segment's content.
@@ -56,10 +58,12 @@ struct ExploreView: View {
                     Color.clear
                         .frame(height: headerHeight)
 
+
                     ZStack {
                         if selectedSegment == .home { homeContent.transition(sweepTransition) }
                         if selectedSegment == .learn { learnContent.transition(sweepTransition) }
                         if selectedSegment == .challenges { challengesContent.transition(sweepTransition) }
+
                     }
                     .animation(.spring(response: 0.35, dampingFraction: 0.75), value: selectedSegment)
                 }
@@ -71,6 +75,7 @@ struct ExploreView: View {
             .overlay(alignment: .top) {
                 ExploreHeaderView(selected: $selectedSegment, animation: segmentNamespace)
             }
+
             .onChange(of: selectedSegment) { newValue in
                 updateTransitionDirection(for: newValue)
             }
@@ -98,6 +103,7 @@ struct ExploreView: View {
             }
         }
     }
+
 
     private var challengesContent: some View {
         VStack(alignment: .leading, spacing: 8) {
