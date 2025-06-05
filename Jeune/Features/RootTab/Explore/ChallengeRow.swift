@@ -5,12 +5,16 @@ struct ChallengeRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: challenge.image)
 
+            Image(challenge.image)
+                .resizable()
+                .scaledToFit()
                 .frame(width: 46, height: 46)
-
-                .foregroundColor(.jeunePrimaryDarkColor)
-                .background(Circle().fill(Color.jeuneGrayColor.opacity(0.2)))
+                .clipShape(Circle())
+                .background(
+                    Circle()
+                        .fill(Color.jeuneGrayColor.opacity(0.2))
+                )
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(challenge.tag.uppercased())

@@ -34,7 +34,6 @@ struct ChallengeBannerView: View {
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
 
-
         }
         .frame(maxWidth: .infinity)
         .frame(height: 150)
