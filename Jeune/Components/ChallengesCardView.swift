@@ -9,7 +9,7 @@ struct ChallengesCardView: View {
                     .font(.callout.weight(.semibold))
                 Spacer()
                 Text("SEE ALL")
-                    .font(.system(size: 10, weight: .bold))
+                    .font(.jeuneCaptionBold)
                     .foregroundColor(.jeunePrimaryDarkColor)
                 }
 
@@ -34,17 +34,7 @@ struct ChallengesCardView: View {
             .background(Color(red: 0.94, green: 0.94, blue: 0.95))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
-        .padding(.vertical, 16)
-        .padding(.horizontal, 16)
-        .frame(maxWidth: .infinity)
-        .background(Color.jeuneCardColor)
-        .cornerRadius(DesignConstants.cornerRadius)
-        .shadow(
-            color: DesignConstants.cardShadow,
-            radius: DesignConstants.cardShadowRadius,
-            x: 0,
-            y: 0
-        )
+        .jeuneCard()
     }
 }
 

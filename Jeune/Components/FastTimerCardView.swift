@@ -36,6 +36,21 @@ struct FastTimerCardView: View {
     /// Action for the primary button.
     var action: () -> Void
 
+    /// Formatter used to parse `startDate` and `goalTime` strings.
+    private static let inputFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "EEE, HH:mm"
+        f.locale = Locale(identifier: "en_US_POSIX")
+        return f
+    }()
+
+    /// Formatter used to display times to the user.
+    private static let outputFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "EEE, h:mm a"
+        return f
+    }()
+
     // MARK: – Derived values
     private var progress: Double {
         switch state {
@@ -102,12 +117,12 @@ struct FastTimerCardView: View {
                 // Titles Row (Outside and above the gray stats capsule)
                 HStack {
                     Text("STARTED")
-                        .font(.system(size: 10, weight: .semibold)) // Changed to 10pt
+                    .font(.jeuneCaption)
                         .foregroundColor(.jeuneGrayColor)
                         .frame(maxWidth: .infinity, alignment: .center)
 
                     Text("\(goalHours)H GOAL")
-                        .font(.system(size: 10, weight: .semibold)) // Changed to 10pt
+                    .font(.jeuneCaption)
                         .foregroundColor(.jeuneGrayColor)
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
@@ -126,16 +141,7 @@ struct FastTimerCardView: View {
             )
             // Horizontal padding removed to allow button to respect card's overall padding
         }
-        .padding(16)
-        .frame(maxWidth: .infinity)
-        .background(Color.jeuneCardColor)
-        .cornerRadius(DesignConstants.cornerRadius)
-        .shadow(
-            color: DesignConstants.cardShadow,
-            radius: DesignConstants.cardShadowRadius,
-            x: 0,
-            y: 0
-        )
+        .jeuneCard()
         .animation(.easeInOut(duration: 0.3), value: state)
     }
 
@@ -146,7 +152,7 @@ struct FastTimerCardView: View {
         case .idle(let seconds):
             VStack(spacing: 4) {
                 Text("SINCE LAST FAST")
-                    .font(.system(size: 10, weight: .semibold))
+                    .font(.jeuneCaption)
                     .foregroundColor(.secondary)
                     .textCase(.uppercase)
 
@@ -159,12 +165,12 @@ struct FastTimerCardView: View {
                 if let editAction = editGoalAction {
                     Button(action: editAction) {
                         Text("EDIT \(goalHours)H GOAL")
-                            .font(.system(size: 10, weight: .semibold))
+                            .font(.jeuneCaption)
                             .foregroundColor(.jeunePrimaryDarkColor)
                     }
                 } else {
                     Text("EDIT \(goalHours)H GOAL")
-                        .font(.system(size: 10, weight: .semibold))
+                        .font(.jeuneCaption)
                         .foregroundColor(.jeunePrimaryDarkColor)
                 }
             }
@@ -185,7 +191,7 @@ struct FastTimerCardView: View {
 
     private func valuePill(value: String) -> some View {
         Text(value)
-            .font(.system(size: 10, weight: .bold)) // Changed to 10pt and bold
+            .font(.jeuneCaptionBold)
             .foregroundColor(.jeunePrimaryDarkColor) // Changed to primary color
             .frame(maxWidth: .infinity, alignment: .center)
             .padding(.vertical, 10) // Adjusted for vertical centering in 40pt height
@@ -201,25 +207,10 @@ struct FastTimerCardView: View {
     /// Converts a time string provided in `"EEE, HH:mm"` format to a
     /// user-facing style like `"Mon, 9:30 AM"`.
     private func formatDisplayDateString(from stringValue: String) -> String {
-        print("[Debug] formatDisplayDateString input: '\(stringValue)'")
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "EEE, HH:mm"
-        inputFormatter.locale = Locale(identifier: "en_US_POSIX") // For consistent parsing
-
-        guard let date = inputFormatter.date(from: stringValue) else {
-            print("[Debug] Failed to parse date string: '\(stringValue)'")
-            // If parsing fails, return the original string or an error indicator
-            // For example, if the input string is already in the desired format or unexpected
-            // For now, we return the original string to be safe.
-            // Consider logging an error here in a real app.
+        guard let date = Self.inputFormatter.date(from: stringValue) else {
             return stringValue
         }
-
-        let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "EEE, h:mm a" // e.g., Mon, 9:41 AM
-        let formattedString = outputFormatter.string(from: date)
-        print("[Debug] Parsed date: \(date), Formatted output: '\(formattedString)'")
-        return formattedString
+        return Self.outputFormatter.string(from: date)
     }
 
     private var statsRow: some View {

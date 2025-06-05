@@ -29,7 +29,7 @@ struct DayIndicatorView: View {
     var body: some View {
         VStack(spacing: 4) {
             Text(label)
-                .font(.system(size: 10, weight: .bold))
+                .font(.jeuneCaptionBold)
 .foregroundColor(state == .selected ? .jeunePrimaryDarkColor : textColor)
 
             ZStack {
