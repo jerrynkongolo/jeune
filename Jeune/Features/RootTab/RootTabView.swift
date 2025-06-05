@@ -2,9 +2,12 @@
 import SwiftUI
 
 struct RootTabView: View {
+    @EnvironmentObject private var appState: AppState
+
     var body: some View {
-        TabView {
+        TabView(selection: $appState.selectedTab) {
             JeuneHomeView()
+                .tag(RootTab.today)
                 .tabItem {
                     VStack {
                         Image(systemName: "timer")
@@ -14,6 +17,7 @@ struct RootTabView: View {
                 }
 
             ExploreView()
+                .tag(RootTab.explore)
                 .tabItem {
                     VStack {
                         Image(systemName: "safari")
@@ -23,6 +27,7 @@ struct RootTabView: View {
                 }
 
             MeView()
+                .tag(RootTab.me)
                 .tabItem {
                     VStack {
                         Image(systemName: "person")
@@ -32,6 +37,7 @@ struct RootTabView: View {
                 }
 
             GenPlusView()
+                .tag(RootTab.plus)
                 .tabItem {
                     VStack {
                         Image(systemName: "flame")
