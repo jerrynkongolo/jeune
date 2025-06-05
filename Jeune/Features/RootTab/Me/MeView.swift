@@ -45,6 +45,9 @@ struct MeView: View {
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
             .toolbarBackground(.ultraThinMaterial.opacity(barOpacity))
             .navigationTitle(showTitle ? "Username" : "")
+
+            .navigationBarTitleDisplayMode(.inline)
+
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Image(systemName: "paintbrush")
@@ -69,18 +72,17 @@ struct MeView: View {
 
             Text("Username")
                 .font(.title3.weight(.semibold))
-                .background(
-                    GeometryReader { geo in
-
-                        Color.clear.preference(key: NameOffsetKey.self, value: geo.frame(in: .named("scroll")).maxY)
-
-                    }
-                )
 
             statsRow
         }
         .padding(.vertical, 16)
         .jeuneCard()
+        .background(
+            GeometryReader { geo in
+                Color.clear.preference(key: NameOffsetKey.self,
+                                       value: geo.frame(in: .named("scroll")).maxY)
+            }
+        )
         .overlay(alignment: .top) {
             Image(systemName: "person.crop.circle.fill")
                 .resizable()
