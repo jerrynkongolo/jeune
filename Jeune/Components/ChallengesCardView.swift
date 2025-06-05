@@ -2,6 +2,8 @@ import SwiftUI
 
 /// Placeholder card showing upcoming challenges section.
 struct ChallengesCardView: View {
+    var seeAllAction: () -> Void = {}
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
@@ -9,10 +11,13 @@ struct ChallengesCardView: View {
                     .font(.callout.weight(.semibold))
                     .padding(.leading, 4)
                 Spacer()
-                Text("SEE ALL")
-                    .font(.jeuneCaptionBold)
-                    .foregroundColor(.jeunePrimaryDarkColor)
+                Button(action: seeAllAction) {
+                    Text("SEE ALL")
+                        .font(.jeuneCaptionBold)
+                        .foregroundColor(.jeunePrimaryDarkColor)
                 }
+                .buttonStyle(PlainButtonStyle())
+            }
 
             HStack(spacing: 12) {
                 Image(systemName: "flame.fill")
