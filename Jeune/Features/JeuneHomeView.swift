@@ -28,8 +28,8 @@ struct JeuneHomeView: View {
                     Image("logojeune")
                         .resizable()
                         .scaledToFit()
-                        // Smaller height keeps the navigation bar compact
-                        .frame(height: 60)
+                        // Increase the size so the logo is more prominent on the Today screen
+                        .frame(height: 100)
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
