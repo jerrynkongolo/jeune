@@ -40,7 +40,7 @@ struct RootTabView: View {
                     }
                 }
         }
-        // Accent the selected tab with a bright orange that matches the logo.
-        .accentColor(.orange)
+        // Accent the selected tab with the brand highlight colour.
+        .accentColor(.jeuneAccentColor)
     }
 }

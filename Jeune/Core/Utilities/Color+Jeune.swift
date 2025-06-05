@@ -8,6 +8,9 @@ extension Color {
     /// Dark variant of the primary brand colour.
     static let jeunePrimaryDarkColor  = Color("jeunePrimaryDark")
 
+    /// Accent colour used for highlighting the selected tab.
+    static let jeuneAccentColor       = Color("jeuneAccent")
+
     /// Success state accent.
     static let jeuneSuccessColor      = Color("jeuneSuccess")
 
