@@ -22,7 +22,9 @@ struct MeView: View {
             .coordinateSpace(name: "scroll")
             .onPreferenceChange(NameOffsetKey.self) { y in
                 withAnimation(.easeInOut(duration: 0.2)) {
+
                     showHeader = y < safeAreaInsets.top
+
                 }
             }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
@@ -51,13 +53,17 @@ struct MeView: View {
     /// Card displaying the user's avatar and stats.
     private var profileCard: some View {
         VStack(spacing: 4) {
+
             Color.clear.frame(height: 24)
+
 
             Text("Username")
                 .font(.title3.weight(.semibold))
                 .background(
                     GeometryReader { geo in
+
                         Color.clear.preference(key: NameOffsetKey.self, value: geo.frame(in: .named("scroll")).maxY)
+
                     }
                 )
 
