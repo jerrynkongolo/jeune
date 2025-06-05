@@ -9,8 +9,10 @@ struct ExploreView: View {
     /// Currently selected segment in the segmented menu.
     @State private var selectedSegment: ExploreSegment = .home
 
-    /// Approximate height of the custom header.
-    private let headerHeight: CGFloat = 100
+
+    /// Approximate height of the custom header including the safe area.
+    private let headerHeight: CGFloat = 120
+
 
     var body: some View {
         NavigationStack {
@@ -22,10 +24,6 @@ struct ExploreView: View {
 
                     FeaturedBannerView()
 
-                    ForEach(viewModel.filteredArticles) { article in
-                        ArticleRow(article: article)
-                            .onTapGesture { openURL(article.url) }
-                    }
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 16)
@@ -34,6 +32,9 @@ struct ExploreView: View {
             .navigationBarHidden(true)
             .overlay(alignment: .top) {
                 ExploreHeaderView(selected: $selectedSegment)
+
+                    .ignoresSafeArea(.container, edges: .top)
+
             }
         }
     }
@@ -84,10 +85,13 @@ private struct ExploreHeaderView: View {
         VStack(spacing: 8) {
             HStack {
                 Image(systemName: "magnifyingglass")
+
+                    .fontWeight(.bold)
                     .foregroundColor(.jeuneDarkGray)
                 Spacer()
                 Text("Explore")
-                    .font(.jeuneLargeTitle)
+                    .font(.callout.weight(.bold))
+
                     .foregroundColor(.jeuneNearBlack)
                 Spacer()
                 Image(systemName: "bookmark")
@@ -98,12 +102,14 @@ private struct ExploreHeaderView: View {
                 ForEach(ExploreSegment.allCases, id: \.self) { segment in
                     Text(segment.rawValue)
                         .font(.jeuneCaptionBold)
-                        .foregroundColor(selected == segment ? .jeunePrimaryDarkColor : .jeuneDarkGray)
+
+                        .foregroundColor(selected == segment ? .jeuneAccentColor : .jeuneDarkGray)
                         .padding(.vertical, 6)
-                        .padding(.horizontal, 12)
+                        .frame(maxWidth: .infinity)
                         .background(
                             Capsule()
-                                .fill(selected == segment ? Color.jeunePrimaryDarkColor.opacity(0.15) : Color.clear)
+                                .fill(selected == segment ? Color.jeuneAccentColor.opacity(0.15) : Color.clear)
+
                         )
                         .onTapGesture { selected = segment }
                 }
@@ -126,10 +132,13 @@ private struct FeaturedBannerView: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("ARTICLE")
-                    .font(.caption)
+
+                    .font(.caption.weight(.bold))
                     .foregroundColor(.jeuneGrayColor)
                 Text("The Complete Guide to Fat Burning")
                     .font(.jeuneTitle2)
+                    .fontWeight(.bold)
+
                     .foregroundColor(.jeuneNearBlack)
 
                 Button(action: {}) {
@@ -144,15 +153,16 @@ private struct FeaturedBannerView: View {
             }
             .padding()
 
-            Spacer()
+            .frame(maxWidth: .infinity, alignment: .leading)
 
             Rectangle()
                 .fill(Color.orange)
-                .frame(width: 100)
+                .frame(maxWidth: .infinity)
         }
         .frame(maxWidth: .infinity)
         .frame(height: 150)
-        .background(Color(red: 0.0, green: 0.7, blue: 0.9))
+        .background(Color(red: 0.0, green: 0.34, blue: 0.94))
+
         .cornerRadius(DesignConstants.cornerRadius)
     }
 }
