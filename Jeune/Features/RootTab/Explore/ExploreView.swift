@@ -38,7 +38,12 @@ struct ExploreView: View {
         }
     }
 
-    /// Updates the direction for the transition based on the newly selected segment.
+                    .animation(
+                        .spring(response: 0.55, dampingFraction: 0.8)
+                            .delay(0.05),
+                        value: selectedSegment
+                    )
+                    .clipped()
     private func updateTransitionDirection(for newValue: ExploreSegment) {
         let cases = ExploreSegment.allCases
         if let newIndex = cases.firstIndex(of: newValue),
@@ -167,7 +172,7 @@ private struct ExploreHeaderView: View {
         VStack(spacing: 18) {
 
             HStack {
-                Image(systemName: "magnifyingglass")
+                            withAnimation(.spring(response: 0.55, dampingFraction: 0.8)) {
                     .font(.system(size: 18, weight: .bold))
                     .foregroundColor(.jeuneDarkGray)
                 Spacer()
