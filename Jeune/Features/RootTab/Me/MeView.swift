@@ -5,48 +5,35 @@ struct MeView: View {
     @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
     @State private var showHeader = false
 
+    /// Approximate height of the floating header including the safe area.
+    private var headerHeight: CGFloat {
+        safeAreaInsets.top + 60
+    }
+
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 40) {
-                    toolbar
+                    // Reserve space for the floating header
+                    Color.clear.frame(height: headerHeight)
+
                     profileCard
                     calendarSection
                     metricsSection
                 }
-                .padding(.top, 4)
                 .padding(.horizontal)
                 .padding(.bottom, 16)
             }
             .coordinateSpace(name: "scroll")
             .onPreferenceChange(NameOffsetKey.self) { y in
                 withAnimation(.easeInOut(duration: 0.2)) {
-
-                    showHeader = y < safeAreaInsets.top
-
+                    showHeader = y < headerHeight
                 }
             }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
             .navigationBarHidden(true)
-            .overlay(alignment: .top) { appBar.opacity(showHeader ? 1 : 0) }
-        }
-    }
-
-    /// Top bar with customisation and settings icons.
-    private var toolbar: some View {
-        HStack {
-            Image(systemName: "paintbrush")
-                .fontWeight(.bold)
-                .foregroundColor(.jeuneDarkGray)
-
-
-            Spacer()
-
-
-            Image(systemName: "gearshape")
-                .fontWeight(.bold)
-                .foregroundColor(.jeuneDarkGray)
+            .overlay(alignment: .top) { appBar }
         }
     }
 
@@ -226,7 +213,9 @@ struct MeView: View {
         }
     }
 
-    /// Floating app bar that appears when scrolling up past the username.
+    /// Floating app bar that transitions from transparent to solid when
+    /// scrolling past the username. The paintbrush and gear icons remain
+    /// visible at all times.
     private var appBar: some View {
         HStack {
             Image(systemName: "paintbrush")
@@ -238,6 +227,7 @@ struct MeView: View {
             Text("Username")
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
+                .opacity(showHeader ? 1 : 0)
 
             Spacer()
 
@@ -249,8 +239,17 @@ struct MeView: View {
         .padding(.horizontal)
         .padding(.bottom, 12)
         .frame(maxWidth: .infinity)
-        .background(Color.white.ignoresSafeArea(edges: .top))
-        .shadow(color: Color.black.opacity(0.15), radius: 2, x: 0, y: 2)
+        .background(
+            Color.white
+                .opacity(showHeader ? 1 : 0)
+                .ignoresSafeArea(edges: .top)
+        )
+        .shadow(
+            color: Color.black.opacity(showHeader ? 0.15 : 0),
+            radius: 2,
+            x: 0,
+            y: 2
+        )
     }
 
     /// Preference key for tracking the Y position of the username.
