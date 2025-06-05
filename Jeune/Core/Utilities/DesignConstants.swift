@@ -6,10 +6,10 @@ enum DesignConstants {
     static let cornerRadius: CGFloat = 20
 
     /// Color used for card shadows.
-    static let cardShadow = Color.black.opacity(0.10)
+    static let cardShadow = Color.black.opacity(0.15)
 
     /// Blur radius for the card shadow. A small value keeps the edge crisp.
-    static let cardShadowRadius: CGFloat = 4
+    static let cardShadowRadius: CGFloat = 2
 
     /// Toolbar button size.
     static let toolbarButtonSize: CGFloat = 34

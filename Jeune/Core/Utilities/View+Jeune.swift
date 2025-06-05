@@ -12,7 +12,7 @@ extension View {
                 color: DesignConstants.cardShadow,
                 radius: DesignConstants.cardShadowRadius,
                 x: 0,
-                y: 0
+                y: 2
             )
     }
 }
