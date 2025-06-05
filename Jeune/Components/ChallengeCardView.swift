@@ -9,8 +9,10 @@ struct ChallengeCardView: View {
             Image(challenge.image)
                 .resizable()
                 .scaledToFit()
+
                 .frame(width: 60, height: 60)
                 .frame(maxWidth: .infinity, alignment: .leading)
+
 
             Text(challenge.tag.uppercased())
                 .font(.system(size: 10, weight: .semibold))
@@ -26,7 +28,9 @@ struct ChallengeCardView: View {
                 .foregroundColor(.jeuneGrayColor)
         }
         .padding(12)
+
         .frame(width: 160, height: 190, alignment: .leading)
+
         .background(Color.jeuneCardColor)
         .cornerRadius(DesignConstants.cornerRadius)
         .shadow(color: DesignConstants.cardShadow,
