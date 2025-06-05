@@ -124,11 +124,14 @@ struct ExploreView: View {
 
     private var challengesContent: some View {
         VStack(alignment: .leading, spacing: 8) {
+
             Text("Featured")
+
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
 
             ChallengeBannerView()
+
                 .padding(.bottom, 12)
 
             Text("Join a Challenge")
@@ -142,13 +145,16 @@ struct ExploreView: View {
                         ChallengeRow(challenge: challenge)
                     }
 
+
                     if challenge.id != Challenge.sampleChallenges.last?.id {
                         Divider()
                             .background(Color.jeuneGrayColor.opacity(0.3))
                     }
                 }
             }
+
             .jeuneCard()
+
         }
     }
 }
