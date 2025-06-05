@@ -3,8 +3,8 @@ import SwiftUI
 /// Main explore screen displaying featured content and articles.
 struct ExploreView: View {
     @StateObject private var viewModel = ExploreViewModel()
-    @Environment(\.openURL) private var openURL
-    @Environment(\.safeAreaInsets) private var safeAreaInsets
+    @Environment(\.openURL) private var openURL: OpenURLAction
+    @Environment(\.safeAreaInsets) private var safeAreaInsets: EdgeInsets
 
     /// Currently selected segment in the segmented menu.
     @State private var selectedSegment: ExploreSegment = .home
@@ -76,7 +76,7 @@ private enum ExploreSegment: String, CaseIterable {
 /// Fixed header containing toolbar actions and the segmented menu.
 private struct ExploreHeaderView: View {
     @Binding var selected: ExploreSegment
-    @Environment(\.safeAreaInsets) private var safeAreaInsets
+    @Environment(\.safeAreaInsets) private var safeAreaInsets: EdgeInsets
 
     var body: some View {
         VStack(spacing: 8) {
