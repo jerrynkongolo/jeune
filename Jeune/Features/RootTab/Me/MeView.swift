@@ -22,12 +22,14 @@ struct MeView: View {
                         .frame(height: 0)
                 }
 
-                VStack(spacing: 40) {
 
+                VStack(spacing: 24) {
                     // Reserve space for the floating header
-                    Color.clear.frame(height: barHeight)
 
-     profileCard
+                    Color.clear.frame(height: barHeight - 24)
+
+
+                    profileCard
                     calendarSection
                     metricsSection
                 }
