@@ -4,6 +4,13 @@ import SwiftUI
 struct ChallengesCardView: View {
     var seeAllAction: () -> Void = {}
 
+    /// Images used to preview available challenges.
+    private let challengeImages = [
+        "jeune7days",
+        "jeune14days",
+        "jeune16hours"
+    ]
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
@@ -20,9 +27,18 @@ struct ChallengesCardView: View {
             }
 
             HStack(spacing: 12) {
-                Image(systemName: "flame.fill")
-                    .foregroundColor(.jeunePrimaryDarkColor)
-                    .font(.title)
+                ZStack(alignment: .topLeading) {
+                    ForEach(Array(challengeImages.enumerated()), id: \.offset) { index, name in
+                        Image(name)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 46, height: 46)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .offset(x: CGFloat(index) * 8, y: CGFloat(index) * 8)
+                    }
+                }
+                .frame(width: 70, height: 60, alignment: .topLeading)
+
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Join challenges to earn achievements")
                         .font(.callout)
