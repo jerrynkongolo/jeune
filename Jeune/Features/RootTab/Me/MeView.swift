@@ -5,6 +5,7 @@ struct MeView: View {
     @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
     @State private var barOpacity: Double = 0
     @State private var showTitle = false
+    @State private var showSettings = false
 
     /// Height of the navigation bar including the safe area.
     private var barHeight: CGFloat {
@@ -66,10 +67,15 @@ struct MeView: View {
                         .foregroundColor(.jeuneDarkGray)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Image(systemName: "gearshape")
-                        .fontWeight(.bold)
-                        .foregroundColor(.jeuneDarkGray)
+                    Button(action: { showSettings = true }) {
+                        Image(systemName: "gearshape")
+                            .fontWeight(.bold)
+                            .foregroundColor(.jeuneDarkGray)
+                    }
                 }
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
             }
         }
     }
