@@ -46,14 +46,14 @@ struct SettingsView: View {
 
     private var preferencesSection: some View {
         VStack(spacing: 0) {
-            sectionHeader("Preferences")
+            SectionHeaderView(title: "Preferences")
             Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            settingRow(title: "Timer Direction") {
+            SettingRow(title: "Timer Direction") {
                 Image(systemName: "chevron.right")
                     .foregroundColor(.jeuneDarkGray)
             }
             Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            settingRow(title: "Weight Unit") {
+            SettingRow(title: "Weight Unit") {
                 Picker("Weight Unit", selection: $weightUnit) {
                     ForEach(WeightUnit.allCases) { unit in
                         Text(unit.rawValue).tag(unit)
@@ -72,7 +72,7 @@ struct SettingsView: View {
                 .padding(.horizontal, 4)
             Divider().background(Color.jeuneGrayColor.opacity(0.3))
             NavigationLink(destination: Text("Emails")) {
-                settingRow(title: "Emails") {
+                SettingRow(title: "Emails") {
                     Image(systemName: "chevron.right")
                         .foregroundColor(.jeuneDarkGray)
                 }
@@ -85,14 +85,14 @@ struct SettingsView: View {
 
     private var accountSection: some View {
         VStack(spacing: 0) {
-            sectionHeader("Account")
+            SectionHeaderView(title: "Account")
             Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            settingRow(title: "Profile") {
+            SettingRow(title: "Profile") {
                 Image(systemName: "chevron.right")
                     .foregroundColor(.jeuneDarkGray)
             }
             Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            settingRow(title: "Subscription") {
+            SettingRow(title: "Subscription") {
                 Image(systemName: "chevron.right")
                     .foregroundColor(.jeuneDarkGray)
             }
@@ -104,9 +104,9 @@ struct SettingsView: View {
 
     private var communitySection: some View {
         VStack(spacing: 0) {
-            sectionHeader("Community")
+            SectionHeaderView(title: "Community")
             Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            settingRow(title: "Forums") {
+            SettingRow(title: "Forums") {
                 Image(systemName: "chevron.right")
                     .foregroundColor(.jeuneDarkGray)
             }
@@ -114,25 +114,6 @@ struct SettingsView: View {
         .padding()
         .background(Color.jeuneCardColor)
         .cornerRadius(DesignConstants.cornerRadius)
-    }
-
-    private func sectionHeader(_ title: String) -> some View {
-        HStack {
-            Text(title)
-                .font(.callout.weight(.semibold))
-            Spacer()
-        }
-        .padding(.bottom, 8)
-    }
-
-    private func settingRow<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
-        HStack {
-            Text(title)
-                .foregroundColor(.jeuneNearBlack)
-            Spacer()
-            content()
-        }
-        .padding(.vertical, 8)
     }
 }
 

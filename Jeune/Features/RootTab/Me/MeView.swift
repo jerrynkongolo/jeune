@@ -171,28 +171,18 @@ struct MeView: View {
 
     private var calendarSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            sectionHeader(title: "Calendar")
+            SectionHeaderView(title: "Calendar")
             calendarCard
         }
     }
 
     private var metricsSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            sectionHeader(title: "Weekly Metrics", action: "Manage Weight")
+            SectionHeaderView(title: "Weekly Metrics", actionTitle: "Manage Weight")
             metricsCard
         }
     }
 
-    private func sectionHeader(title: String, action: String = "See All") -> some View {
-        HStack {
-            Text(title)
-                .font(.callout.weight(.semibold))
-            Spacer()
-            Text(action.uppercased())
-                .font(.jeuneCaptionBold)
-                .foregroundColor(.jeunePrimaryDarkColor)
-        }
-    }
 
     private var calendarCard: some View {
         VStack(spacing: 16) {
@@ -222,21 +212,10 @@ struct MeView: View {
 
     private var calendarLegend: some View {
         HStack(spacing: 16) {
-            legendItem(color: .jeuneNutritionColor, label: "Nutrition")
-            legendItem(color: .jeuneActivityColor, label: "Activity")
-            legendItem(color: .jeuneRestorationColor, label: "Restoration")
-            legendItem(color: .jeuneSleepColor, label: "Sleep")
-        }
-    }
-
-    private func legendItem(color: Color, label: String) -> some View {
-        HStack(spacing: 4) {
-            Circle()
-                .fill(color)
-                .frame(width: 8, height: 8)
-            Text(label)
-                .font(.jeuneCaptionBold)
-                .foregroundColor(.jeuneGrayColor)
+            LegendItem(color: .jeuneNutritionColor, label: "Nutrition")
+            LegendItem(color: .jeuneActivityColor, label: "Activity")
+            LegendItem(color: .jeuneRestorationColor, label: "Restoration")
+            LegendItem(color: .jeuneSleepColor, label: "Sleep")
         }
     }
 
@@ -266,7 +245,7 @@ struct MeView: View {
 
     private var recentFastsSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            sectionHeader(title: "Recent Fasts")
+            SectionHeaderView(title: "Recent Fasts")
             recentFastsCard
         }
     }
@@ -336,8 +315,8 @@ struct MeView: View {
 
     private var fastLegend: some View {
         HStack(spacing: 16) {
-            legendItem(color: .jeuneSuccessColor, label: "Goal Met")
-            legendItem(color: .jeuneGrayColor, label: "Goal Not Met")
+            LegendItem(color: .jeuneSuccessColor, label: "Goal Met")
+            LegendItem(color: .jeuneGrayColor, label: "Goal Not Met")
         }
     }
 
