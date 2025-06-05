@@ -6,27 +6,35 @@ struct ChallengeRow: View {
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: challenge.image)
-                .frame(width: 40, height: 40)
+
+                .frame(width: 46, height: 46)
+
                 .foregroundColor(.jeunePrimaryDarkColor)
                 .background(Circle().fill(Color.jeuneGrayColor.opacity(0.2)))
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(challenge.tag.uppercased())
-                    .font(.caption2)
+
+                    .font(.system(size: 10, weight: .semibold))
                     .foregroundColor(.jeuneSuccessColor)
                 Text(challenge.title)
-                    .font(.headline)
+                    .font(.callout.weight(.semibold))
                     .foregroundColor(.jeuneNearBlack)
                     .lineLimit(1)
                 Text("\(challenge.duration) \u{2022} \(challenge.participants)")
-                    .font(.footnote)
+                    .font(.system(size: 10))
+
                     .foregroundColor(.jeuneGrayColor)
             }
 
             Spacer()
 
             Image(systemName: "chevron.right")
+
+                .font(.system(size: 14, weight: .bold))
                 .foregroundColor(.jeuneGrayColor)
+                .padding(.trailing, 4)
+
         }
         .padding(.vertical, 8)
     }

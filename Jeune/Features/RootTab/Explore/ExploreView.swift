@@ -102,7 +102,7 @@ struct ExploreView: View {
 
     private var homeContent: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("FEATURED")
+            Text("Featured")
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
 
@@ -124,13 +124,17 @@ struct ExploreView: View {
 
     private var challengesContent: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("FEATURED")
+
+            Text("Featured")
+
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
 
             ChallengeBannerView()
 
-            Text("JOIN A CHALLENGE")
+                .padding(.bottom, 12)
+
+            Text("Join a Challenge")
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
                 .padding(.top, 4)
@@ -141,13 +145,16 @@ struct ExploreView: View {
                         ChallengeRow(challenge: challenge)
                     }
 
+
                     if challenge.id != Challenge.sampleChallenges.last?.id {
                         Divider()
                             .background(Color.jeuneGrayColor.opacity(0.3))
                     }
                 }
             }
-            .jeuneCard(padding: 0)
+
+            .jeuneCard()
+
         }
     }
 }
