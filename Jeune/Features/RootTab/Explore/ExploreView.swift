@@ -27,51 +27,6 @@ struct ExploreView: View {
         safeAreaInsets.top + 85
     }
 
-    /// Transition used for sweeping in the selected segment's content.
-    private var sweepTransition: AnyTransition {
-        if forwardTransition {
-            return .asymmetric(insertion: .move(edge: .trailing),
-                               removal: .move(edge: .leading))
-        } else {
-            return .asymmetric(insertion: .move(edge: .leading),
-                               removal: .move(edge: .trailing))
-        }
-    }
-
-    /// Updates the direction for the transition based on the newly selected segment.
-    private func updateTransitionDirection(for newValue: ExploreSegment) {
-        let cases = ExploreSegment.allCases
-        if let newIndex = cases.firstIndex(of: newValue),
-           let oldIndex = cases.firstIndex(of: previousSegment) {
-            forwardTransition = newIndex > oldIndex
-        } else {
-            forwardTransition = true
-        }
-        previousSegment = newValue
-    }
-
-    /// Transition used for sweeping in the selected segment's content.
-    private var sweepTransition: AnyTransition {
-        if forwardTransition {
-            return .asymmetric(insertion: .move(edge: .trailing),
-                               removal: .move(edge: .leading))
-        } else {
-            return .asymmetric(insertion: .move(edge: .leading),
-                               removal: .move(edge: .trailing))
-        }
-    }
-
-    /// Updates the direction for the transition based on the newly selected segment.
-    private func updateTransitionDirection(for newValue: ExploreSegment) {
-        let cases = ExploreSegment.allCases
-        if let newIndex = cases.firstIndex(of: newValue),
-           let oldIndex = cases.firstIndex(of: previousSegment) {
-            forwardTransition = newIndex > oldIndex
-        } else {
-            forwardTransition = true
-        }
-        previousSegment = newValue
-    }
 
     /// Transition used for sweeping in the selected segment's content.
     private var sweepTransition: AnyTransition {
@@ -139,37 +94,6 @@ struct ExploreView: View {
         }
     }
 
-    private var homeContent: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("FEATURED")
-                .font(.callout.weight(.semibold))
-                .foregroundColor(.jeuneNearBlack)
-
-            FeaturedBannerView()
-        }
-    }
-
-    private var learnContent: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("ARTICLES")
-                .font(.callout.weight(.semibold))
-                .foregroundColor(.jeuneNearBlack)
-
-            ForEach(viewModel.filteredArticles) { article in
-                ArticleRow(article: article)
-            }
-        }
-    }
-
-    private var challengesContent: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("CHALLENGES")
-                .font(.callout.weight(.semibold))
-                .foregroundColor(.jeuneNearBlack)
-
-            ChallengesCardView()
-        }
-    }
 
     private var homeContent: some View {
         VStack(alignment: .leading, spacing: 8) {
