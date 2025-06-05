@@ -45,7 +45,9 @@ struct MeView: View {
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
             .toolbarBackground(.ultraThinMaterial.opacity(barOpacity))
             .navigationTitle(showTitle ? "Username" : "")
+
             .navigationBarTitleDisplayMode(.inline)
+
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Image(systemName: "paintbrush")
