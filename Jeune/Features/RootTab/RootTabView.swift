@@ -30,6 +30,15 @@ struct RootTabView: View {
                             .font(.system(size: 12, weight: .semibold))
                     }
                 }
+
+            GenPlusView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "star.circle")
+                        Text("Gen Plus")
+                            .font(.system(size: 12, weight: .semibold))
+                    }
+                }
         }
         // Accent the selected tab with a bright orange that matches the logo.
         .accentColor(.orange)
