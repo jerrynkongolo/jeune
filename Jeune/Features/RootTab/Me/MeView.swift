@@ -1,8 +1,9 @@
-// MeView.swift
 import SwiftUI
 
 /// Displays user metrics and a heat-map style calendar of recent fasts.
 struct MeView: View {
+
+
 
     var body: some View {
         NavigationStack {
@@ -29,7 +30,9 @@ struct MeView: View {
                 .fontWeight(.bold)
                 .foregroundColor(.jeuneDarkGray)
 
+
             Spacer()
+
 
             Image(systemName: "gearshape")
                 .fontWeight(.bold)
@@ -66,11 +69,13 @@ struct MeView: View {
         HStack {
             statBlock(title: "Total Fast", value: "1,000")
 
+
             Spacer()
 
             achievementsBlock
 
             Spacer()
+
 
             statBlock(title: "Current Streak", value: "4")
         }
@@ -147,13 +152,17 @@ struct MeView: View {
         HStack(spacing: 32) {
             ForEach(0..<7) { index in
                 let date = Calendar.current.date(byAdding: .day, value: start + index, to: Date())!
+
                 DateRingView(date: date, color: calendarColors.randomElement()!)
+
             }
         }
     }
 
     private var calendarColors: [Color] {
+
         [.jeuneNutritionColor, .jeuneActivityColor, .jeuneRestorationColor, .jeuneSleepColor] 
+
     }
 
     private var calendarLegend: some View {
@@ -197,6 +206,8 @@ struct MeView: View {
                 .foregroundColor(.jeuneNearBlack)
         }
     }
+
+
 
 }
 

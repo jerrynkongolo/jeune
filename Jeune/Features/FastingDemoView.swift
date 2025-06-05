@@ -78,26 +78,97 @@ struct FastingDemoView: View {
     }
 }
 
+private struct GoalOption: Identifiable {
+    let id = UUID()
+    let name: String
+    let subtitle: String
+    let hours: Int
+    let color: Color
+}
+
 private struct GoalPickerSheet: View {
     @Binding var goalHours: Int
     @Environment(\.dismiss) var dismiss
-    private let presets = [16, 18, 20, 24]
+
+    private let options: [GoalOption] = [
+        GoalOption(name: "Circandia", subtitle: "Rhythm TRF", hours: 13, color: .purple),
+        GoalOption(name: "Preset", subtitle: "Rhythm TRF", hours: 16, color: .pink),
+        GoalOption(name: "Preset", subtitle: "Rhythm TRF", hours: 18, color: .green),
+        GoalOption(name: "Preset", subtitle: "Rhythm TRF", hours: 20, color: .orange),
+        GoalOption(name: "Preset", subtitle: "Rhythm TRF", hours: 36, color: .blue),
+        GoalOption(name: "Custom", subtitle: "1-168", hours: 168, color: .teal)
+    ]
+
+    private let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: 3)
 
     var body: some View {
-        NavigationStack {
-            List(presets, id: \.self) { hours in
-                Button("\(hours) hours") {
-                    goalHours = hours
-                    dismiss()
+        VStack(spacing: 0) {
+            HStack {
+                Text("Change Fast Goal")
+                    .font(.subheadline)
+                    .foregroundColor(.black)
+                Spacer()
+                Button(action: { dismiss() }) {
+                    Image(systemName: "xmark")
+                        .foregroundColor(.black)
                 }
             }
-            .navigationTitle("Select Goal")
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") { dismiss() }
+            .padding()
+
+            Divider()
+
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 12) {
+                    ForEach(options) { option in
+                        GoalCard(option: option) {
+                            goalHours = option.hours
+                            dismiss()
+                        }
+                    }
                 }
+                .padding()
             }
+            .background(Color.jeuneCanvasColor)
         }
+    }
+}
+
+private struct GoalCard: View {
+    let option: GoalOption
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(option.name)
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.white)
+                Text(option.subtitle)
+                    .font(.system(size: 11))
+                    .foregroundColor(.white)
+
+                Spacer()
+
+                Text("\(option.hours)")
+                    .font(.system(size: 28, weight: .bold))
+                    .foregroundColor(.white)
+
+                HStack {
+                    Text("hours")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.white.opacity(0.7))
+                    Spacer()
+                    Image(systemName: "info.circle")
+                        .foregroundColor(.white)
+                }
+            }
+            .padding()
+            .frame(height: 150)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(option.color)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
