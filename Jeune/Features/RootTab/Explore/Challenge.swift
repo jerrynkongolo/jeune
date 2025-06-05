@@ -12,6 +12,7 @@ struct Challenge: Identifiable {
 #if DEBUG
 extension Challenge {
     static let sampleChallenges: [Challenge] = [
+
         Challenge(tag: "Fasting",
                   title: "7 Day Fasting Streak",
                   duration: "7 days",
@@ -37,6 +38,7 @@ extension Challenge {
                   duration: "2×36h",
                   participants: "80k active",
                   image: "jeune36hours")
+
     ]
 }
 #endif

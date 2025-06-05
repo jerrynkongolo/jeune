@@ -5,6 +5,7 @@ struct ChallengeRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
+
             Image(challenge.image)
                 .resizable()
                 .scaledToFit()
@@ -17,6 +18,7 @@ struct ChallengeRow: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(challenge.tag.uppercased())
+
                     .font(.system(size: 10, weight: .semibold))
                     .foregroundColor(.jeuneSuccessColor)
                 Text(challenge.title)
@@ -25,15 +27,18 @@ struct ChallengeRow: View {
                     .lineLimit(1)
                 Text("\(challenge.duration) \u{2022} \(challenge.participants)")
                     .font(.system(size: 10))
+
                     .foregroundColor(.jeuneGrayColor)
             }
 
             Spacer()
 
             Image(systemName: "chevron.right")
+
                 .font(.system(size: 12, weight: .bold))
                 .foregroundColor(.jeuneGrayColor)
                 .padding(.trailing, 4)
+
         }
         .padding(.vertical, 8)
     }
