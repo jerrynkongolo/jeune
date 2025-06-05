@@ -78,7 +78,6 @@ struct ExploreView: View {
                             .delay(0.05),
                         value: selectedSegment
                     )
-                    .clipped()
 
                 }
                 .padding(.horizontal)
