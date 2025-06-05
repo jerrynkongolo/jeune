@@ -9,6 +9,7 @@ struct ExploreView: View {
 
     /// Currently selected segment in the segmented menu.
     @State private var selectedSegment: ExploreSegment = .home
+    @Namespace private var segmentNamespace
 
 
     @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
@@ -28,12 +29,17 @@ struct ExploreView: View {
                     Color.clear
                         .frame(height: headerHeight)
 
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Featured")
-                            .font(.callout.weight(.semibold))
-                            .foregroundColor(.jeuneNearBlack)
 
-                        FeaturedBannerView()
+                    Group {
+                        switch selectedSegment {
+                        case .home:
+                            homeContent
+                        case .learn:
+                            learnContent
+                        case .challenges:
+                            challengesContent
+                        }
+
                     }
                 }
                 .padding(.horizontal)
@@ -42,8 +48,40 @@ struct ExploreView: View {
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
             .navigationBarHidden(true)
             .overlay(alignment: .top) {
-                ExploreHeaderView(selected: $selectedSegment)
+                ExploreHeaderView(selected: $selectedSegment, animation: segmentNamespace)
             }
+        }
+    }
+
+    private var homeContent: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("FEATURED")
+                .font(.callout.weight(.semibold))
+                .foregroundColor(.jeuneNearBlack)
+
+            FeaturedBannerView()
+        }
+    }
+
+    private var learnContent: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("ARTICLES")
+                .font(.callout.weight(.semibold))
+                .foregroundColor(.jeuneNearBlack)
+
+            ForEach(viewModel.filteredArticles) { article in
+                ArticleRow(article: article)
+            }
+        }
+    }
+
+    private var challengesContent: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("CHALLENGES")
+                .font(.callout.weight(.semibold))
+                .foregroundColor(.jeuneNearBlack)
+
+            ChallengesCardView()
         }
     }
 }
@@ -88,6 +126,7 @@ private enum ExploreSegment: String, CaseIterable {
 /// Fixed header containing toolbar actions and the segmented menu.
 private struct ExploreHeaderView: View {
     @Binding var selected: ExploreSegment
+    var animation: Namespace.ID
 
     @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
 
@@ -119,10 +158,20 @@ private struct ExploreHeaderView: View {
                         .padding(.vertical, 6)
                         .frame(maxWidth: .infinity)
                         .background(
-                            Capsule()
-                                .fill(selected == segment ? Color.jeuneAccentColor.opacity(0.15) : Color.clear)
+                            ZStack {
+                                if selected == segment {
+                                    Capsule()
+                                        .fill(Color.jeuneAccentColor.opacity(0.15))
+                                        .matchedGeometryEffect(id: "SEGMENT_BUBBLE", in: animation)
+                                }
+                            }
                         )
-                        .onTapGesture { selected = segment }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
+                                selected = segment
+                            }
+                        }
                 }
             }
         }
