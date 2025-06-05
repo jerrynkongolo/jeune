@@ -42,7 +42,7 @@ struct MeView: View {
 
     /// Card displaying the user's avatar and stats.
     private var profileCard: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 8) {
             Color.clear.frame(height: 40)
 
             Text("Username")
@@ -67,8 +67,8 @@ struct MeView: View {
     /// Row showing total fasts, achievements and current streak.
     private var statsRow: some View {
         HStack {
+            Spacer()
             statBlock(title: "Total Fast", value: "1,000")
-
 
             Spacer()
 
@@ -76,8 +76,8 @@ struct MeView: View {
 
             Spacer()
 
-
             statBlock(title: "Current Streak", value: "4")
+            Spacer()
         }
     }
 
@@ -85,7 +85,7 @@ struct MeView: View {
     private func statBlock(title: String, value: String) -> some View {
         VStack(spacing: 4) {
             Text(title.uppercased())
-                .font(.jeuneCaptionBold)
+                .font(.jeuneCaption)
                 .foregroundColor(.jeuneGrayColor)
             Text(value)
                 .font(.title3.weight(.bold))
@@ -199,7 +199,7 @@ struct MeView: View {
     private func metricsBlock(title: String, value: String) -> some View {
         VStack(spacing: 4) {
             Text(title.uppercased())
-                .font(.jeuneCaptionBold)
+                .font(.jeuneCaption)
                 .foregroundColor(.jeuneGrayColor)
             Text(value)
                 .font(.title3.weight(.bold))
