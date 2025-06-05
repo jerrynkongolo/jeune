@@ -9,6 +9,11 @@ struct ExploreView: View {
 
     /// Currently selected segment in the segmented menu.
     @State private var selectedSegment: ExploreSegment = .home
+    /// Previously selected segment used to determine sweep direction.
+    @State private var previousSegment: ExploreSegment = .home
+    /// Direction that controls the slide transition between segment views.
+    @State private var forwardTransition: Bool = true
+    @Namespace private var segmentNamespace
 
     /// Previously selected segment used to determine sweep direction.
     @State private var previousSegment: ExploreSegment = .home
@@ -50,6 +55,29 @@ struct ExploreView: View {
         previousSegment = newValue
     }
 
+    /// Transition used for sweeping in the selected segment's content.
+    private var sweepTransition: AnyTransition {
+        if forwardTransition {
+            return .asymmetric(insertion: .move(edge: .trailing),
+                               removal: .move(edge: .leading))
+        } else {
+            return .asymmetric(insertion: .move(edge: .leading),
+                               removal: .move(edge: .trailing))
+        }
+    }
+
+    /// Updates the direction for the transition based on the newly selected segment.
+    private func updateTransitionDirection(for newValue: ExploreSegment) {
+        let cases = ExploreSegment.allCases
+        if let newIndex = cases.firstIndex(of: newValue),
+           let oldIndex = cases.firstIndex(of: previousSegment) {
+            forwardTransition = newIndex > oldIndex
+        } else {
+            forwardTransition = true
+        }
+        previousSegment = newValue
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -65,7 +93,13 @@ struct ExploreView: View {
                         if selectedSegment == .challenges { challengesContent.transition(sweepTransition) }
 
                     }
-                    .animation(.spring(response: 0.35, dampingFraction: 0.75), value: selectedSegment)
+                    .animation(
+                        .spring(response: 0.55, dampingFraction: 0.8)
+                            .delay(0.05),
+                        value: selectedSegment
+                    )
+                    .clipped()
+
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 16)
@@ -103,7 +137,6 @@ struct ExploreView: View {
             }
         }
     }
-
 
     private var challengesContent: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -198,8 +231,9 @@ private struct ExploreHeaderView: View {
                         )
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
-                                selected = segment
+
+                            withAnimation(.spring(response: 0.55, dampingFraction: 0.8)) {
+                selected = segment
                             }
                         }
                 }
