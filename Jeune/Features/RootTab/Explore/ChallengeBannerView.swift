@@ -4,9 +4,11 @@ import SwiftUI
 struct ChallengeBannerView: View {
     var body: some View {
         HStack(spacing: 0) {
+
             Rectangle()
                 .fill(Color.jeuneAccentColor)
                 .frame(maxWidth: .infinity)
+
 
             VStack(alignment: .leading, spacing: 8) {
                 Text("CHALLENGE")
@@ -23,21 +25,27 @@ struct ChallengeBannerView: View {
                         .foregroundColor(.white)
                         .padding(.vertical, 6)
                         .padding(.horizontal, 16)
+
                         .background(Color.jeuneAccentColor)
+
                         .clipShape(Capsule())
                 }
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
+
+
         }
         .frame(maxWidth: .infinity)
         .frame(height: 150)
         .background(Color.jeunePrimaryDarkColor)
         .cornerRadius(DesignConstants.cornerRadius)
+
         .shadow(color: DesignConstants.cardShadow,
                 radius: DesignConstants.cardShadowRadius,
                 x: 0,
                 y: 2)
+
     }
 }
 
