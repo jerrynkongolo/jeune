@@ -10,6 +10,12 @@ extension Font {
     /// Recommended for card headings, modal titles.
     static let jeuneTitle2: Font = .system(size: 22, weight: .semibold)
 
+    /// Reusable 10pt caption font.
+    static let jeuneCaption: Font = .system(size: 10, weight: .semibold)
+
+    /// Bold variant of `jeuneCaption`.
+    static let jeuneCaptionBold: Font = .system(size: 10, weight: .bold)
+
     // As per tasks.md:
     // - For giant numbers (like timers), consider using .system(size: مناسب_كبير, weight: .regular_or_other, design: .default)
     //   SwiftUI typically selects SF Pro Display for larger sizes automatically.
