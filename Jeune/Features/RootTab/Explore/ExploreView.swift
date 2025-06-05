@@ -11,7 +11,7 @@ struct ExploreView: View {
     @State private var selectedSegment: ExploreSegment = .home
 
 
-    @Environment(\.safeAreaInsets) private var safeAreaInsets: EdgeInsets
+    @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
 
 
     /// Approximate height of the custom header including the safe area.
@@ -82,7 +82,7 @@ private enum ExploreSegment: String, CaseIterable {
 private struct ExploreHeaderView: View {
     @Binding var selected: ExploreSegment
 
-    @Environment(\.safeAreaInsets) private var safeAreaInsets: EdgeInsets
+    @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
 
 
     var body: some View {
