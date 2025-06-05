@@ -2,6 +2,7 @@ import SwiftUI
 
 struct JeuneHomeView: View {
     @State private var streak: Int = 3
+    @EnvironmentObject private var appState: AppState
 
     var body: some View {
         NavigationStack {
@@ -11,7 +12,7 @@ struct JeuneHomeView: View {
                         .padding(.bottom, 20)
                     FastingDemoView()
                         .padding(.bottom, 24)
-                    ChallengesCardView()
+                    ChallengesCardView(seeAllAction: navigateToChallenges)
                 }
                 // Remove extra top padding so the week strip sits closer to the
                 // toolbar.
@@ -65,6 +66,11 @@ HStack(spacing: 32) {
         if index == 0 { return .selected }
         if index == 6 { return .completed }
         return .inactive
+    }
+
+    private func navigateToChallenges() {
+        appState.selectedTab = .explore
+        appState.exploreSegment = .challenges
     }
 }
 

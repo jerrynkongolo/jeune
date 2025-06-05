@@ -104,15 +104,18 @@ private struct GoalPickerSheet: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("Change Fast Goal")
-                    .font(.subheadline)
-                    .foregroundColor(.black)
-                Spacer()
                 Button(action: { dismiss() }) {
                     Image(systemName: "xmark")
+                        .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.black)
                 }
+                Spacer()
             }
+            .overlay(
+                Text("Change Fast Goal")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundColor(.black)
+            )
             .padding()
 
             Divider()
