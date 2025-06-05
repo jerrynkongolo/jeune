@@ -12,12 +12,12 @@ struct ExploreView: View {
     /// Previously selected segment used to determine sweep direction.
     @State private var previousSegment: ExploreSegment = .home
     /// Direction that controls the slide transition between segment views.
-    @State private var forwardTransition: Bool = true
+    @State private var isForwardTransition: Bool = true
     @Namespace private var segmentNamespace
 
-    /// Previously selected segment used to determine sweep direction.
-    @State private var previousSegment: ExploreSegment = .home
-    /// Direction that controls the slide transition between segment views.
+        if isForwardTransition {
+            isForwardTransition = newIndex > oldIndex
+            isForwardTransition = true
     @State private var forwardTransition: Bool = true
 
     @Namespace private var segmentNamespace
