@@ -31,7 +31,7 @@ struct ChallengeRow: View {
 
             Image(systemName: "chevron.right")
 
-                .font(.system(size: 14, weight: .bold))
+                .font(.system(size: 12, weight: .bold))
                 .foregroundColor(.jeuneGrayColor)
                 .padding(.trailing, 4)
 

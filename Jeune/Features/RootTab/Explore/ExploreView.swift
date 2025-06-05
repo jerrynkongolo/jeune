@@ -105,6 +105,7 @@ struct ExploreView: View {
             Text("Featured")
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
+                .padding(.leading, 4)
 
             FeaturedBannerView()
         }
@@ -126,9 +127,9 @@ struct ExploreView: View {
         VStack(alignment: .leading, spacing: 8) {
 
             Text("Featured")
-
                 .font(.callout.weight(.semibold))
                 .foregroundColor(.jeuneNearBlack)
+                .padding(.leading, 4)
 
             ChallengeBannerView()
 
@@ -139,12 +140,13 @@ struct ExploreView: View {
                 .foregroundColor(.jeuneNearBlack)
                 .padding(.top, 4)
 
+                .padding(.leading, 4)
+
             VStack(spacing: 0) {
                 ForEach(Challenge.sampleChallenges) { challenge in
                     NavigationLink(destination: Text(challenge.title)) {
                         ChallengeRow(challenge: challenge)
                     }
-
 
                     if challenge.id != Challenge.sampleChallenges.last?.id {
                         Divider()
@@ -152,7 +154,6 @@ struct ExploreView: View {
                     }
                 }
             }
-
             .jeuneCard()
 
         }
