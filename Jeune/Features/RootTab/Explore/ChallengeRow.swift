@@ -5,9 +5,14 @@ struct ChallengeRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: challenge.image)
-
-                .frame(width: 46, height: 46)
+            Image(challenge.image)
+                .resizable()
+                .scaledToFit()
+                .clipShape(Circle())
+                .background(
+                    Circle()
+                        .fill(Color.jeuneGrayColor.opacity(0.2))
+                )
 
                 .foregroundColor(.jeunePrimaryDarkColor)
                 .background(Circle().fill(Color.jeuneGrayColor.opacity(0.2)))
