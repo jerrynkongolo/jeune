@@ -17,6 +17,7 @@ struct MeView: View {
                     calendarSection
                     metricsSection
                 }
+                .padding(.top, 4)
                 .padding(.horizontal)
             }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
@@ -30,9 +31,7 @@ struct MeView: View {
             Image(systemName: "paintbrush")
                 .fontWeight(.bold)
                 .foregroundColor(.jeuneDarkGray)
-
             Spacer()
-
             Image(systemName: "gearshape")
                 .fontWeight(.bold)
                 .foregroundColor(.jeuneDarkGray)
