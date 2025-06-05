@@ -1,8 +1,12 @@
-// MeView.swift
 import SwiftUI
 
 /// Displays user metrics and a heat-map style calendar of recent fasts.
 struct MeView: View {
+    @State private var selectedDate: Date = .init()
+
+    /// Placeholder fast data representing fasting duration for each day
+    /// in the 7×6 grid shown by ``FastCalendar``.
+    private var fasts: [Double] = Array(repeating: 0, count: 42)
 
     var body: some View {
         NavigationStack {
@@ -63,13 +67,9 @@ struct MeView: View {
     private var statsRow: some View {
         HStack {
             statBlock(title: "Total Fast", value: "1,000")
-
             Spacer()
-
             achievementsBlock
-
             Spacer()
-
             statBlock(title: "Current Streak", value: "4")
         }
     }
@@ -151,7 +151,7 @@ struct MeView: View {
     }
 
     private var calendarColors: [Color] {
-        [.jeuneNutritionColor, .jeuneActivityColor, .jeuneRestorationColor, .jeuneSleepColor] 
+        [.jeuneNutritionColor, .jeuneActivityColor, .jeuneRestorationColor, .jeuneSleepColor]
     }
 
     private var calendarLegend: some View {
@@ -195,25 +195,26 @@ struct MeView: View {
                 .foregroundColor(.jeuneNearBlack)
         }
     }
+}
 
-    private struct CalendarDayView: View {
-        var date: Date
-        var color: Color
+/// Minimalist day view for calendar cells.
+private struct CalendarDayView: View {
+    var date: Date
+    var color: Color
 
-        private var dayString: String {
-            let f = DateFormatter()
-            f.dateFormat = "d"
-            return f.string(from: date)
-        }
+    private var dayString: String {
+        let f = DateFormatter()
+        f.dateFormat = "d"
+        return f.string(from: date)
+    }
 
-        var body: some View {
-            VStack(spacing: 4) {
-                Text(dayString)
-                    .font(.jeuneCaptionBold)
-                Circle()
-                    .stroke(color, lineWidth: 4)
-                    .frame(width: 26, height: 26)
-            }
+    var body: some View {
+        VStack(spacing: 4) {
+            Text(dayString)
+                .font(.jeuneCaptionBold)
+            Circle()
+                .stroke(color, lineWidth: 4)
+                .frame(width: 26, height: 26)
         }
     }
 }
