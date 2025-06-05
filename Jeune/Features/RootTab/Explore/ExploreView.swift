@@ -92,8 +92,10 @@ private struct ExploreHeaderView: View {
 
 
     var body: some View {
+
         // Increased spacing to better separate rows
         VStack(spacing: 14) {
+
             HStack {
                 Image(systemName: "magnifyingglass")
                     .font(.system(size: 18, weight: .bold))
@@ -123,8 +125,10 @@ private struct ExploreHeaderView: View {
                 }
             }
         }
+
         // Remove extra offset to tighten space below the notch
         .padding(.top, safeAreaInsets.top)
+
         .padding(.horizontal)
         .padding(.bottom, 12)
         .frame(maxWidth: .infinity)

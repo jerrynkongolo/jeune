@@ -34,8 +34,8 @@ struct RootTabView: View {
             GenPlusView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "star.circle")
-                        Text("Gen Plus")
+                        Image(systemName: "flame")
+                        Text("Jeune+")
                             .font(.system(size: 12, weight: .semibold))
                     }
                 }

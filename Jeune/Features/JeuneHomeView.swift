@@ -9,11 +9,12 @@ struct JeuneHomeView: View {
                 VStack(spacing: 0) {
                     weekStrip
                         .padding(.bottom, 20)
-                        FastingDemoView()
+                    FastingDemoView()
                         .padding(.bottom, 24)
                     ChallengesCardView()
                 }
-                .padding(.top, 4)
+                // Remove extra top padding so the week strip sits closer to the
+                // toolbar.
                 .padding(.horizontal)
             }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
@@ -26,7 +27,8 @@ struct JeuneHomeView: View {
                     Image("logojeune")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 100) // Adjust height as needed, aiming for good proportion across devices
+                        // Smaller height keeps the navigation bar compact
+                        .frame(height: 60)
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
