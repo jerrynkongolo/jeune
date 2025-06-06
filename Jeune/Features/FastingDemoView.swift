@@ -138,11 +138,7 @@ struct FastingDemoView: View {
                 Text("\(goalHours)H")
                     .font(.headline.weight(.bold))
                     .foregroundColor(.jeuneNearBlack)
-
             }
-        }
-    }
-
 
             HStack {
                 Button(action: { showGoalPicker = true }) {
@@ -165,7 +161,6 @@ struct FastingDemoView: View {
                         .clipShape(Capsule())
                 }
             }
-
         }
         .jeuneCard()
     }
