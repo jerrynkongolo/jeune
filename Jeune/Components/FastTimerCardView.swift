@@ -43,8 +43,6 @@ struct FastTimerCardView: View {
     /// Action for the primary button.
     var action: () -> Void
 
-    /// Optional action for the upcoming fast start button.
-    var startAction: (() -> Void)? = nil
 
     /// Formatter used to parse `startDate` and `goalTime` strings.
     private static let inputFormatter: DateFormatter = {
@@ -122,14 +120,14 @@ struct FastTimerCardView: View {
     private var cardBackground: Color {
         switch state {
         case .completed:
-            return .jeuneSuccessTintColor
+            return .jeuneSuccessColor
         default:
             return .jeuneCardColor
         }
     }
 
     private var statsBackgroundColor: Color {
-        isCompleted ? Color.jeuneSuccessColor : Color.jeuneStatsBGColor
+        isCompleted ? Color.jeuneSuccessColor.opacity(0.2) : Color.jeuneStatsBGColor
     }
 
     // MARK: – UI
@@ -190,9 +188,6 @@ struct FastTimerCardView: View {
             )
             // Horizontal padding removed to allow button to respect card's overall padding
 
-            if case .completed = state {
-                upcomingSection
-            }
         }
         .jeuneCard(background: cardBackground)
         .animation(.easeInOut(duration: 0.3), value: state)
@@ -279,56 +274,6 @@ struct FastTimerCardView: View {
             )
     }
 
-    private var upcomingSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Upcoming Fast")
-                        .font(.jeuneCaptionBold)
-                        .foregroundColor(.jeuneNearBlack)
-                    Text("You have a \(goalHours) hours fast up next, enjoy your meals and start your timer when you are ready.")
-                        .font(.footnote)
-                        .foregroundColor(.jeuneDarkGray)
-                }
-                Spacer()
-                Text("\(goalHours)H")
-                    .font(.headline.weight(.bold))
-                    .foregroundColor(.jeuneNearBlack)
-            }
-
-            HStack {
-                if let editAction = editGoalAction {
-                    Button(action: editAction) {
-                        Text("Edit Goal")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.jeunePrimaryDarkColor)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 44)
-                            .background(Color.jeuneStatsBGColor)
-                            .clipShape(Capsule())
-                    }
-                } else {
-                    Text("Edit Goal")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.jeunePrimaryDarkColor)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 44)
-                        .background(Color.jeuneStatsBGColor)
-                        .clipShape(Capsule())
-                }
-
-                Button(action: startAction ?? action) {
-                    Text("Start")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 44)
-                        .background(Color.jeunePrimaryDarkColor)
-                        .clipShape(Capsule())
-                }
-            }
-        }
-    }
 
     /// Converts a time string provided in `"EEE, HH:mm"` format to a
     /// user-facing style like `"Mon, 9:30 AM"`.
