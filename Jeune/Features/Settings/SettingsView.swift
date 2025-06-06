@@ -28,7 +28,7 @@ struct SettingsView: View {
     }
 
     private var header: some View {
-        HStack {
+        HStack(spacing: 0) {
             Button(action: { dismiss() }) {
                 Image(systemName: "xmark")
                     .font(.system(size: 16, weight: .bold))
@@ -41,7 +41,8 @@ struct SettingsView: View {
                 .font(.subheadline.weight(.semibold))
                 .foregroundColor(.black)
         )
-        .padding()
+        .padding(.trailing)
+        .padding(.vertical)
     }
 
     private var preferencesSection: some View {
@@ -69,10 +70,16 @@ struct SettingsView: View {
                 Divider().background(Color.jeuneGrayColor.opacity(0.15))
                 Toggle("Dark Mode", isOn: $darkMode)
                     .toggleStyle(SwitchToggleStyle(tint: .jeunePrimaryDarkColor))
+
+                    .padding(.vertical, 12)
+
                     .padding(.horizontal, 4)
                 Divider().background(Color.jeuneGrayColor.opacity(0.15))
                 Toggle("Notifications", isOn: $notifications)
                     .toggleStyle(SwitchToggleStyle(tint: .jeunePrimaryDarkColor))
+
+                    .padding(.vertical, 12)
+
                     .padding(.horizontal, 4)
                 Divider().background(Color.jeuneGrayColor.opacity(0.15))
                 NavigationLink(destination: Text("Emails")) {
@@ -83,9 +90,9 @@ struct SettingsView: View {
                     }
                 }
             }
-            .padding()
-            .background(Color.jeuneCardColor)
-            .cornerRadius(DesignConstants.cornerRadius)
+
+            .jeuneCard()
+
         }
     }
 
@@ -108,9 +115,9 @@ struct SettingsView: View {
                         .foregroundColor(.jeuneGrayColor)
                 }
             }
-            .padding()
-            .background(Color.jeuneCardColor)
-            .cornerRadius(DesignConstants.cornerRadius)
+
+            .jeuneCard()
+
         }
     }
 
@@ -127,9 +134,9 @@ struct SettingsView: View {
                         .foregroundColor(.jeuneGrayColor)
                 }
             }
-            .padding()
-            .background(Color.jeuneCardColor)
-            .cornerRadius(DesignConstants.cornerRadius)
+
+            .jeuneCard()
+
         }
     }
 }
