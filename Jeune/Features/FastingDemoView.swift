@@ -166,10 +166,7 @@ struct FastingDemoView: View {
     }
 
     private func format(date: Date) -> String {
-        let f = DateFormatter()
-        f.dateFormat = "EEE, HH:mm"
-        f.locale = Locale(identifier: "en_US_POSIX")
-        return f.string(from: date)
+        DateFormatter.jeuneTime24.string(from: date)
     }
 }
 

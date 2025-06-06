@@ -8,9 +8,7 @@ struct DateRingView: View {
     var color: Color
 
     private var dayString: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d"
-        return formatter.string(from: date)
+        DateFormatter.jeuneDayNumber.string(from: date)
     }
 
     var body: some View {
