@@ -16,14 +16,6 @@ struct MeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                GeometryReader { geo in
-                    Color.clear
-                        .preference(key: ScrollOffsetKey.self,
-                                    value: geo.frame(in: .named("scroll")).minY)
-                        .frame(height: 0)
-                }
-
-
                 VStack(spacing: 24) {
                     // Reserve space for the floating header
 
@@ -40,19 +32,11 @@ struct MeView: View {
             }
             .coordinateSpace(name: "scroll")
             .onPreferenceChange(NameOffsetKey.self) { y in
-                // Debug prints
-                print("--- Debug MeView --- Username global minY (y): \(y)")
-                print("--- Debug MeView --- Calculated barHeight: \(barHeight)")
-                print("--- Debug MeView --- Current safeAreaInsets.top: \(safeAreaInsets.top)")
-                
                 let visible = y <= barHeight
-                print("--- Debug MeView --- Condition (y <= barHeight) is: \(visible)")
-                
                 withAnimation(.easeInOut(duration: 0.18)) {
                     barOpacity = visible ? 1 : 0
                     showTitle = visible
                 }
-                print("--------------------")
             }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
             .toolbarBackground(.ultraThinMaterial.opacity(barOpacity))
@@ -94,17 +78,11 @@ struct MeView: View {
         }
         .padding(.vertical, 16)
         .jeuneCard()
-        .background( // GeometryReader attached to the VStack of profileCard
+        .background(
             GeometryReader { geo in
                 Color.clear
                     .preference(key: NameOffsetKey.self,
-                               value: geo.frame(in: .global).minY + 24.0) // Add offset for Username text
-                    .onAppear {
-                         print("--- Debug MeView --- GeoReader for profileCard CONTENT appeared. Initial global minY: \(geo.frame(in: .global).minY)")
-                    }
-                    .onChange(of: geo.frame(in: .global).minY) { oldValue, newValue in
-                         print("--- Debug MeView --- GeoReader for profileCard CONTENT global minY changed to: \(newValue)")
-                    }
+                               value: geo.frame(in: .global).minY + 24.0)
             }
         )
         .overlay(alignment: .top) {
@@ -377,15 +355,6 @@ struct MeView: View {
             value = nextValue()
         }
     }
-
-    /// Preference key used to monitor the scroll offset of the ScrollView.
-    private struct ScrollOffsetKey: PreferenceKey {
-        static var defaultValue: CGFloat = 0
-        static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-            value = nextValue()
-        }
-    }
-
 
 
 }

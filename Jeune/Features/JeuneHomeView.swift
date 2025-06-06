@@ -56,10 +56,7 @@ HStack(spacing: 32) {
     }
 
     private func weekdayLabel(for date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.setLocalizedDateFormatFromTemplate("EEE")
-        return formatter.string(from: date).uppercased()
+        DateFormatter.jeuneShortWeekday.string(from: date).uppercased()
     }
 
     private func dayState(for index: Int) -> DayIndicatorView.State {
