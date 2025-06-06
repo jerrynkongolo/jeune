@@ -28,9 +28,11 @@ struct FastingDemoView: View {
 
         .sheet(isPresented: $showGoalPicker) {
             GoalPickerSheet(goalHours: $goalHours)
+                .presentationDetents([.fraction(0.5)])
         }
         .sheet(isPresented: $showStartPicker) {
             StartTimePickerSheet(startTime: $startTime)
+                .presentationDetents([.fraction(0.5)])
         }
         .onReceive(timer) { _ in
             if isRunning {
@@ -120,12 +122,12 @@ private struct GoalPickerSheet: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
+                Spacer()
                 Button(action: { dismiss() }) {
                     Image(systemName: "xmark")
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.black)
                 }
-                Spacer()
             }
             .overlay(
                 Text("Change Fast Goal")
@@ -149,6 +151,7 @@ private struct GoalPickerSheet: View {
             }
             .background(Color.jeuneCanvasColor)
         }
+        .background(Color.jeuneCanvasColor)
     }
 }
 
@@ -212,15 +215,12 @@ private struct StartTimePickerSheet: View {
                         .foregroundColor(.black)
                 }
             }
-            .padding()
-
-            HStack {
+            .overlay(
                 Text("When did you start fasting?")
                     .font(.subheadline.weight(.semibold))
                     .foregroundColor(.black)
-                Spacer()
-            }
-            .padding(.horizontal)
+            )
+            .padding()
 
             DatePicker("", selection: $tempDate, displayedComponents: [.date, .hourAndMinute])
                 .datePickerStyle(.wheel)
@@ -239,6 +239,7 @@ private struct StartTimePickerSheet: View {
             }
             .padding(.horizontal)
         }
+        .background(Color.jeuneCanvasColor)
     }
 
     private var fastedText: String {
