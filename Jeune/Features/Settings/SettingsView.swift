@@ -70,12 +70,16 @@ struct SettingsView: View {
                 Divider().background(Color.jeuneGrayColor.opacity(0.15))
                 Toggle("Dark Mode", isOn: $darkMode)
                     .toggleStyle(SwitchToggleStyle(tint: .jeunePrimaryDarkColor))
+
                     .padding(.vertical, 12)
+
                     .padding(.horizontal, 4)
                 Divider().background(Color.jeuneGrayColor.opacity(0.15))
                 Toggle("Notifications", isOn: $notifications)
                     .toggleStyle(SwitchToggleStyle(tint: .jeunePrimaryDarkColor))
+
                     .padding(.vertical, 12)
+
                     .padding(.horizontal, 4)
                 Divider().background(Color.jeuneGrayColor.opacity(0.15))
                 NavigationLink(destination: Text("Emails")) {
@@ -86,7 +90,9 @@ struct SettingsView: View {
                     }
                 }
             }
+
             .jeuneCard()
+
         }
     }
 
@@ -109,7 +115,9 @@ struct SettingsView: View {
                         .foregroundColor(.jeuneGrayColor)
                 }
             }
+
             .jeuneCard()
+
         }
     }
 
@@ -126,7 +134,9 @@ struct SettingsView: View {
                         .foregroundColor(.jeuneGrayColor)
                 }
             }
+
             .jeuneCard()
+
         }
     }
 }
