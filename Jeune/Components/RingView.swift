@@ -16,7 +16,7 @@ struct RingView: View {
                 .stroke(Color.jeunePrimaryDarkColor,
                         style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
                 .rotationEffect(.degrees(-90))
-                .animation(.easeInOut, value: progress)
+                .animation(.easeInOut(duration: 0.6), value: progress)
         }
         .frame(width: diameter, height: diameter)
     }

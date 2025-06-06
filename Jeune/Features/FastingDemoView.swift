@@ -34,9 +34,20 @@ struct FastingDemoView: View {
         }
         .onReceive(timer) { _ in
             if isRunning {
-                elapsed += 1
+                if let start = startTime {
+                    elapsed = Int(Date().timeIntervalSince(start))
+                } else {
+                    elapsed = 0
+                }
             } else {
                 sinceLastFast += 1
+            }
+        }
+        .onChange(of: startTime) { newValue in
+            if isRunning, let start = newValue {
+                withAnimation(.easeInOut(duration: 0.6)) {
+                    elapsed = Int(Date().timeIntervalSince(start))
+                }
             }
         }
     }
@@ -221,7 +232,9 @@ private struct StartTimePickerSheet: View {
                 .foregroundColor(.jeuneGrayColor)
 
             PrimaryCTAButton(title: "Save", background: .jeunePrimaryDarkColor) {
-                startTime = tempDate
+                withAnimation(.easeInOut(duration: 0.6)) {
+                    startTime = tempDate
+                }
                 dismiss()
             }
             .padding(.horizontal)
