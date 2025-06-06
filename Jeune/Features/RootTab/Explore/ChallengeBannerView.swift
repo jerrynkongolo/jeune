@@ -36,7 +36,7 @@ struct ChallengeBannerView: View {
 
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 150)
+        .frame(height: 180)
         .background(Color.jeunePrimaryDarkColor)
         .cornerRadius(DesignConstants.cornerRadius)
 
