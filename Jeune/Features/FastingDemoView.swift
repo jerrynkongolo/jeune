@@ -20,8 +20,8 @@ struct FastingDemoView: View {
             goalHours: goalHours,
             goalTime: goalDateString,
             editGoalAction: { showGoalPicker = true },
-            action: toggleFasting,
-            startTimeAction: { showStartPicker = true }
+            startTimeAction: { showStartPicker = true },
+            action: toggleFasting
         )
 
         .animation(.easeInOut(duration: 0.3), value: isRunning)
