@@ -10,19 +10,36 @@ struct FastingDemoView: View {
     @State private var showGoalPicker = false
     @State private var showStartPicker = false
     @State private var startTime: Date?
+    @State private var completed = false
 
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
+    private var fastState: FastTimerState {
+        if isRunning {
+            if progress >= 1 { return .goalReached(progress: progress) }
+            return .running(progress: progress)
+        } else {
+            if completed { return .completed(totalSeconds: elapsed) }
+            return .idle(seconds: sinceLastFast)
+        }
+    }
+
     var body: some View {
-        FastTimerCardView(
-            state: isRunning ? .running(progress: progress) : .idle(seconds: sinceLastFast),
-            startDate: startDateString,
-            goalHours: goalHours,
-            goalTime: goalDateString,
-            editGoalAction: { showGoalPicker = true },
-            startTimeAction: { showStartPicker = true },
-            action: toggleFasting
-        )
+        VStack(spacing: 12) {
+            FastTimerCardView(
+                state: fastState,
+                startDate: startDateString,
+                goalHours: goalHours,
+                goalTime: goalDateString,
+                editGoalAction: { showGoalPicker = true },
+                startTimeAction: { showStartPicker = true },
+                action: toggleFasting
+            )
+
+            if case .completed = fastState {
+                upcomingSection
+            }
+        }
 
         .animation(.easeInOut(duration: 0.3), value: isRunning)
 
@@ -39,7 +56,7 @@ struct FastingDemoView: View {
                 } else {
                     elapsed = 0
                 }
-            } else {
+            } else if !completed {
                 sinceLastFast += 1
             }
         }
@@ -54,7 +71,7 @@ struct FastingDemoView: View {
 
     private var progress: Double {
         guard goalHours > 0 else { return 0 }
-        return min(Double(elapsed) / Double(goalHours * 3600), 1)
+        return Double(elapsed) / Double(goalHours * 3600)
     }
 
     private var startDateString: String {
@@ -68,22 +85,79 @@ struct FastingDemoView: View {
     }
 
     private func toggleFasting() {
-
-
         withAnimation(.easeInOut(duration: 0.3)) {
-            if isRunning {
+            switch fastState {
+            case .idle:
+                isRunning = true
+                elapsed = 0
+                completed = false
+                startTime = Date()
+            case .running:
                 isRunning = false
                 elapsed = 0
                 sinceLastFast = 0
                 startTime = nil
-            } else {
-                isRunning = true
+            case .goalReached:
+                isRunning = false
+                completed = true
+                sinceLastFast = 0
+                // keep startTime to show fast details
+            case .completed:
+                completed = false
                 elapsed = 0
-                startTime = Date()
+            }
+        }
+    }
+
+    private func startNewFast() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            isRunning = true
+            completed = false
+            elapsed = 0
+            startTime = Date()
+        }
+    }
+
+    private var upcomingSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Upcoming Fast")
+                        .font(.jeuneCaptionBold)
+                        .foregroundColor(.jeuneNearBlack)
+                    Text("You have a \(goalHours) hours fast up next, enjoy your meals and start your timer when you are ready.")
+                        .font(.footnote)
+                        .foregroundColor(.jeuneDarkGray)
+                }
+                Spacer()
+                Text("\(goalHours)H")
+                    .font(.headline.weight(.bold))
+                    .foregroundColor(.jeuneNearBlack)
             }
 
+            HStack {
+                Button(action: { showGoalPicker = true }) {
+                    Text("Edit Goal")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.jeunePrimaryDarkColor)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .background(Color.jeuneStatsBGColor)
+                        .clipShape(Capsule())
+                }
 
+                Button(action: startNewFast) {
+                    Text("Start")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .background(Color.jeunePrimaryDarkColor)
+                        .clipShape(Capsule())
+                }
+            }
         }
+        .jeuneCard()
     }
 
     private func format(date: Date) -> String {

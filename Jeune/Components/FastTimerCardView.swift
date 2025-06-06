@@ -7,6 +7,10 @@ enum FastTimerState: Equatable {
     case idle(seconds: Int)
     /// Running state with progress fraction 0.0 - 1.0
     case running(progress: Double)
+    /// Goal reached but fast still running
+    case goalReached(progress: Double)
+    /// Fast ended after hitting the goal
+    case completed(totalSeconds: Int)
 }
 
 /// Card displaying the fasting-timer ring and CTA button.
@@ -39,6 +43,7 @@ struct FastTimerCardView: View {
     /// Action for the primary button.
     var action: () -> Void
 
+
     /// Formatter used to parse `startDate` and `goalTime` strings.
     private static let inputFormatter: DateFormatter = {
         let f = DateFormatter()
@@ -59,6 +64,8 @@ struct FastTimerCardView: View {
         switch state {
         case .idle: return 0
         case .running(let value): return value
+        case .goalReached(let value): return min(value, 1)
+        case .completed: return 1
         }
     }
 
@@ -66,6 +73,8 @@ struct FastTimerCardView: View {
         switch state {
         case .idle: return "Start Fasting"
         case .running: return "End Fast"
+        case .goalReached: return "Break Your Fast"
+        case .completed: return "Share Your Fast"
         }
     }
 
@@ -77,6 +86,10 @@ struct FastTimerCardView: View {
     // Match the outer stats capsule when breaking fast
     case .running:
         return .jeuneStatsBGColor
+    case .goalReached:
+        return .jeuneSuccessColor
+    case .completed:
+        return .jeuneSuccessColor
     }
 }
 
@@ -84,7 +97,37 @@ struct FastTimerCardView: View {
         switch state {
         case .idle: return .white
         case .running: return .jeunePrimaryDarkColor
+        case .goalReached: return .white
+        case .completed: return .white
         }
+    }
+
+    private var isCompleted: Bool {
+        if case .completed = state { return true } else { return false }
+    }
+
+    private var ringColor: Color {
+        switch state {
+        case .goalReached:
+            return .jeuneSuccessColor
+        case .completed:
+            return .white
+        default:
+            return .jeunePrimaryDarkColor
+        }
+    }
+
+    private var cardBackground: Color {
+        switch state {
+        case .completed:
+            return .jeuneSuccessColor
+        default:
+            return .jeuneCardColor
+        }
+    }
+
+    private var statsBackgroundColor: Color {
+        isCompleted ? Color.jeuneSuccessColor.opacity(0.2) : Color.jeuneStatsBGColor
     }
 
     // MARK: – UI
@@ -101,7 +144,8 @@ struct FastTimerCardView: View {
                 RingView(
                     progress: progress,
                     diameter: DesignConstants.largeRingDiameter * 0.8,
-                    lineWidth: (DesignConstants.largeRingLineWidth * 0.9) * 0.85 // Further reduced thickness by 15%
+                    lineWidth: (DesignConstants.largeRingLineWidth * 0.9) * 0.85, // Further reduced thickness by 15%
+                    color: ringColor
                 )
 
                 // Thin divider that shows the card's background colour
@@ -143,8 +187,9 @@ struct FastTimerCardView: View {
                 action: action
             )
             // Horizontal padding removed to allow button to respect card's overall padding
+
         }
-        .jeuneCard()
+        .jeuneCard(background: cardBackground)
         .animation(.easeInOut(duration: 0.3), value: state)
     }
 
@@ -189,23 +234,46 @@ struct FastTimerCardView: View {
                     .foregroundColor(.jeuneDarkGray)
                     .padding(.top, -12)
             }
+        case .goalReached(let p):
+            VStack(spacing: 6) {
+                Text(timeString(from: p))
+                    .font(.system(size: 36, weight: .heavy))
+                    .foregroundColor(.jeuneSuccessColor)
+
+                Text("ELAPSED (\(Int(p * 100)) %)")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundColor(.jeuneSuccessColor)
+                    .padding(.top, -12)
+            }
+        case .completed(let secs):
+            VStack(spacing: 6) {
+                Text(timeString(fromSeconds: secs))
+                    .font(.system(size: 36, weight: .heavy))
+                    .foregroundColor(.white)
+
+                Text("FAST COMPLETED")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundColor(.white.opacity(0.8))
+                    .padding(.top, -12)
+            }
         }
     }
 
     private func valuePill(value: String) -> some View {
         Text(value)
             .font(.jeuneCaptionBold)
-            .foregroundColor(.jeunePrimaryDarkColor) // Changed to primary color
+            .foregroundColor(isCompleted ? .white : .jeunePrimaryDarkColor)
             .frame(maxWidth: .infinity, alignment: .center)
-            .padding(.vertical, 10) // Adjusted for vertical centering in 40pt height
+            .padding(.vertical, 10)
             .frame(minHeight: 40)
-            .background(Color.white)
+            .background(isCompleted ? Color.jeuneSuccessColor : Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color(red: 224/255, green: 224/255, blue: 224/255), lineWidth: 1)
+                    .stroke(isCompleted ? Color.jeuneSuccessColor : Color(red: 224/255, green: 224/255, blue: 224/255), lineWidth: 1)
             )
     }
+
 
     /// Converts a time string provided in `"EEE, HH:mm"` format to a
     /// user-facing style like `"Mon, 9:30 AM"`.
@@ -228,8 +296,8 @@ struct FastTimerCardView: View {
             }
             valuePill(value: formatDisplayDateString(from: goalTime))
         }
-        .padding(8) // Padding inside the gray outer capsule for the white pills
-        .background(Color.jeuneStatsBGColor)
+        .padding(8)
+        .background(statsBackgroundColor)
         .clipShape(Capsule())
         // .padding(.horizontal, 16) // User had this commented out, respecting that
     }

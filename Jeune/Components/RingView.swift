@@ -5,6 +5,7 @@ struct RingView: View {
     var progress: Double
     var diameter: CGFloat
     var lineWidth: CGFloat
+    var color: Color = .jeunePrimaryDarkColor
 
     var body: some View {
         ZStack {
@@ -13,7 +14,7 @@ struct RingView: View {
 
             Circle()
                 .trim(from: 0, to: min(progress, 1))
-                .stroke(Color.jeunePrimaryDarkColor,
+                .stroke(color,
                         style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
                 .rotationEffect(.degrees(-90))
                 .animation(.easeInOut(duration: 0.6), value: progress)
@@ -23,5 +24,5 @@ struct RingView: View {
 }
 
 #Preview {
-    RingView(progress: 0.7, diameter: 100, lineWidth: 12)
+    RingView(progress: 0.7, diameter: 100, lineWidth: 12, color: .jeunePrimaryDarkColor)
 }
