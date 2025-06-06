@@ -79,7 +79,9 @@ struct ExploreView: View {
     private var swipeGesture: some Gesture {
         DragGesture(minimumDistance: 20)
             .onEnded { value in
+
                 guard !draggingChallengeScroll else { return }
+
                 let horizontal = value.translation.width
                 let vertical = value.translation.height
                 guard abs(horizontal) > abs(vertical), abs(horizontal) > swipeThreshold else { return }
@@ -264,9 +266,11 @@ private struct ExploreHeaderView: View {
                     .font(.callout.weight(.semibold))
                     .foregroundColor(.jeuneNearBlack)
                 Spacer()
-                Image(systemName: "bookmark")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.jeuneDarkGray)
+                NavigationLink(destination: BookmarkView()) {
+                    Image(systemName: "bookmark")
+                        .font(.system(size: 22, weight: .bold))
+                        .foregroundColor(.jeuneDarkGray)
+                }
             }
 
             HStack(spacing: 8) {
