@@ -16,11 +16,16 @@ struct ExploreView: View {
     /// Direction that controls the slide transition between segment views.
 
     @State private var isForwardTransition: Bool = true
+    /// Indicates when the horizontal challenge scroll view is being dragged.
+    @State private var draggingChallengeScroll: Bool = false
 
     @Namespace private var segmentNamespace
 
 
     @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
+
+    /// Minimum horizontal distance before a swipe gesture triggers a segment change.
+    private let swipeThreshold: CGFloat = 50
 
 
     /// Padding applied to the header. Removing a small amount keeps the
@@ -58,6 +63,34 @@ struct ExploreView: View {
         previousSegment = newValue
     }
 
+    /// Changes the selected segment in the given direction if possible.
+    private func moveSegment(forward: Bool) {
+        let cases = ExploreSegment.allCases
+        guard let index = cases.firstIndex(of: selectedSegment) else { return }
+        let newIndex = forward ? index + 1 : index - 1
+        guard cases.indices.contains(newIndex) else { return }
+
+        withAnimation(.spring(response: 0.55, dampingFraction: 0.8)) {
+            selectedSegment = cases[newIndex]
+        }
+    }
+
+    /// Gesture that detects horizontal swipes to change segments.
+    private var swipeGesture: some Gesture {
+        DragGesture(minimumDistance: 20)
+            .onEnded { value in
+                guard !draggingChallengeScroll else { return }
+                let horizontal = value.translation.width
+                let vertical = value.translation.height
+                guard abs(horizontal) > abs(vertical), abs(horizontal) > swipeThreshold else { return }
+                if horizontal < 0 {
+                    moveSegment(forward: true)
+                } else {
+                    moveSegment(forward: false)
+                }
+            }
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -84,6 +117,7 @@ struct ExploreView: View {
                 .padding(.bottom, 16)
             }
             .background(Color.jeuneCanvasColor.ignoresSafeArea())
+            .simultaneousGesture(swipeGesture)
             .navigationBarHidden(true)
             .overlay(alignment: .top) {
                 ExploreHeaderView(selected: $selectedSegment, animation: segmentNamespace)
@@ -126,6 +160,11 @@ struct ExploreView: View {
                 }
                 .padding(.horizontal, 4)
             }
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in draggingChallengeScroll = true }
+                    .onEnded { _ in draggingChallengeScroll = false }
+            )
 
             .scrollClipDisabled()
             .padding(.vertical, 4)
