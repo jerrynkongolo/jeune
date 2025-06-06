@@ -44,6 +44,7 @@ struct FastTimerCardView: View {
     var action: () -> Void
 
 
+
     /// Formatter used to parse `startDate` and `goalTime` strings.
     private static let inputFormatter: DateFormatter = {
         let f = DateFormatter()
@@ -114,6 +115,7 @@ struct FastTimerCardView: View {
             return .white
         default:
             return .jeunePrimaryDarkColor
+
         }
     }
 
@@ -128,6 +130,7 @@ struct FastTimerCardView: View {
 
     private var statsBackgroundColor: Color {
         isCompleted ? Color.jeuneSuccessColor.opacity(0.2) : Color.jeuneStatsBGColor
+
     }
 
     // MARK: – UI
@@ -187,6 +190,7 @@ struct FastTimerCardView: View {
                 action: action
             )
             // Horizontal padding removed to allow button to respect card's overall padding
+
 
         }
         .jeuneCard(background: cardBackground)
@@ -273,6 +277,7 @@ struct FastTimerCardView: View {
                     .stroke(isCompleted ? Color.jeuneSuccessColor : Color(red: 224/255, green: 224/255, blue: 224/255), lineWidth: 1)
             )
     }
+
 
 
     /// Converts a time string provided in `"EEE, HH:mm"` format to a

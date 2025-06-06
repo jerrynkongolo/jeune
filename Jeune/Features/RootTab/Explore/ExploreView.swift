@@ -14,7 +14,7 @@ struct ExploreView: View {
     /// Previously selected segment used to determine sweep direction.
     @State private var previousSegment: ExploreSegment = .home
     /// Direction that controls the slide transition between segment views.
-
+    
     @State private var isForwardTransition: Bool = true
     /// Indicates when the horizontal challenge scroll view is being dragged.
     @State private var draggingChallengeScroll: Bool = false
@@ -37,6 +37,15 @@ struct ExploreView: View {
     /// Approximate height of the custom header including the safe area.
     private var headerHeight: CGFloat {
         headerTopPadding + 85
+    }
+
+    /// Binding used by the header so we can update the transition direction
+    /// before changing the selected segment.
+    private var segmentBinding: Binding<ExploreSegment> {
+        Binding(get: { selectedSegment }) { newValue in
+            updateTransitionDirection(for: newValue)
+            selectedSegment = newValue
+        }
     }
 
 
@@ -69,9 +78,11 @@ struct ExploreView: View {
         guard let index = cases.firstIndex(of: selectedSegment) else { return }
         let newIndex = forward ? index + 1 : index - 1
         guard cases.indices.contains(newIndex) else { return }
+        let newSegment = cases[newIndex]
+        updateTransitionDirection(for: newSegment)
 
         withAnimation(.spring(response: 0.55, dampingFraction: 0.8)) {
-            selectedSegment = cases[newIndex]
+            selectedSegment = newSegment
         }
     }
 
@@ -122,14 +133,13 @@ struct ExploreView: View {
             .simultaneousGesture(swipeGesture)
             .navigationBarHidden(true)
             .overlay(alignment: .top) {
-                ExploreHeaderView(selected: $selectedSegment, animation: segmentNamespace)
+                ExploreHeaderView(selected: segmentBinding, animation: segmentNamespace)
 
             }
             .onAppear {
                 selectedSegment = appState.exploreSegment
             }
             .onChange(of: selectedSegment) { newValue in
-                updateTransitionDirection(for: newValue)
                 appState.exploreSegment = newValue
             }
             .onChange(of: appState.exploreSegment) { newValue in
@@ -344,7 +354,7 @@ private struct FeaturedBannerView: View {
                 .frame(maxWidth: .infinity)
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 150)
+        .frame(height: 180)
 
         .background(Color(red: 0.0, green: 0.27, blue: 0.73))
 
