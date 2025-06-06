@@ -10,18 +10,30 @@ struct FastingDemoView: View {
     @State private var showGoalPicker = false
     @State private var showStartPicker = false
     @State private var startTime: Date?
+    @State private var completed = false
 
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
+    private var fastState: FastTimerState {
+        if isRunning {
+            if progress >= 1 { return .goalReached(progress: progress) }
+            return .running(progress: progress)
+        } else {
+            if completed { return .completed(totalSeconds: elapsed) }
+            return .idle(seconds: sinceLastFast)
+        }
+    }
+
     var body: some View {
         FastTimerCardView(
-            state: isRunning ? .running(progress: progress) : .idle(seconds: sinceLastFast),
+            state: fastState,
             startDate: startDateString,
             goalHours: goalHours,
             goalTime: goalDateString,
             editGoalAction: { showGoalPicker = true },
             startTimeAction: { showStartPicker = true },
-            action: toggleFasting
+            action: toggleFasting,
+            startAction: startNewFast
         )
 
         .animation(.easeInOut(duration: 0.3), value: isRunning)
@@ -39,7 +51,7 @@ struct FastingDemoView: View {
                 } else {
                     elapsed = 0
                 }
-            } else {
+            } else if !completed {
                 sinceLastFast += 1
             }
         }
@@ -54,7 +66,7 @@ struct FastingDemoView: View {
 
     private var progress: Double {
         guard goalHours > 0 else { return 0 }
-        return min(Double(elapsed) / Double(goalHours * 3600), 1)
+        return Double(elapsed) / Double(goalHours * 3600)
     }
 
     private var startDateString: String {
@@ -68,21 +80,36 @@ struct FastingDemoView: View {
     }
 
     private func toggleFasting() {
-
-
         withAnimation(.easeInOut(duration: 0.3)) {
-            if isRunning {
+            switch fastState {
+            case .idle:
+                isRunning = true
+                elapsed = 0
+                completed = false
+                startTime = Date()
+            case .running:
                 isRunning = false
                 elapsed = 0
                 sinceLastFast = 0
                 startTime = nil
-            } else {
-                isRunning = true
+            case .goalReached:
+                isRunning = false
+                completed = true
+                sinceLastFast = 0
+                // keep startTime to show fast details
+            case .completed:
+                completed = false
                 elapsed = 0
-                startTime = Date()
             }
+        }
+    }
 
-
+    private func startNewFast() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            isRunning = true
+            completed = false
+            elapsed = 0
+            startTime = Date()
         }
     }
 
