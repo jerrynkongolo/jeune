@@ -16,6 +16,8 @@ struct ExploreView: View {
     /// Direction that controls the slide transition between segment views.
 
     @State private var isForwardTransition: Bool = true
+    /// Indicates when the horizontal challenge scroll view is being dragged.
+    @State private var draggingChallengeScroll: Bool = false
 
     @Namespace private var segmentNamespace
 
@@ -77,6 +79,9 @@ struct ExploreView: View {
     private var swipeGesture: some Gesture {
         DragGesture(minimumDistance: 20)
             .onEnded { value in
+
+                guard !draggingChallengeScroll else { return }
+
                 let horizontal = value.translation.width
                 let vertical = value.translation.height
                 guard abs(horizontal) > abs(vertical), abs(horizontal) > swipeThreshold else { return }
@@ -157,6 +162,11 @@ struct ExploreView: View {
                 }
                 .padding(.horizontal, 4)
             }
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in draggingChallengeScroll = true }
+                    .onEnded { _ in draggingChallengeScroll = false }
+            )
 
             .scrollClipDisabled()
             .padding(.vertical, 4)
