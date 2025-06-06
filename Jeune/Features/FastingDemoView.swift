@@ -25,16 +25,23 @@ struct FastingDemoView: View {
     }
 
     var body: some View {
-        FastTimerCardView(
-            state: fastState,
-            startDate: startDateString,
-            goalHours: goalHours,
-            goalTime: goalDateString,
-            editGoalAction: { showGoalPicker = true },
-            startTimeAction: { showStartPicker = true },
-            action: toggleFasting,
-            startAction: startNewFast
-        )
+
+        VStack(spacing: 12) {
+            FastTimerCardView(
+                state: fastState,
+                startDate: startDateString,
+                goalHours: goalHours,
+                goalTime: goalDateString,
+                editGoalAction: { showGoalPicker = true },
+                startTimeAction: { showStartPicker = true },
+                action: toggleFasting
+            )
+
+            if case .completed = fastState {
+                upcomingSection
+            }
+        }
+
 
         .animation(.easeInOut(duration: 0.3), value: isRunning)
 
@@ -102,6 +109,7 @@ struct FastingDemoView: View {
             case .completed:
                 completed = false
                 elapsed = 0
+
             }
         }
     }
@@ -113,6 +121,53 @@ struct FastingDemoView: View {
             elapsed = 0
             startTime = Date()
         }
+    }
+
+    private var upcomingSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Upcoming Fast")
+                        .font(.jeuneCaptionBold)
+                        .foregroundColor(.jeuneNearBlack)
+                    Text("You have a \(goalHours) hours fast up next, enjoy your meals and start your timer when you are ready.")
+                        .font(.footnote)
+                        .foregroundColor(.jeuneDarkGray)
+                }
+                Spacer()
+                Text("\(goalHours)H")
+                    .font(.headline.weight(.bold))
+                    .foregroundColor(.jeuneNearBlack)
+
+            }
+        }
+    }
+
+
+            HStack {
+                Button(action: { showGoalPicker = true }) {
+                    Text("Edit Goal")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.jeunePrimaryDarkColor)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .background(Color.jeuneStatsBGColor)
+                        .clipShape(Capsule())
+                }
+
+                Button(action: startNewFast) {
+                    Text("Start")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .background(Color.jeunePrimaryDarkColor)
+                        .clipShape(Capsule())
+                }
+            }
+
+        }
+        .jeuneCard()
     }
 
     private func format(date: Date) -> String {
