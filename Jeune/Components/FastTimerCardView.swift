@@ -33,6 +33,9 @@ struct FastTimerCardView: View {
     /// Tapping "EDIT" while idle triggers this action. Optional.
     var editGoalAction: (() -> Void)? = nil
 
+    /// Tapping the "Started" pill triggers this action. Optional.
+    var startTimeAction: (() -> Void)? = nil
+
     /// Action for the primary button.
     var action: () -> Void
 
@@ -215,7 +218,14 @@ struct FastTimerCardView: View {
 
     private var statsRow: some View {
         HStack(spacing: 12) { // Spacing between the two white value pills
-            valuePill(value: formatDisplayDateString(from: startDate))
+            if let action = startTimeAction {
+                Button(action: action) {
+                    valuePill(value: formatDisplayDateString(from: startDate))
+                }
+                .buttonStyle(PlainButtonStyle())
+            } else {
+                valuePill(value: formatDisplayDateString(from: startDate))
+            }
             valuePill(value: formatDisplayDateString(from: goalTime))
         }
         .padding(8) // Padding inside the gray outer capsule for the white pills
