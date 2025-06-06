@@ -13,12 +13,14 @@ struct JeuneApp: App {
     var body: some Scene {
         WindowGroup {
             RootTabView()
+                .preferredColorScheme(.light)
                 .environmentObject(appState)
                 .fullScreenCover(isPresented: Binding(
                     get: { !appState.onboardingCompleted },
                     set: { _ in }
                 )) {
                     OnboardingFlow()
+                        .preferredColorScheme(.light)
                         .environmentObject(appState)
                 }
         }
