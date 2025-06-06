@@ -8,11 +8,12 @@ struct SettingRow<Content: View>: View {
     var body: some View {
         HStack {
             Text(title)
+                .fontWeight(.semibold)
                 .foregroundColor(.jeuneNearBlack)
             Spacer()
             content()
         }
-        .padding(.vertical, 8)
+        .padding(.vertical, 12)
     }
 }
 

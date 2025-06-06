@@ -45,75 +45,92 @@ struct SettingsView: View {
     }
 
     private var preferencesSection: some View {
-        VStack(spacing: 0) {
-            SectionHeaderView(title: "Preferences")
-            Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            SettingRow(title: "Timer Direction") {
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.jeuneDarkGray)
-            }
-            Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            SettingRow(title: "Weight Unit") {
-                Picker("Weight Unit", selection: $weightUnit) {
-                    ForEach(WeightUnit.allCases) { unit in
-                        Text(unit.rawValue).tag(unit)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Preferences")
+                .font(.system(size: 10, weight: .semibold))
+                .foregroundColor(.jeuneNearBlack)
+
+            VStack(spacing: 0) {
+                SettingRow(title: "Timer Direction") {
+                    Image(systemName: "chevron.right")
+                        .fontWeight(.bold)
+                        .foregroundColor(.jeuneGrayColor)
+                }
+                Divider().background(Color.jeuneGrayColor.opacity(0.15))
+                SettingRow(title: "Weight Unit") {
+                    Picker("Weight Unit", selection: $weightUnit) {
+                        ForEach(WeightUnit.allCases) { unit in
+                            Text(unit.rawValue).tag(unit)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(maxWidth: 120)
+                }
+                Divider().background(Color.jeuneGrayColor.opacity(0.15))
+                Toggle("Dark Mode", isOn: $darkMode)
+                    .toggleStyle(SwitchToggleStyle(tint: .jeunePrimaryDarkColor))
+                    .padding(.horizontal, 4)
+                Divider().background(Color.jeuneGrayColor.opacity(0.15))
+                Toggle("Notifications", isOn: $notifications)
+                    .toggleStyle(SwitchToggleStyle(tint: .jeunePrimaryDarkColor))
+                    .padding(.horizontal, 4)
+                Divider().background(Color.jeuneGrayColor.opacity(0.15))
+                NavigationLink(destination: Text("Emails")) {
+                    SettingRow(title: "Emails") {
+                        Image(systemName: "chevron.right")
+                            .fontWeight(.bold)
+                            .foregroundColor(.jeuneGrayColor)
                     }
                 }
-                .pickerStyle(.segmented)
-                .frame(maxWidth: 120)
             }
-            Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            Toggle("Dark Mode", isOn: $darkMode)
-                .toggleStyle(SwitchToggleStyle(tint: .jeunePrimaryDarkColor))
-                .padding(.horizontal, 4)
-            Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            Toggle("Notifications", isOn: $notifications)
-                .toggleStyle(SwitchToggleStyle(tint: .jeunePrimaryDarkColor))
-                .padding(.horizontal, 4)
-            Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            NavigationLink(destination: Text("Emails")) {
-                SettingRow(title: "Emails") {
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.jeuneDarkGray)
-                }
-            }
+            .padding()
+            .background(Color.jeuneCardColor)
+            .cornerRadius(DesignConstants.cornerRadius)
         }
-        .padding()
-        .background(Color.jeuneCardColor)
-        .cornerRadius(DesignConstants.cornerRadius)
     }
 
     private var accountSection: some View {
-        VStack(spacing: 0) {
-            SectionHeaderView(title: "Account")
-            Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            SettingRow(title: "Profile") {
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.jeuneDarkGray)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Account")
+                .font(.system(size: 10, weight: .semibold))
+                .foregroundColor(.jeuneNearBlack)
+
+            VStack(spacing: 0) {
+                SettingRow(title: "Profile") {
+                    Image(systemName: "chevron.right")
+                        .fontWeight(.bold)
+                        .foregroundColor(.jeuneGrayColor)
+                }
+                Divider().background(Color.jeuneGrayColor.opacity(0.15))
+                SettingRow(title: "Subscription") {
+                    Image(systemName: "chevron.right")
+                        .fontWeight(.bold)
+                        .foregroundColor(.jeuneGrayColor)
+                }
             }
-            Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            SettingRow(title: "Subscription") {
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.jeuneDarkGray)
-            }
+            .padding()
+            .background(Color.jeuneCardColor)
+            .cornerRadius(DesignConstants.cornerRadius)
         }
-        .padding()
-        .background(Color.jeuneCardColor)
-        .cornerRadius(DesignConstants.cornerRadius)
     }
 
     private var communitySection: some View {
-        VStack(spacing: 0) {
-            SectionHeaderView(title: "Community")
-            Divider().background(Color.jeuneGrayColor.opacity(0.3))
-            SettingRow(title: "Forums") {
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.jeuneDarkGray)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Community")
+                .font(.system(size: 10, weight: .semibold))
+                .foregroundColor(.jeuneNearBlack)
+
+            VStack(spacing: 0) {
+                SettingRow(title: "Forums") {
+                    Image(systemName: "chevron.right")
+                        .fontWeight(.bold)
+                        .foregroundColor(.jeuneGrayColor)
+                }
             }
+            .padding()
+            .background(Color.jeuneCardColor)
+            .cornerRadius(DesignConstants.cornerRadius)
         }
-        .padding()
-        .background(Color.jeuneCardColor)
-        .cornerRadius(DesignConstants.cornerRadius)
     }
 }
 
