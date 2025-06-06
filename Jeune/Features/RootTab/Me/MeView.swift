@@ -150,23 +150,30 @@ struct MeView: View {
 
     /// Achievements block showing placeholder overlapping icons.
     private var achievementsBlock: some View {
-        VStack(spacing: 4) {
-            Text("ACHIEVEMENTS")
-                .font(.jeuneCaption)
-                .foregroundColor(.jeuneGrayColor)
+        NavigationLink(destination: AchievementsView()) {
+            VStack(spacing: 4) {
+                Text("ACHIEVEMENTS")
+                    .font(.jeuneCaption)
+                    .foregroundColor(.jeuneGrayColor)
 
-            HStack(spacing: -6) {
-                ForEach(0..<3) { _ in
-                    Circle()
-                        .fill(Color.jeunePrimaryDarkColor)
-                        .frame(width: 20, height: 20)
+                HStack(spacing: -4) {
+                    ForEach(0..<3) { _ in
+                        Circle()
+                            .fill(Color.jeunePrimaryDarkColor)
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 1)
+                            )
+                            .frame(width: 20, height: 20)
+                    }
+                    Text("+34")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(.black)
+                        .padding(.leading, 4)
                 }
-                Text("+35")
-                    .font(.system(size: 10, weight: .bold))
-                    .foregroundColor(.jeuneAccentColor)
-                    .padding(.leading, 4)
             }
         }
+        .buttonStyle(PlainButtonStyle())
     }
 
     private var calendarSection: some View {
