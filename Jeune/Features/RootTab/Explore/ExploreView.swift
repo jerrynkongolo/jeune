@@ -225,9 +225,11 @@ private struct ExploreHeaderView: View {
                     .font(.callout.weight(.semibold))
                     .foregroundColor(.jeuneNearBlack)
                 Spacer()
-                Image(systemName: "bookmark")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.jeuneDarkGray)
+                NavigationLink(destination: BookmarkView()) {
+                    Image(systemName: "bookmark")
+                        .font(.system(size: 22, weight: .bold))
+                        .foregroundColor(.jeuneDarkGray)
+                }
             }
 
             HStack(spacing: 8) {
