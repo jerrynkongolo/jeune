@@ -15,8 +15,10 @@ struct ForgotPasswordView: View {
                     .scaledToFit()
                     .frame(height: 80)
                 TextField("Email", text: $email)
-                    .textFieldStyle(.roundedBorder)
-                PrimaryButton(title: "Send Reset Link", action: backAction)
+                    .textFieldStyle(AuthTextFieldStyle())
+                PrimaryCTAButton(title: "Send Reset Link", background: .jeunePrimaryDarkColor) {
+                    backAction()
+                }
                 Spacer()
                 Button(action: backAction) {
                     Text("Back to Login")

@@ -1,95 +1,52 @@
 import SwiftUI
 
-struct OnboardingPage: Identifiable {
-    let id = UUID()
-    let symbol: String
-    let title: String
-    let subtitle: String
-}
-
+/// Single page welcome screen shown on first launch.
 struct OnboardingFlow: View {
     @EnvironmentObject var appState: AppState
-    @State private var pageIndex = 0
-
-    private let pages: [OnboardingPage] = [
-        OnboardingPage(symbol: "timer",
-                       title: "Track your fasts",
-                       subtitle: "Start, pause, or edit anytime."),
-        OnboardingPage(symbol: "flame",
-                       title: "Understand your zones",
-                       subtitle: "See what's happening inside your body."),
-        OnboardingPage(symbol: "doc.text.image",
-                       title: "Learn from experts",
-                       subtitle: "Daily articles & videos keep you motivated."),
-        OnboardingPage(symbol: "checkmark.seal",
-                       title: "Ready?",
-                       subtitle: "Let’s set up your first fast.")
-    ]
-
-    init() {
-        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color.jeunePrimaryDarkColor)
-    }
 
     var body: some View {
-        TabView(selection: $pageIndex) {
-            ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
-                OnboardingPageView(page: page,
-                                    showSkip: index < pages.count - 1,
-                                    continueAction: {
-                                        if index < pages.count - 1 {
-                                            withAnimation { pageIndex += 1 }
-                                        } else {
-                                            appState.onboardingCompleted = true
-                                        }
-                                    },
-                                    skipAction: {
-                                        withAnimation { pageIndex = pages.count - 1 }
-                                    })
-                .tag(index)
+        VStack(spacing: 24) {
+            Spacer()
+            Image("logojeune")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 120)
+                .padding(.bottom, 20)
+
+            Text("Start your journey with Jeune today")
+                .font(.jeuneLargeTitle)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.jeuneNearBlack)
+                .padding(.horizontal)
+
+            Text("Build a healthy lifestyle that still lets you enjoy your life.")
+                .font(.body)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.jeuneGrayColor)
+                .padding(.horizontal)
+
+            PrimaryCTAButton(title: "Sign in with Google", background: .black) {
+                appState.isAuthenticated = true
+                appState.onboardingCompleted = true
             }
+            PrimaryCTAButton(title: "Other Sign Up Options",
+                             background: .jeuneGrayColor,
+                             foreground: .jeuneNearBlack) {
+                appState.authStartScreen = .signUp
+                appState.onboardingCompleted = true
+            }
+            Button(action: {
+                appState.authStartScreen = .login
+                appState.onboardingCompleted = true
+            }) {
+                Text("Already have an account?")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundColor(.jeunePrimaryDarkColor)
+            }
+            Spacer()
         }
-        .tabViewStyle(.page)
-    }
-}
-
-private struct OnboardingPageView: View {
-    let page: OnboardingPage
-    let showSkip: Bool
-    var continueAction: () -> Void
-    var skipAction: () -> Void
-
-    var body: some View {
-        ZStack(alignment: .topTrailing) {
-            VStack {
-                Spacer()
-
-                Image(systemName: page.symbol)
-                    .font(.system(size: 56))
-                    .symbolRenderingMode(.multicolor)
-                    .padding(.bottom, 24)
-
-                Text(page.title)
-                    .font(.jeuneLargeTitle)
-                    .padding(.bottom, 8)
-
-                Text(page.subtitle)
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-
-                Spacer()
-
-                PrimaryButton(title: "Continue", action: continueAction)
-                    .padding(.bottom, 40)
-            }
-
-            if showSkip {
-                Button("Skip", action: skipAction)
-                    .font(.caption)
-                    .textCase(.uppercase)
-                    .padding([.top, .trailing], 20)
-            }
-        }
+        .padding()
+        .background(Color.jeuneCanvasColor.ignoresSafeArea())
     }
 }
 

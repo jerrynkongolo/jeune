@@ -27,7 +27,7 @@ struct JeuneApp: App {
                     get: { appState.onboardingCompleted && !appState.isAuthenticated },
                     set: { _ in }
                 )) {
-                    AuthenticationFlow()
+                    AuthenticationFlow(startScreen: appState.authStartScreen)
                         .preferredColorScheme(.light)
                         .environmentObject(appState)
                 }
