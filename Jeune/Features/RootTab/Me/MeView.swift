@@ -3,6 +3,7 @@ import SwiftUI
 /// Displays user metrics and a heat-map style calendar of recent fasts.
 struct MeView: View {
     @Environment(\.jeuneSafeAreaInsets) private var safeAreaInsets: EdgeInsets
+    @EnvironmentObject private var appState: AppState
     @State private var barOpacity: Double = 0
     @State private var showTitle = false
     @State private var showSettings = false
@@ -60,6 +61,7 @@ struct MeView: View {
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView()
+                    .environmentObject(appState)
             }
         }
     }
