@@ -17,6 +17,9 @@ class AppState: ObservableObject {
     /// Indicates if the onboarding flow has been completed.
     @Published var onboardingCompleted: Bool = false
 
+    /// Indicates if the user has successfully authenticated.
+    @Published var isAuthenticated: Bool = false
+
     /// Currently selected tab in ``RootTabView``.
     @Published var selectedTab: RootTab = .today
 

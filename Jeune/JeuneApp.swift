@@ -23,6 +23,14 @@ struct JeuneApp: App {
                         .preferredColorScheme(.light)
                         .environmentObject(appState)
                 }
+                .fullScreenCover(isPresented: Binding(
+                    get: { appState.onboardingCompleted && !appState.isAuthenticated },
+                    set: { _ in }
+                )) {
+                    AuthenticationFlow()
+                        .preferredColorScheme(.light)
+                        .environmentObject(appState)
+                }
         }
     }
 }
