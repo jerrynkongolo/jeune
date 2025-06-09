@@ -3,7 +3,11 @@ import SwiftUI
 /// Flow managing the authentication screens.
 struct AuthenticationFlow: View {
     @EnvironmentObject var appState: AppState
-    @State private var screen: Screen = .login
+    @State private var screen: Screen
+
+    init(startScreen: Screen = .login) {
+        _screen = State(initialValue: startScreen)
+    }
 
     enum Screen {
         case login

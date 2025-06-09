@@ -26,6 +26,9 @@ class AppState: ObservableObject {
     /// Selected segment in ``ExploreView``.
     @Published var exploreSegment: ExploreSegment = .home
 
+    /// Starting screen when presenting ``AuthenticationFlow``.
+    @Published var authStartScreen: AuthenticationFlow.Screen = .login
+
     init() {
         // Initialize state
     }

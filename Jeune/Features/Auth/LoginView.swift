@@ -19,11 +19,13 @@ struct LoginView: View {
                     .frame(height: 80)
                 VStack(spacing: 16) {
                     TextField("Email", text: $email)
-                        .textFieldStyle(.roundedBorder)
+                        .textFieldStyle(AuthTextFieldStyle())
                     SecureField("Password", text: $password)
-                        .textFieldStyle(.roundedBorder)
+                        .textFieldStyle(AuthTextFieldStyle())
                 }
-                PrimaryButton(title: "Log In", action: complete)
+                PrimaryCTAButton(title: "Log In", background: .jeunePrimaryDarkColor) {
+                    complete()
+                }
                 Button(action: showForgot) {
                     Text("Forgot password?")
                         .font(.footnote)
@@ -40,20 +42,8 @@ struct LoginView: View {
                         .fill(Color.jeuneGrayColor.opacity(0.4))
                         .frame(height: 1)
                 }
-                Button(action: complete) {
-                    HStack {
-                        Image(systemName: "globe")
-                        Text("Continue with Google")
-                            .fontWeight(.semibold)
-                    }
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.white)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.jeuneGrayColor.opacity(0.3), lineWidth: 1)
-                    )
+                PrimaryCTAButton(title: "Continue with Google", background: .black) {
+                    complete()
                 }
                 Spacer()
                 Button(action: showSignUp) {
