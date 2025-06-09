@@ -3,6 +3,7 @@ import SwiftUI
 /// Basic settings screen presented from the Me tab.
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var appState: AppState
 
     @State private var weightUnit: WeightUnit = .kilograms
     @State private var darkMode = false
@@ -19,6 +20,7 @@ struct SettingsView: View {
                         preferencesSection
                         accountSection
                         communitySection
+                        logoutButton
                     }
                     .padding()
                 }
@@ -139,6 +141,18 @@ struct SettingsView: View {
 
         }
     }
+
+    private var logoutButton: some View {
+        Button(action: {
+            appState.isAuthenticated = false
+            dismiss()
+        }) {
+            Text("Log Out")
+                .font(.footnote.weight(.semibold))
+                .foregroundColor(.red)
+                .frame(maxWidth: .infinity)
+        }
+    }
 }
 
 private enum WeightUnit: String, CaseIterable, Identifiable {
@@ -149,5 +163,5 @@ private enum WeightUnit: String, CaseIterable, Identifiable {
 }
 
 #Preview {
-    SettingsView()
+    SettingsView().environmentObject(AppState())
 }
