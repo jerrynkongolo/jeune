@@ -104,10 +104,12 @@ struct SettingsView: View {
                 .foregroundColor(.jeuneNearBlack)
 
             VStack(spacing: 0) {
-                SettingRow(title: "Profile") {
-                    Image(systemName: "chevron.right")
-                        .fontWeight(.bold)
-                        .foregroundColor(.jeuneGrayColor)
+                NavigationLink(destination: ProfileView()) {
+                    SettingRow(title: "Profile") {
+                        Image(systemName: "chevron.right")
+                            .fontWeight(.bold)
+                            .foregroundColor(.jeuneGrayColor)
+                    }
                 }
                 Divider().background(Color.jeuneGrayColor.opacity(0.15))
                 SettingRow(title: "Subscription") {

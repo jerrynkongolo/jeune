@@ -18,9 +18,8 @@ struct MeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
-                    // Reserve space for the floating header
-
-                    Color.clear.frame(height: barHeight - 24)
+                    // Space for the overlapping avatar
+                    Color.clear.frame(height: 40)
 
 
                     profileCard
@@ -33,7 +32,7 @@ struct MeView: View {
             }
             .coordinateSpace(name: "scroll")
             .onPreferenceChange(NameOffsetKey.self) { y in
-                let visible = y <= barHeight
+                let visible = y < safeAreaInsets.top + 20 // Adjust this value as needed
                 withAnimation(.easeInOut(duration: 0.18)) {
                     barOpacity = visible ? 1 : 0
                     showTitle = visible
@@ -72,30 +71,29 @@ struct MeView: View {
 
             Color.clear.frame(height: 24)
 
-
-            Text("Username") // GeometryReader removed from here
+            Text("Username")
                 .font(.title3.weight(.semibold))
+                .background(
+                    GeometryReader { geo in
+                        Color.clear.preference(key: NameOffsetKey.self, value: geo.frame(in: .global).minY)
+                    }
+                )
 
             statsRow
         }
         .padding(.vertical, 16)
         .jeuneCard()
-        .background(
-            GeometryReader { geo in
-                Color.clear
-                    .preference(key: NameOffsetKey.self,
-                               value: geo.frame(in: .global).minY + 24.0)
-            }
-        )
         .overlay(alignment: .top) {
-            Image(systemName: "person.crop.circle.fill")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 80, height: 80)
-                .foregroundColor(.jeuneGrayColor)
-                .background(Circle().fill(Color.jeuneGrayColor.opacity(0.2)))
-                .clipShape(Circle())
-                .offset(y: -40)
+            NavigationLink(destination: ProfileView()) {
+                Image(systemName: "person.crop.circle.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 80, height: 80)
+                    .foregroundColor(.jeuneGrayColor)
+                    .background(Circle().fill(Color.jeuneGrayColor.opacity(0.2)))
+                    .clipShape(Circle())
+                    .offset(y: -40)
+            }
         }
     }
 
@@ -181,12 +179,15 @@ struct MeView: View {
     }
 
     private func weekRow(start: Int) -> some View {
-        HStack(spacing: 32) {
+        HStack {
             ForEach(0..<7) { index in
                 let date = Calendar.current.date(byAdding: .day, value: start + index, to: Date())!
 
                 DateRingView(date: date, color: calendarColors.randomElement()!)
 
+                if index < 6 {
+                    Spacer()
+                }
             }
         }
     }
@@ -266,7 +267,7 @@ struct MeView: View {
                 Text("Add Fast")
                     .font(.footnote.weight(.semibold))
                     .foregroundColor(.white)
-                    .padding(.vertical, 6)
+                    .padding(.vertical, 8)
                     .padding(.horizontal, 16)
                     .background(Color.jeunePrimaryDarkColor)
                     .clipShape(Capsule())
@@ -280,7 +281,6 @@ struct MeView: View {
     private var fastBarGraph: some View {
 
         GeometryReader { geo in
-            let width = geo.size.width * 0.7
             HStack(alignment: .bottom, spacing: 0) {
                 ForEach(fastData.indices, id: \.self) { index in
                     if index != 0 {
@@ -294,7 +294,7 @@ struct MeView: View {
                     FastBar(day: fastData[index])
                 }
             }
-            .frame(width: width, height: 100, alignment: .bottom)
+            .frame(height: 100, alignment: .bottom)
             .frame(maxWidth: .infinity)
         }
 
