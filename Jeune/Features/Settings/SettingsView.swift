@@ -31,20 +31,19 @@ struct SettingsView: View {
 
     private var header: some View {
         HStack(spacing: 0) {
+            Spacer()
             Button(action: { dismiss() }) {
                 Image(systemName: "xmark")
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(.jeuneDarkGray)
             }
-            Spacer()
         }
         .overlay(
             Text("Settings")
                 .font(.subheadline.weight(.semibold))
                 .foregroundColor(.black)
         )
-        .padding(.trailing)
-        .padding(.vertical)
+        .padding()
     }
 
     private var preferencesSection: some View {
